@@ -4,7 +4,7 @@
 
     <div>
       아이디
-      <input type="text" v-model.trim="id" id="id" required />
+      <input type="text" v-model.trim="user.id" id="id" required />
     </div>
     <div>
       비밀번호
@@ -22,22 +22,22 @@
     </div>
     <div>
       이메일
-      <input type="email" v-model.trim="email" id="email" required />
+      <input type="email" v-model.trim="user.email" id="email" required />
     </div>
     <div>
       성명
-      <input type="text" v-model.trim="name" id="name" required />
+      <input type="text" v-model.trim="user.name" id="name" required />
     </div>
     <div>
       닉네임
-      <input type="text" v-model.trim="nickname" id="nickname" required />
+      <input type="text" v-model.trim="user.nickname" id="nickname" required />
     </div>
     <div>
       성별
       <input
         type="radio"
         name="gender"
-        v-model.trim="gender"
+        v-model.trim="user.gender"
         value="M"
         id="genderMale"
       />
@@ -45,7 +45,7 @@
       <input
         type="radio"
         name="gender"
-        v-model.trim="gender"
+        v-model.trim="user.gender"
         value="F"
         id="genderFemale"
       />
@@ -53,7 +53,7 @@
     </div>
     <div>
       생년월일
-      <input type="date" v-model.trim="birth" id="birth" required />
+      <input type="date" v-model.trim="user.birth" id="birth" required />
     </div>
     <div>
       프로필 사진
@@ -67,7 +67,7 @@
     </div>
     <div>
       코멘트
-      <input type="text" v-model.trim="comment" id="comment" required />
+      <input type="text" v-model.trim="user.comment" id="comment" required />
     </div>
     <div>
       <button @click="regist">회원가입</button>
@@ -76,21 +76,17 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "regist-view",
+  computed: {
+    ...mapState(["user"]),
+  },
   data() {
     return {
-      id: "",
       password: "",
       passwordCheck: "",
       passwordCheckInfo: "",
-      email: "",
-      name: "",
-      nickname: "",
-      gender: "",
-      birth: "",
-      profile: "",
-      comment: "",
     };
   },
   methods: {
@@ -100,7 +96,7 @@ export default {
       } else if (this.password === this.passwordCheck) {
         this.passwordCheckInfo = "비밀번호가 일치합니다.";
       } else {
-        this.passwordCheckInfo = "비밀번호가 일치하지 않습니다..";
+        this.passwordCheckInfo = "비밀번호가 일치하지 않습니다.";
       }
     },
     regist() {
@@ -108,18 +104,25 @@ export default {
         alert("비밀번호가 일치하지 않습니다.");
         return;
       }
-      this.$store.dispatch("userRegist", {
-        id: this.id,
-        password: this.password,
-        passwordCheckInfo: this.passwordCheckInfo,
-        email: this.email,
-        name: this.name,
-        nickname: this.nickname,
-        gender: this.gender,
-        birth: this.birth,
-        profile: this.profile,
-        comment: this.comment,
-      });
+      this.$store
+        .dispatch("userRegist", {
+          id: this.user.id,
+          password: this.password,
+          email: this.user.email,
+          name: this.user.name,
+          nickname: this.user.nickname,
+          gender: this.user.gender,
+          birth: this.user.birth,
+          profile: this.user.profile,
+          comment: this.user.comment,
+        })
+        .then(() => {
+          this.goLogin();
+        })
+        .catch((err) => console.log(err));
+    },
+    goLogin() {
+      this.$router.push({ name: "login" });
     },
   },
   watch: {
