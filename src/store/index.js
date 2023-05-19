@@ -8,9 +8,9 @@ Vue.use(Vuex);
 const JSON_HEADER = {
   "Content-type": "application/json",
 };
-const FILE_HEADER = {
-  "Content-type": "application/json",
-};
+// const FILE_HEADER = {
+//   "Content-type": "application/json",
+// };
 export default new Vuex.Store({
   state: {
     user: {},
@@ -25,6 +25,7 @@ export default new Vuex.Store({
   mutations: {
     USER_LOGIN(state) {
       state.loginUser = sessionStorage.getItem("access-token");
+      state.isloggedin = true;
     },
     CLEAR_USER(state) {
       state.user = {};
@@ -33,7 +34,7 @@ export default new Vuex.Store({
   actions: {
     async userRegist({ commit }, payload) {
       await http
-        .post("/user", payload, { headers: FILE_HEADER })
+        .post("/user", payload, { headers: JSON_HEADER })
         .then(() => {
           alert("아이디 생성 성공 !");
           commit("CLEAR_USER");
@@ -53,10 +54,9 @@ export default new Vuex.Store({
       await http
         .post("/user/login", payload, { headers: JSON_HEADER })
         .then((res) => {
-          console.log(res);
-          console.log(res.data["access-token"]);
+          // console.log(res);
+          // console.log(res.data["access-token"]);
           sessionStorage.setItem("access-token", res.data["access-token"]);
-          this.isloggedin = true;
           commit("USER_LOGIN");
         })
         .catch(() => {
