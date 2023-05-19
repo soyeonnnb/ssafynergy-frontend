@@ -1,5 +1,5 @@
 <!-- 각 카테고리 별 테이블 -->
-<template></template>
+<template><div></div></template>
 
 <script>
 export default {};

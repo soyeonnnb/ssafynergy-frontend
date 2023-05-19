@@ -1,4 +1,5 @@
-<template></template>
+<!-- 챌린지 디테일 -->
+<template><div></div></template>
 
 <script>
 export default {};

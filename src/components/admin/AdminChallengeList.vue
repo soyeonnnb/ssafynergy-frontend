@@ -1,5 +1,5 @@
 <!-- 챌린지 리스트 -->
-<template></template>
+<template><div></div></template>
 
 <script>
 export default {};

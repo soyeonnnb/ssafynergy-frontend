@@ -1,5 +1,7 @@
 <template>
   <div>
+    <!-- 편의상 추가 -->
+    <home-nav></home-nav>
     <h2>회원가입</h2>
     <div>
       아이디
@@ -76,7 +78,11 @@
 
 <script>
 import { mapState } from "vuex";
+import homeNav from "@/components/common/homeNav.vue";
 export default {
+  components: {
+    homeNav,
+  },
   name: "regist-view",
   computed: {
     ...mapState(["user"]),

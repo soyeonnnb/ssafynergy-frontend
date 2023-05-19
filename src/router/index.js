@@ -171,22 +171,26 @@ const routes = [
       {
         path: "/:id",
         name: "community-board",
-        component: () => import("@/views/CommunityBoardList.vue"),
+        component: () =>
+          import("@/components/communities/CommunityBoardList.vue"),
       },
       {
         path: "/detail/:id",
         name: "community-board-detail",
-        component: () => import("@/views/CommunityBoardDetail.vue"),
+        component: () =>
+          import("@/components/communities/CommunityBoardDetail.vue"),
       },
       {
         path: "/createe",
         name: "community-board-create",
-        component: () => import("@/views/CommunityBoardCreate.vue"),
+        component: () =>
+          import("@/components/communities/CommunityBoardCreate.vue"),
       },
       {
         path: "/update",
         name: "community-board-update",
-        component: () => import("@/views/CommunityBoardUpdate.vue"),
+        component: () =>
+          import("@/components/communities/CommunityBoardUpdate.vue"),
       },
     ],
   },

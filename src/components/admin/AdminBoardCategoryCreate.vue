@@ -1,5 +1,5 @@
 <!-- admin 카테고리 생성 -->
-<template></template>
+<template><div></div></template>
 
 <script>
 export default {};

@@ -1,5 +1,5 @@
 <!-- 현재 참여 현황 -->
-<template></template>
+<template><div></div></template>
 
 <script>
 export default {};

@@ -1,6 +1,6 @@
 <!-- 챌린지 검색 -->
-<template></template>
 
+<template><div></div></template>
 <script>
 export default {};
 </script>

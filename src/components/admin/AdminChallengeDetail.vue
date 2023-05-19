@@ -1,5 +1,5 @@
 <!-- admin challenge detail -->
-<template></template>
+<template><div></div></template>
 
 <script>
 export default {};

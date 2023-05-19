@@ -1,5 +1,5 @@
 <!-- 커뮤니티 게시글 리스트 -->
-<template></template>
+<template><div></div></template>
 
 <script>
 export default {};

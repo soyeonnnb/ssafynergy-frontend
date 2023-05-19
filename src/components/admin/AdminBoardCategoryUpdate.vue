@@ -1,5 +1,5 @@
 <!-- admin Board 카테고리 수정 -->
-<template></template>
+<template><div></div></template>
 
 <script>
 export default {};

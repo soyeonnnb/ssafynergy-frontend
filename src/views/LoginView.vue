@@ -1,5 +1,7 @@
 <template>
   <div>
+    <!-- 편의상 추가 -->
+    <home-nav></home-nav>
     <h2>로그인</h2>
     <div>
       아이디
@@ -16,7 +18,11 @@
 </template>
 
 <script>
+import homeNav from "@/components/common/homeNav.vue";
 export default {
+  components: {
+    homeNav,
+  },
   data() {
     return {
       id: "",

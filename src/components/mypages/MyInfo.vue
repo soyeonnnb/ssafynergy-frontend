@@ -1,5 +1,5 @@
 <!-- 내 정보 보기 -->
-<template></template>
+<template><div></div></template>
 
 <script>
 export default {};
