@@ -28,10 +28,17 @@ export default {
   },
   methods: {
     login() {
-      this.$store.dispatch("userLogin", {
-        id: this.id,
-        password: this.password,
-      });
+      this.$store
+        .dispatch("userLogin", {
+          id: this.id,
+          password: this.password,
+        })
+        .then(() => {
+          this.$router.push({ name: "home" });
+        })
+        .catch(() => {
+          alert("아이디 혹은 비밀번호가 틀렸습니다.");
+        });
     },
   },
 };

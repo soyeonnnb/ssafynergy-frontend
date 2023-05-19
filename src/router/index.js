@@ -1,5 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+// import store from "@/store/index.js";
+
 import MainView from "../views/MainView.vue";
 
 Vue.use(VueRouter);
@@ -35,19 +37,16 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  if (
-    to.name === "login" ||
-    to.name === "regist" ||
-    !this.$store.state.isloggedin
-  ) {
-    next();
-  } else {
-    next({
-      path: "login",
-      replace: true,
-    });
-  }
-});
+//일단 프론트에서 막고, 나중에 다시 막기
+// router.beforeEach((to, from, next) => {
+//   if (to.name === "login" || to.name === "regist") {
+//     next();
+//   } else {
+//     next({
+//       path: "login",
+//       replace: true,
+//     });
+//   }
+// });
 
 export default router;

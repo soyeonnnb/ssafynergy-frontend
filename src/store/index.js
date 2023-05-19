@@ -1,12 +1,16 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import axios from "axios";
-// import http from "@/util/httpCommon";
+// import axios from "axios";
+import http from "@/util/httpCommon";
 
 Vue.use(Vuex);
 
-const REST_API = "http://localhost:9999/api/v1";
-
+const JSON_HEADER = {
+  "Content-type": "application/json",
+};
+const FILE_HEADER = {
+  "Content-type": "application/json",
+};
 export default new Vuex.Store({
   state: {
     user: {},
@@ -28,13 +32,8 @@ export default new Vuex.Store({
   },
   actions: {
     async userRegist({ commit }, payload) {
-      let params = null;
-      if (payload) params = payload;
-      await axios({
-        url: `${REST_API}/user`,
-        method: "POST",
-        params,
-      })
+      await http
+        .post("/user", payload, { headers: FILE_HEADER })
         .then(() => {
           alert("아이디 생성 성공 !");
           commit("CLEAR_USER");
@@ -51,22 +50,18 @@ export default new Vuex.Store({
         });
     },
     async userLogin({ commit }, payload) {
-      let params = null;
-      if (payload) params = payload;
-      await axios({
-        url: `${REST_API}/user/login`,
-        method: "POST",
-        params,
-      })
+      await http
+        .post("/user/login", payload, { headers: JSON_HEADER })
         .then((res) => {
           console.log(res);
           console.log(res.data["access-token"]);
           sessionStorage.setItem("access-token", res.data["access-token"]);
           this.isloggedin = true;
           commit("USER_LOGIN");
-          // this.$ruter.push({ name: "home" });
         })
-        .catch(() => alert("아이디 혹은 비밀번호가 틀렸습니다."));
+        .catch(() => {
+          throw new Error("아이디 혹은 비밀번호가 틀렸습니다.");
+        });
     },
   },
   modules: {},
