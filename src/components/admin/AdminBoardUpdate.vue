@@ -1,4 +1,4 @@
-<!-- 관리자 화면 -->
+<!-- admin board update -->
 <template></template>
 
 <script>

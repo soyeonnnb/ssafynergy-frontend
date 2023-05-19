@@ -1,3 +1,4 @@
+<!-- nav-bar만 있는 화면 -->
 <template>
   <div>
     <router-view></router-view>

@@ -1,4 +1,4 @@
-<!-- 관리자 화면 -->
+<!-- 현재 참여 현황 -->
 <template></template>
 
 <script>

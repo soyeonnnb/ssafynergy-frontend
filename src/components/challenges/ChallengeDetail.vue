@@ -1,4 +1,3 @@
-<!-- 관리자 화면 -->
 <template></template>
 
 <script>

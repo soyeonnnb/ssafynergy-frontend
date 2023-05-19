@@ -1,4 +1,4 @@
-<!-- 관리자 화면 -->
+<!-- admin challenge 수정 -->
 <template></template>
 
 <script>

@@ -1,4 +1,4 @@
-<!-- 관리자 화면 -->
+<!-- 각 카테고리 별 테이블 -->
 <template></template>
 
 <script>

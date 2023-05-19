@@ -1,4 +1,4 @@
-<!-- 관리자 화면 -->
+<!-- 커뮤니티 뷰 -->
 <template></template>
 
 <script>

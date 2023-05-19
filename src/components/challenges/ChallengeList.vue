@@ -1,4 +1,4 @@
-<!-- 관리자 화면 -->
+<!-- 챌린지 검색 -->
 <template></template>
 
 <script>

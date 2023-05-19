@@ -1,4 +1,4 @@
-<!-- 관리자 화면 -->
+<!-- 내가 작성한 글 -->
 <template></template>
 
 <script>

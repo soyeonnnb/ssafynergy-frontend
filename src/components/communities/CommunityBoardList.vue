@@ -1,4 +1,4 @@
-<!-- 관리자 화면 -->
+<!-- 커뮤니티 게시글 리스트 -->
 <template></template>
 
 <script>

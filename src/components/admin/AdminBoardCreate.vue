@@ -1,4 +1,4 @@
-<!-- 관리자 화면 -->
+<!-- admin 게시글 작성 -->
 <template></template>
 
 <script>

@@ -1,4 +1,4 @@
-<!-- 관리자 화면 -->
+<!-- 마이페이지 뷰 -->
 <template></template>
 
 <script>

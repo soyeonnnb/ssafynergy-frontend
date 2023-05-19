@@ -1,4 +1,4 @@
-<!-- 관리자 화면 -->
+<!-- 참여 챌린지 후기 작성 -->
 <template></template>
 
 <script>

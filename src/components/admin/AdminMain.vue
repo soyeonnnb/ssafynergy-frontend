@@ -1,4 +1,4 @@
-<!-- 관리자 화면 -->
+<!-- admin 메인 -->
 <template></template>
 
 <script>

@@ -1,4 +1,4 @@
-<!-- 관리자 화면 -->
+<!-- 내 정보 보기 -->
 <template></template>
 
 <script>

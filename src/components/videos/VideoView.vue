@@ -1,4 +1,4 @@
-<!-- 관리자 화면 -->
+<!-- 영상 뷰 -->
 <template></template>
 
 <script>

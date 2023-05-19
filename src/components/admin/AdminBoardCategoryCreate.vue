@@ -1,4 +1,4 @@
-<!-- 관리자 화면 -->
+<!-- admin 카테고리 생성 -->
 <template></template>
 
 <script>
