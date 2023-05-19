@@ -89,6 +89,9 @@ export default {
       passwordCheckInfo: "",
     };
   },
+  created() {
+    this.$store.commit("CLEAR_USER");
+  },
   methods: {
     passwordIsSame() {
       if (this.password.length === 0 || this.passwordCheck.length === 0) {
