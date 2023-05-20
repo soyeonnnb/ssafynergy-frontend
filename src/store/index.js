@@ -20,6 +20,7 @@ export default new Vuex.Store({
     loginUser: {},
     boardCategories: [],
     boardCategory: {},
+    posts: [],
   },
   getters: {
     user(state) {
@@ -56,6 +57,9 @@ export default new Vuex.Store({
     },
     BOARD_CATEGORY_CLEAR(state) {
       state.boardCategory = {};
+    },
+    SET_POSTS(state, payload) {
+      state.posts = payload;
     },
   },
   actions: {
@@ -150,6 +154,13 @@ export default new Vuex.Store({
       http.post("/board/category", payload).then(({ status }) => {
         if (status === 201) {
           alert("카테고리가 생성되었습니다.");
+        }
+      });
+    },
+    getPosts({ commit }, payload) {
+      http.get(`/board/search`, payload).then(({ data, status }) => {
+        if (status === 200) {
+          commit("SET_POSTS", data);
         }
       });
     },

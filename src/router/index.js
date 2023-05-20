@@ -169,25 +169,25 @@ const routes = [
     component: () => import("@/views/CommunityView.vue"),
     children: [
       {
-        path: "/:id",
+        path: ":id",
         name: "community-board",
         component: () =>
           import("@/components/communities/CommunityBoardList.vue"),
       },
       {
-        path: "/detail/:id",
+        path: "detail/:id",
         name: "community-board-detail",
         component: () =>
           import("@/components/communities/CommunityBoardDetail.vue"),
       },
       {
-        path: "/createe",
+        path: "createe",
         name: "community-board-create",
         component: () =>
           import("@/components/communities/CommunityBoardCreate.vue"),
       },
       {
-        path: "/update",
+        path: "update",
         name: "community-board-update",
         component: () =>
           import("@/components/communities/CommunityBoardUpdate.vue"),

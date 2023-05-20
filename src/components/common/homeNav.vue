@@ -5,7 +5,10 @@
       <router-link :to="{ name: 'mypage-main' }">마이페이지</router-link> |
       <span>서비스 소개</span> |
       <router-link :to="{ name: 'video-view' }">영상</router-link> |
-      <router-link :to="{ name: 'community-board' }">커뮤니티</router-link> |
+      <router-link :to="{ name: 'community-board', params: { id: 0 } }"
+        >커뮤니티</router-link
+      >
+      |
       <router-link :to="{ name: 'admin-main' }">관리자 모드로 가기</router-link>
       |
       <button @click="logout">로그아웃</button>
