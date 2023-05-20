@@ -14,14 +14,17 @@
     <div>
       <button @click="login">로그인</button>
     </div>
+    <social-login></social-login>
   </div>
 </template>
 
 <script>
 import homeNav from "@/components/common/homeNav.vue";
+import socialLogin from "@/components/partials/socialLogin.vue";
 export default {
   components: {
     homeNav,
+    socialLogin,
   },
   data() {
     return {
