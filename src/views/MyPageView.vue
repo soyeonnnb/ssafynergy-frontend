@@ -1,17 +1,19 @@
-<!-- nav-bar만 있는 화면 -->
+<!-- 마이페이지 뷰 -->
 <template>
   <div>
     <home-nav></home-nav>
-    <router-view></router-view>
+    <mypage-nav></mypage-nav>
   </div>
 </template>
 
 <script>
 import homeNav from "@/components/common/homeNav.vue";
+import mypageNav from "@/components/common/mypageNav.vue";
 export default {
-  name: "main-component",
+  name: "mypage-view",
   components: {
     homeNav,
+    mypageNav,
   },
 };
 </script>
