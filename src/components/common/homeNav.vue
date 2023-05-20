@@ -8,11 +8,19 @@
     <router-link :to="{ name: 'video-view' }">영상</router-link> |
     <router-link :to="{ name: 'community-board' }">커뮤니티</router-link> |
     <router-link :to="{ name: 'admin-main' }">관리자 모드로 가기</router-link> |
+    <button @click="logout">로그아웃</button>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+      this.$router.push({ name: "login" });
+    },
+  },
+};
 </script>
 
 <style></style>

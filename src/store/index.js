@@ -3,6 +3,8 @@ import Vuex from "vuex";
 // import axios from "axios";
 import http from "@/util/httpCommon";
 
+import { createVuexPersistedState } from "vue-persistedstate";
+
 Vue.use(Vuex);
 
 const JSON_HEADER = {
@@ -23,12 +25,23 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    USER_LOGIN(state) {
-      state.loginUser = sessionStorage.getItem("access-token");
+    USER_LOGIN(state, payload) {
+      // state.loginUser = sessionStorage.getItem("access-token");
+      state.loginUser = payload;
       state.isloggedin = true;
     },
     CLEAR_USER(state) {
       state.user = {};
+    },
+    SET_USER_DATA(state, payload) {
+      state.user = payload;
+    },
+    SET_LOGIN_USER_DATA(state, payload) {
+      state.loginUser = payload;
+    },
+    LOGOUT(state) {
+      state.isloggedin = false;
+      state.loginUser = {};
     },
   },
   actions: {
@@ -54,10 +67,8 @@ export default new Vuex.Store({
       await http
         .post("/user/login", payload, { headers: JSON_HEADER })
         .then((res) => {
-          // console.log(res);
-          // console.log(res.data["access-token"]);
           sessionStorage.setItem("access-token", res.data["access-token"]);
-          commit("USER_LOGIN");
+          commit("USER_LOGIN", res.data["loginUser"]);
         })
         .catch(() => {
           throw new Error("아이디 혹은 비밀번호가 틀렸습니다.");
@@ -69,6 +80,27 @@ export default new Vuex.Store({
         console.log(res);
       });
     },
+    getUserInfo({ commit }, payload) {
+      http.get(`/user/${payload}`).then(({ data }) => {
+        commit("SET_USER_DATA", data);
+      });
+    },
+    setLoginUserInfo({ commit }) {
+      const loginUser = sessionStorage.getItem("loginUser");
+      http.get(`/ser/${loginUser.id}`).then(({ data }) => {
+        commit("SET_LOGIN_USER_DATA", data);
+      });
+    },
+    logout({ commit }) {
+      commit("LOGOUT");
+    },
   },
   modules: {},
+  plugins: [
+    createVuexPersistedState({
+      whiteList: ["isloggedin", "loginUser"],
+      key: "vuexStore",
+      storage: window.sessionStorage, // sessionStorage에 저장
+    }),
+  ],
 });
