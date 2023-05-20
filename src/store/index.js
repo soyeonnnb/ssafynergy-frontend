@@ -23,6 +23,9 @@ export default new Vuex.Store({
     user(state) {
       return state.user;
     },
+    loginUser(state) {
+      return state.loginUser;
+    },
   },
   mutations: {
     USER_LOGIN(state, payload) {
@@ -68,6 +71,10 @@ export default new Vuex.Store({
         .post("/user/login", payload, { headers: JSON_HEADER })
         .then((res) => {
           sessionStorage.setItem("access-token", res.data["access-token"]);
+          sessionStorage.setItem(
+            "loginUser",
+            JSON.stringify(res.data.loginUser)
+          );
           commit("USER_LOGIN", res.data["loginUser"]);
         })
         .catch(() => {
@@ -86,13 +93,28 @@ export default new Vuex.Store({
       });
     },
     setLoginUserInfo({ commit }) {
-      const loginUser = sessionStorage.getItem("loginUser");
-      http.get(`/ser/${loginUser.id}`).then(({ data }) => {
+      const loginUser = JSON.parse(sessionStorage.getItem("loginUser"));
+      http.get(`/user/${loginUser.id}`).then(({ data }) => {
         commit("SET_LOGIN_USER_DATA", data);
       });
     },
     logout({ commit }) {
       commit("LOGOUT");
+    },
+    userInfoUpdate({ dispatch }, payload) {
+      const loginUser = JSON.parse(sessionStorage.getItem("loginUser"));
+      payload.id = loginUser.id;
+      http
+        .put(`/user`, payload)
+        .then(() => {
+          dispatch("setLoginUserInfo");
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
   modules: {},

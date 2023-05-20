@@ -1,7 +1,38 @@
 <!-- 내 정보 보기 -->
 <template>
   <div>
-    {{ loginUser }}
+    <table>
+      <tbody>
+        <tr>
+          <th>아이디</th>
+          <td>{{ loginUser.id }}</td>
+        </tr>
+        <tr>
+          <th>이메일</th>
+          <td>{{ loginUser.email }}</td>
+        </tr>
+        <tr>
+          <th>이름</th>
+          <td>{{ loginUser.name }}</td>
+        </tr>
+        <tr>
+          <th>닉네임</th>
+          <td>{{ loginUser.nickname }}</td>
+        </tr>
+        <tr>
+          <th>성별</th>
+          <td>{{ loginUser.gender }}</td>
+        </tr>
+        <tr>
+          <th>생년월일</th>
+          <td>{{ loginUser.birth }}</td>
+        </tr>
+        <tr>
+          <th>한줄 코멘트</th>
+          <td>{{ loginUser.comment }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
