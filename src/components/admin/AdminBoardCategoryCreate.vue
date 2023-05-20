@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import WriteForm from "./boardCategory/WriteForm.vue";
+import WriteForm from "./includes/boardCategory/WriteForm.vue";
 export default {
   name: "board-category-create",
   components: {
