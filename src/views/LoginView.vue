@@ -14,14 +14,17 @@
     <div>
       <button @click="login">로그인</button>
     </div>
+    <social-login></social-login>
   </div>
 </template>
 
 <script>
 import homeNav from "@/components/common/homeNav.vue";
+import socialLogin from "@/components/partials/socialLogin.vue";
 export default {
   components: {
     homeNav,
+    socialLogin,
   },
   data() {
     return {
@@ -40,7 +43,7 @@ export default {
           password: this.password,
         })
         .then(() => {
-          this.$router.push({ name: "home" });
+          this.$router.push({ name: "home-view" });
         })
         .catch(() => {
           alert("아이디 혹은 비밀번호가 틀렸습니다.");

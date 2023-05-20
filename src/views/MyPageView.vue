@@ -3,6 +3,7 @@
   <div>
     <home-nav></home-nav>
     <mypage-nav></mypage-nav>
+    <router-view></router-view>
   </div>
 </template>
 
