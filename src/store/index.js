@@ -62,11 +62,17 @@ export default new Vuex.Store({
     SET_POSTS(state, payload) {
       state.posts = payload;
     },
+    SET_POST(state, payload) {
+      state.post = payload;
+    },
     POST_CLEAR(state) {
       state.post = {};
     },
     POSTS_CLEAR(state) {
       state.posts = [];
+    },
+    SET_POST_VIEWCNT_UP(state) {
+      state.post.viewCnt++;
     },
   },
   actions: {
@@ -180,7 +186,6 @@ export default new Vuex.Store({
       if (payload.orderBy) {
         url += `&orderBy=${payload.orderBy}&orderByDir=${payload.orderByDir}`;
       }
-      console.log(url);
       http.get(url).then(({ data, status }) => {
         if (status === 200) {
           commit("SET_POSTS", data);
@@ -206,6 +211,21 @@ export default new Vuex.Store({
           console.log(res);
         })
         .catch((err) => console.log(err));
+    },
+    async getBoardPost({ commit }, payload) {
+      await http
+        .get(`/board/post/${payload}`)
+        .then(({ data }) => {
+          commit("SET_POST", data);
+        })
+        .catch(() => {
+          throw new Error("존재하지 않는 게시글입니다.");
+        });
+    },
+    postViewCntPlus({ commit }, payload) {
+      http.put(`/board/post/${payload}`).then(() => {
+        commit("SET_POST_VIEWCNT_UP");
+      });
     },
   },
   modules: {},
