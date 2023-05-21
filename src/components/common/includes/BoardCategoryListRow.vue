@@ -14,8 +14,9 @@ export default {
     goCategoryDetail() {
       const id = this.$route.params.id;
       if (!id || id !== this.category.id) {
+        this.$store.commit("SET_BOARD_CATEGORY", this.category);
         this.$router.push({
-          name: "community-board-detail",
+          name: "community-board",
           params: { id: this.category.id },
         });
       }

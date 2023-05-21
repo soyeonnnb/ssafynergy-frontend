@@ -1,6 +1,10 @@
 <!-- 커뮤니티 게시글 리스트 -->
 <template>
   <div>
+    <h1>{{ boardCategory.name }} 목록</h1>
+    <router-link :to="{ name: 'community-board-create' }"
+      >게시글 작성</router-link
+    >
     <table>
       <thead>
         <tr>
@@ -28,16 +32,28 @@ import { mapState } from "vuex";
 import CommunityBoardListRow from "./includes/CommunityBoardListRow.vue";
 export default {
   computed: {
-    ...mapState(["posts"]),
+    ...mapState(["posts", "boardCategory"]),
   },
   components: {
     CommunityBoardListRow,
   },
   created() {
-    const categoryId = this.$route.params.id;
-    this.$store.dispatch("getPosts", {
-      boardCategoryId: categoryId,
-    });
+    this.init();
+  },
+  methods: {
+    init() {
+      this.$store.dispatch("postsClear");
+      const categoryId = Number(this.$route.params.id);
+      this.$store.dispatch("getPosts", {
+        hasBoardCategoryId: true,
+        boardCategoryId: categoryId,
+      });
+    },
+  },
+  watch: {
+    $route() {
+      this.init();
+    },
   },
 };
 </script>

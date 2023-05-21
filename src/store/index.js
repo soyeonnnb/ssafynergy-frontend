@@ -21,6 +21,7 @@ export default new Vuex.Store({
     boardCategories: [],
     boardCategory: {},
     posts: [],
+    post: {},
   },
   getters: {
     user(state) {
@@ -60,6 +61,12 @@ export default new Vuex.Store({
     },
     SET_POSTS(state, payload) {
       state.posts = payload;
+    },
+    POST_CLEAR(state) {
+      state.post = {};
+    },
+    POSTS_CLEAR(state) {
+      state.posts = [];
     },
   },
   actions: {
@@ -143,7 +150,7 @@ export default new Vuex.Store({
           commit("SET_BOARD_CATEGORY", data);
         })
         .catch(() => {
-          throw new Error("잘못된 번호입니다.");
+          console.log("글 없음");
         });
     },
     boardCategoryClear({ commit }) {
@@ -158,11 +165,47 @@ export default new Vuex.Store({
       });
     },
     getPosts({ commit }, payload) {
-      http.get(`/board/search`, payload).then(({ data, status }) => {
+      let url = "/board/search?";
+      if (payload.key) {
+        url += `key=${payload.key}&content=${payload.content}`;
+      } else {
+        url += "key=none";
+      }
+      if (payload.hasUserId) {
+        url += `&hasUserId=true&userId=${payload.userId}}`;
+      }
+      if (payload.hasBoardCategoryId) {
+        url += `&hasBoardCategoryId=true&boardCategoryId=${payload.boardCategoryId}`;
+      }
+      if (payload.orderBy) {
+        url += `&orderBy=${payload.orderBy}&orderByDir=${payload.orderByDir}`;
+      }
+      console.log(url);
+      http.get(url).then(({ data, status }) => {
         if (status === 200) {
           commit("SET_POSTS", data);
         }
       });
+    },
+    postsClear({ commit }) {
+      commit("POSTS_CLEAR");
+    },
+    postClear({ commit }) {
+      commit("POST_CLEAR");
+    },
+    getBoardCategoryForUser({ commit }) {
+      http.get("/board/category/foruser").then(({ data }) => {
+        commit("SET_BOARD_CATEGORY", data);
+      });
+    },
+    boardPostCreate({ state }, payload) {
+      payload.userId = state.loginUser.id;
+      http
+        .post("/board/post", payload)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
     },
   },
   modules: {},

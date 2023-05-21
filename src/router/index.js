@@ -144,7 +144,7 @@ const routes = [
         component: () => import("@/components/admin/AdminBoardDetail.vue"),
       },
       {
-        path: "board/category",
+        path: "board/category/:id",
         name: "admin-board-category",
         component: () =>
           import("@/components/admin/AdminBoardCategoryList.vue"),
@@ -181,7 +181,7 @@ const routes = [
           import("@/components/communities/CommunityBoardDetail.vue"),
       },
       {
-        path: "createe",
+        path: "create",
         name: "community-board-create",
         component: () =>
           import("@/components/communities/CommunityBoardCreate.vue"),
