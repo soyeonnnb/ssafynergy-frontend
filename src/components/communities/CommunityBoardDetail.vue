@@ -4,6 +4,10 @@
     <community-post-detail-view-vue
       :post="post"
     ></community-post-detail-view-vue>
+    <community-post-like
+      :isLike="post.isLike"
+      :boardId="Number(post.id)"
+    ></community-post-like>
     <comment-view></comment-view>
   </div>
 </template>
@@ -12,6 +16,7 @@
 import { mapState } from "vuex";
 import CommunityPostDetailViewVue from "./includes/CommunityPostDetailView.vue";
 import CommentView from "./comments/CommentView.vue";
+import CommunityPostLike from "./includes/CommunityPostLike.vue";
 export default {
   name: "community-board-detail",
   computed: {
@@ -20,6 +25,7 @@ export default {
   components: {
     CommunityPostDetailViewVue,
     CommentView,
+    CommunityPostLike,
   },
   created() {
     this.init();

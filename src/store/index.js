@@ -82,6 +82,9 @@ export default new Vuex.Store({
     SET_POST_COMMENTS(state, payload) {
       state.postComments = payload;
     },
+    SET_POST_LIKE(state, payload) {
+      state.post.isLike = payload;
+    },
   },
   actions: {
     async userRegist({ commit }, payload) {
@@ -257,6 +260,18 @@ export default new Vuex.Store({
     deletePostComment({ dispatch }, payload) {
       http.delete(`/board/review/${payload.id}`).then(() => {
         dispatch("getPostComments", payload.boardId);
+      });
+    },
+    doPostLike({ commit }, payload) {
+      http.post("/board/like", payload).then(() => {
+        console.log("like !!!!!!");
+        commit("SET_POST_LIKE", true);
+      });
+    },
+    deletePostLike({ commit }, payload) {
+      http.delete(`/board/like/${payload}`).then(() => {
+        console.log("dont like !!!!!!");
+        commit("SET_POST_LIKE", false);
       });
     },
   },
