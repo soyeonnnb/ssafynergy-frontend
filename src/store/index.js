@@ -120,11 +120,10 @@ export default new Vuex.Store({
           throw new Error("아이디 혹은 비밀번호가 틀렸습니다.");
         });
     },
-    kakaoLogin() {
+    async kakaoLogin() {
       const uri = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.VUE_APP_KAKAO_REST_API_KEY}&redirect_uri=${process.env.VUE_APP_KAKAO_REDIRECT_URI}&response_type=code`;
-      http.get(uri).then((res) => {
-        console.log(res);
-      });
+      window.location.href(uri);
+      // await http.get(uri).then((res) => console.log(res));
     },
     getUserInfo({ commit }, payload) {
       http.get(`/user/${payload}`).then(({ data }) => {
