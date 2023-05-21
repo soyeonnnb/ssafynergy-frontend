@@ -22,6 +22,8 @@ export default new Vuex.Store({
     boardCategory: {},
     posts: [],
     post: {},
+    postComments: [],
+    postComment: {},
   },
   getters: {
     user(state) {
@@ -76,6 +78,9 @@ export default new Vuex.Store({
     },
     SET_POST_VIEWCNT_UP(state) {
       state.post.viewCnt++;
+    },
+    SET_POST_COMMENTS(state, payload) {
+      state.postComments = payload;
     },
   },
   actions: {
@@ -232,6 +237,26 @@ export default new Vuex.Store({
     postViewCntPlus({ commit }, payload) {
       http.put(`/board/post/${payload}`).then(() => {
         commit("SET_POST_VIEWCNT_UP");
+      });
+    },
+    getPostComments({ commit }, payload) {
+      http.get(`/board/review/${payload}`).then(({ data }) => {
+        commit("SET_POST_COMMENTS", data);
+      });
+    },
+    createPostComment({ dispatch }, payload) {
+      http.post("/board/review", payload).then(() => {
+        dispatch("getPostComments", payload.boardId);
+      });
+    },
+    updatePostComment({ dispatch }, payload) {
+      http.put("/board/review", payload).then(() => {
+        dispatch("getPostComments", payload.boardId);
+      });
+    },
+    deletePostComment({ dispatch }, payload) {
+      http.delete(`/board/review/${payload.id}`).then(() => {
+        dispatch("getPostComments", payload.boardId);
       });
     },
   },
