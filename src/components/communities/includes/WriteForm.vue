@@ -9,7 +9,9 @@
     <!-- 제목 -->
     제목: <input type="text" v-model.trim="post.title" required />
     <!-- 내용 -->
-    <textarea v-model="post.content"></textarea>
+    <!-- <textarea v-model="post.content"></textarea> -->
+    <ckeditor v-model="post.content" :config="editorConfig"></ckeditor>
+
     <button v-if="type == 'create'" @click="create">작성</button>
     <button v-if="type == 'modify'" @click="modify">수정</button>
   </div>
@@ -17,10 +19,20 @@
 
 <script>
 import { mapState } from "vuex";
+import CKEditor from "ckeditor4-vue";
+
 export default {
   name: "board-write-form",
   computed: {
     ...mapState(["post", "boardCategories"]),
+  },
+  data() {
+    return {
+      // editorData: "<p>Content of the editor.</p>",
+      editorConfig: {
+        // The configuration of the editor.
+      },
+    };
   },
   props: {
     type: String,
@@ -30,6 +42,10 @@ export default {
     if (this.type === "create") {
       this.$store.dispatch("postClear");
     }
+  },
+  components: {
+    // Use the <ckeditor> component in this view.
+    ckeditor: CKEditor.component,
   },
   methods: {
     async create() {

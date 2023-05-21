@@ -7,7 +7,10 @@
     <div>조회수 : {{ post.viewCnt }}</div>
     <div>댓글수 : {{ post.reviewCnt }}</div>
     <div>좋아요수 : {{ post.likeCnt }}</div>
-    <div>컨텐트 : {{ post.content }}</div>
+    <div>
+      컨텐트 :
+      <p v-html="post.content"></p>
+    </div>
   </div>
 </template>
 
