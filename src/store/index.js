@@ -65,6 +65,9 @@ export default new Vuex.Store({
     SET_POST(state, payload) {
       state.post = payload;
     },
+    SET_POST_ID(state, payload) {
+      state.post.id = payload;
+    },
     POST_CLEAR(state) {
       state.post = {};
     },
@@ -203,14 +206,18 @@ export default new Vuex.Store({
         commit("SET_BOARD_CATEGORY", data);
       });
     },
-    boardPostCreate({ state }, payload) {
-      payload.userId = state.loginUser.id;
-      http
-        .post("/board/post", payload)
-        .then((res) => {
-          console.log(res);
+    async boardPostCreate({ state, commit }, payload) {
+      payload.data.userId = state.loginUser.id;
+      console.log(payload.data);
+      await http
+        .post("/board/post", payload.data)
+        .then(({ data }) => {
+          commit("SET_POST_ID", Number(data.id));
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+          throw new Error("게시물 작성 실패");
+        });
     },
     async getBoardPost({ commit }, payload) {
       await http

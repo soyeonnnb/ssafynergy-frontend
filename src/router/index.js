@@ -169,12 +169,6 @@ const routes = [
     component: () => import("@/views/CommunityView.vue"),
     children: [
       {
-        path: ":id",
-        name: "community-board",
-        component: () =>
-          import("@/components/communities/CommunityBoardList.vue"),
-      },
-      {
         path: "detail/:id",
         name: "community-board-detail",
         component: () =>
@@ -191,6 +185,12 @@ const routes = [
         name: "community-board-update",
         component: () =>
           import("@/components/communities/CommunityBoardUpdate.vue"),
+      },
+      {
+        path: ":id",
+        name: "community-board",
+        component: () =>
+          import("@/components/communities/CommunityBoardList.vue"),
       },
     ],
   },

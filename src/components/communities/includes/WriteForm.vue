@@ -7,7 +7,7 @@
       </option>
     </select>
     <!-- 제목 -->
-    제목: <input type="text" v-model="post.title" />
+    제목: <input type="text" v-model.trim="post.title" required />
     <!-- 내용 -->
     <textarea v-model="post.content"></textarea>
     <button v-if="type == 'create'" @click="create">작성</button>
@@ -32,13 +32,29 @@ export default {
     }
   },
   methods: {
-    create() {
-      console.log(this.post);
-      this.$store.dispatch("boardPostCreate", {
-        boardCategoryId: Number(this.post.boardCategoryId),
-        title: this.post.title,
-        content: this.post.content,
-      });
+    async create() {
+      if (this.post.title == "" || this.post.content == "") {
+        alert("내용을 작성하지 않았습니다.");
+        return;
+      }
+      await this.$store
+        .dispatch("boardPostCreate", {
+          type: "user",
+          data: {
+            boardCategoryId: Number(this.post.boardCategoryId),
+            title: this.post.title,
+            content: this.post.content,
+          },
+        })
+        .then(() => {
+          this.$router.push({
+            name: "community-board-detail",
+            params: { id: this.post.id },
+          });
+        })
+        .catch(() => {
+          console.log("왜 에러..");
+        });
     },
     modify() {},
   },
