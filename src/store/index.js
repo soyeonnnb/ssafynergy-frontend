@@ -266,7 +266,7 @@ export default new Vuex.Store({
     },
     async boardPostCreate({ state, commit }, payload) {
       payload.data.userId = state.loginUser.id;
-      console.log(payload.data);
+      // console.log(payload.data);
       await http
         .post("/board/post", payload.data, {
           headers: {
