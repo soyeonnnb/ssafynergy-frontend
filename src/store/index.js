@@ -22,6 +22,7 @@ export default new Vuex.Store({
     post: {},
     postComments: [],
     postComment: {},
+    youtubeVideos: [],
   },
   getters: {
     user(state) {
@@ -85,6 +86,9 @@ export default new Vuex.Store({
     },
     SET_POST_LIKE(state, payload) {
       state.post.isLike = payload;
+    },
+    SET_YOUTUBE_VIDEOS(state, payload) {
+      state.youtubeVideos = payload;
     },
   },
   actions: {
@@ -384,6 +388,27 @@ export default new Vuex.Store({
         .then(() => {
           console.log("dont like !!!!!!");
           commit("SET_POST_LIKE", false);
+        });
+    },
+    youtubeSearch({ commit }, payload) {
+      let url = `https://www.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&q=${payload}&safeSearch=moderate&type=video&maxResults=15&key=${process.env.VUE_APP_YOUTUBE_API_KEY}`;
+      http
+        .get(url)
+        .then(({ data: { items } }) => {
+          let videos = [];
+          items.forEach((v) => {
+            let video = {};
+            video.youtubeId = v.id.videoId;
+            video.channelId = v.snippet.channelTitle;
+            video.description = v.snippet.description;
+            video.title = v.snippet.title;
+            video.thumbnail = v.snippet.thumbnails.high.url;
+            videos.push(video);
+          });
+          return videos;
+        })
+        .then((res) => {
+          commit("SET_YOUTUBE_VIDEOS", res);
         });
     },
   },
