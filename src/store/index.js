@@ -13,6 +13,9 @@ export default new Vuex.Store({
     isloggedin: false,
     loginUser: {},
     isAdmin: false,
+    followerUsers: [],
+    followingUsers: [],
+    isFollow: false,
     boardCategories: [],
     boardCategory: {},
     posts: [],
@@ -38,6 +41,9 @@ export default new Vuex.Store({
     },
     CLEAR_USER(state) {
       state.user = {};
+      state.followUsers = [];
+      state.followingUsers = [];
+      state.isFollow = false;
     },
     SET_USER_DATA(state, payload) {
       state.user = payload;
@@ -50,6 +56,10 @@ export default new Vuex.Store({
       state.isloggedin = false;
       state.loginUser = {};
       state.isAdmin = false;
+      state.user = {};
+      state.followUsers = [];
+      state.followingUsers = [];
+      state.isFollow = false;
     },
     SET_BOARD_CATEGORIES(state, payload) {
       state.boardCategories = payload;
@@ -86,6 +96,15 @@ export default new Vuex.Store({
     },
     SET_YOUTUBE_VIDEOS(state, payload) {
       state.youtubeVideos = payload;
+    },
+    SET_IS_FOLLOW(state, payload) {
+      state.isFollow = payload;
+    },
+    SET_FOLLOWER_LIST(state, payload) {
+      state.followerUsers = payload;
+    },
+    SET_FOLLOWING_LIST(state, payload) {
+      state.followingUsers = payload;
     },
   },
   actions: {
@@ -134,6 +153,59 @@ export default new Vuex.Store({
         .then(({ data }) => {
           commit("SET_USER_DATA", data);
         });
+    },
+    getIsFollow({ commit, state }, payload) {
+      if (state.loginUser.id == payload) return;
+      http
+        .get(`/follow/${state.loginUser.id}/${payload}`, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(({ data }) => {
+          if (data == "yes") {
+            commit("SET_IS_FOLLOW", true);
+          } else {
+            commit("SET_IS_FOLLOW", false);
+          }
+        });
+    },
+    getFollowingList({ commit }, payload) {
+      http.get(`/follow/following/${payload}`).then(({ data }) => {
+        commit("SET_FOLLOWING_LIST", data);
+      });
+    },
+    getFollowerList({ commit }, payload) {
+      http.get(`/follow/${payload}`).then(({ data }) => {
+        commit("SET_FOLLOWER_LIST", data);
+      });
+    },
+    doFollow({ commit }, payload) {
+      http
+        .post("/follow", payload, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(() => {
+          commit("SET_IS_FOLLOW", true);
+        })
+        .catch((err) => console.log(err));
+    },
+    cancelFollow({ commit }, payload) {
+      http
+        .delete(`/follow/${payload}`, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(() => {
+          commit("SET_IS_FOLLOW", false);
+        })
+        .catch((err) => console.log(err));
     },
     setLoginUserInfo({ commit, state }) {
       http

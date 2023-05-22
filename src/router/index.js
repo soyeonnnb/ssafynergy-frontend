@@ -45,7 +45,7 @@ const routes = [
     component: () => import("@/views/RegistView.vue"),
   },
   {
-    path: "/mypage",
+    path: "/channel/:channelId",
     name: "mypage",
     component: () => import("@/views/MyPageView.vue"),
     children: [

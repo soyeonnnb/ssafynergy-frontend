@@ -2,8 +2,16 @@
   <div>
     <div v-if="isloggedin">
       <router-link :to="{ name: 'home-view' }">메인화면</router-link> |
-      <router-link :to="{ name: 'mypage-main' }">마이페이지</router-link> |
-      <span>서비스 소개</span> |
+      <router-link
+        :to="{
+          name: 'mypage-main',
+          params: {
+            channelId: loginUser.id,
+          },
+        }"
+        >마이페이지</router-link
+      >
+      | <span>서비스 소개</span> |
       <router-link :to="{ name: 'video-view' }">영상</router-link> |
       <router-link :to="{ name: 'community-board', params: { id: 0 } }"
         >커뮤니티</router-link
@@ -24,7 +32,7 @@
 import { mapState } from "vuex";
 export default {
   computed: {
-    ...mapState(["isloggedin"]),
+    ...mapState(["isloggedin", "loginUser"]),
   },
   methods: {
     logout() {
