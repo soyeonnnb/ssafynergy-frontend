@@ -6,6 +6,7 @@ const challengeStore = {
     challenge: {},
     challengesSort: [], // challengesSort 배열 추가
     reviews: [],
+    isParticipate: false,
   },
   getters: {
     challenges(state) {
@@ -33,6 +34,9 @@ const challengeStore = {
     },
     setReviews(state, payload) {
       state.reviews = payload;
+    },
+    SET_IS_PARTICIPATE(state, payload) {
+      state.isParticipate = payload;
     },
   },
   actions: {
@@ -98,19 +102,57 @@ const challengeStore = {
           alert("에러발생!");
         });
     },
-    // participateChallenge({ commit }, payload) {
-    //   http
-    //     .post("/challenge-participate", payload, {
-    //       headers: {
-    //         "access-token": sessionStorage.getItem("access-token"),
-    //         "Content-type": "application/json",
-    //       },
-    //     })
-    //     .then((res) => {})
-    //     .catch(() => {
-    //       alert("참여 신청에 실패하였습니다.");
-    //     });
-    // },
+    getIsPartcipate({ commit }, payload) {
+      http
+        .get(`/challenge-participate/challenge/${payload}`, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(({ status }) => {
+          if (status == 200) {
+            commit("SET_IS_PARTICIPATE", true);
+          } else {
+            commit("SET_IS_PARTICIPATE", false);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          alert("에러발생!");
+        });
+    },
+    participateChallenge({ commit }, payload) {
+      http
+        .post("/challenge-participate", payload, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(() => {
+          commit("SET_IS_PARTICIPATE", true);
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("참여 신청에 실패하였습니다.");
+        });
+    },
+    cancelChallenge({ commit }, payload) {
+      http
+        .delete(`/challenge-participate/${payload}`, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(() => {
+          commit("SET_IS_PARTICIPATE", false);
+        })
+        .catch(() => {
+          alert("참여 신청 취소에 실패하였습니다.");
+        });
+    },
   },
 };
 
