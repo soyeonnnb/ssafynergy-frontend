@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Vuex from "vuex";
-// import axios from "axios";
 import http from "@/util/httpCommon";
 
 import { createVuexPersistedState } from "vue-persistedstate";
@@ -8,9 +7,6 @@ import challengeStore from "./modules/challengeStore";
 
 Vue.use(Vuex);
 
-// const FILE_HEADER = {
-//   "Content-type": "application/json",
-// };
 export default new Vuex.Store({
   state: {
     user: {},
@@ -414,7 +410,7 @@ export default new Vuex.Store({
     },
   },
   modules: {
-    challengeStore: challengeStore,
+    challengeStore,
   },
   plugins: [
     createVuexPersistedState({

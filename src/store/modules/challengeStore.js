@@ -26,7 +26,10 @@ const challengeStore = {
     getChallenges(context) {
       http
         .get("/challenge/search", {
-          headers: { "Content-type": "application/json" },
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
         })
         .then(({ data }) => {
           console.log(data);
@@ -37,9 +40,16 @@ const challengeStore = {
         });
     },
     getChallenge(context, payload) {
-      http.get(`/challenge/${payload}`).then(({ data }) => {
-        context.commit("setChallenge", data);
-      });
+      http
+        .get(`/challenge/${payload}`, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(({ data }) => {
+          context.commit("setChallenge", data);
+        });
     },
   },
 };
