@@ -29,7 +29,7 @@
 
 <script>
 import { mapState } from "vuex";
-import BoardCategoryListRow from "./boardCategory/BoardCategoryListRow.vue";
+import BoardCategoryListRow from "./includes/boardCategory/BoardCategoryListRow.vue";
 
 export default {
   name: "board-category-list",

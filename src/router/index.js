@@ -144,7 +144,7 @@ const routes = [
         component: () => import("@/components/admin/AdminBoardDetail.vue"),
       },
       {
-        path: "board/category",
+        path: "board/category/:id",
         name: "admin-board-category",
         component: () =>
           import("@/components/admin/AdminBoardCategoryList.vue"),
@@ -169,28 +169,28 @@ const routes = [
     component: () => import("@/views/CommunityView.vue"),
     children: [
       {
-        path: "/:id",
-        name: "community-board",
-        component: () =>
-          import("@/components/communities/CommunityBoardList.vue"),
-      },
-      {
-        path: "/detail/:id",
+        path: "detail/:id",
         name: "community-board-detail",
         component: () =>
           import("@/components/communities/CommunityBoardDetail.vue"),
       },
       {
-        path: "/createe",
+        path: "create",
         name: "community-board-create",
         component: () =>
           import("@/components/communities/CommunityBoardCreate.vue"),
       },
       {
-        path: "/update",
+        path: "update",
         name: "community-board-update",
         component: () =>
           import("@/components/communities/CommunityBoardUpdate.vue"),
+      },
+      {
+        path: ":id",
+        name: "community-board",
+        component: () =>
+          import("@/components/communities/CommunityBoardList.vue"),
       },
     ],
   },
@@ -202,15 +202,19 @@ const router = new VueRouter({
   routes,
 });
 
-//일단 프론트에서 막고, 나중에 다시 막기
+// 일단 프론트에서 막고, 나중에 다시 막기
 // router.beforeEach((to, from, next) => {
+//   console.log(store.state.isloggedin);
 //   if (to.name === "login" || to.name === "regist") {
 //     next();
-//   } else {
-//     next({
-//       path: "login",
-//       replace: true,
-//     });
+//   } else if (to.name.includes("admin") && !store.state.isAdmin) {
+//     alert("접근 권한이 없습니다.");
+//     next({ path: "home-view" });
+//   } else if (!store.state.isloggedin) {
+//     // next({
+//     //   path: "login",
+//     //   replace: true,
+//     // });
 //   }
 // });
 
