@@ -18,6 +18,8 @@ export default new Vuex.Store({
     user: {},
     isloggedin: false,
     loginUser: {},
+    boardCategories: [],
+    boardCategory: {},
   },
   getters: {
     user(state) {
@@ -45,6 +47,15 @@ export default new Vuex.Store({
     LOGOUT(state) {
       state.isloggedin = false;
       state.loginUser = {};
+    },
+    SET_BOARD_CATEGORIES(state, payload) {
+      state.boardCategories = payload;
+    },
+    SET_BOARD_CATEGORY(state, payload) {
+      state.boardCategory = payload;
+    },
+    BOARD_CATEGORY_CLEAR(state) {
+      state.boardCategory = {};
     },
   },
   actions: {
@@ -115,6 +126,32 @@ export default new Vuex.Store({
         .catch((err) => {
           console.log(err);
         });
+    },
+    getBoardCategoryAll({ commit }) {
+      http.get("/board/category").then(({ data }) => {
+        commit("SET_BOARD_CATEGORIES", data);
+      });
+    },
+    getBoardCategory({ commit }, payload) {
+      http
+        .get(`/board/category/${payload}`)
+        .then(({ data }) => {
+          commit("SET_BOARD_CATEGORY", data);
+        })
+        .catch(() => {
+          throw new Error("잘못된 번호입니다.");
+        });
+    },
+    boardCategoryClear({ commit }) {
+      commit("BOARD_CATEGORY_CLEAR");
+    },
+    categoryCreate({ commit }, payload) {
+      commit;
+      http.post("/board/category", payload).then(({ status }) => {
+        if (status === 201) {
+          alert("카테고리가 생성되었습니다.");
+        }
+      });
     },
   },
   modules: {},
