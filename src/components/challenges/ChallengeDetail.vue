@@ -13,24 +13,64 @@
       <div class="view">{{ challenge.description }}</div>
       <label for="limitPersonNum">모집인원</label>
       <div class="view">{{ challenge.limitPersonNum }}명</div>
+      <label for="reviewCnt">리뷰개수</label>
+      <div class="view">{{ challenge.reviewCnt }}개</div>
       <div style="padding-top: 15px">
         <router-link to="/challenge/search" class="btn">목록</router-link>
       </div>
+    </div>
+    <h2>리뷰 리스트</h2>
+    <!-- 전체 챌린지 리스트 -->
+    <div v-if="reviews.length">
+      <table>
+        <colgroup>
+          <col style="width: 5%" />
+          <col style="width: 20%" />
+          <col style="width: 20%" />
+          <col style="width: 20%" />
+          <col style="width: 25%" />
+          <col style="width: 10%" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>내용</th>
+            <th>작성일</th>
+            <th>작성자</th>
+            <th>별점</th>
+          </tr>
+        </thead>
+        <tbody>
+          <list-row-review
+            v-for="(review, index) in reviews"
+            :key="index"
+            :no="index + 1"
+            :review="review"
+          />
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import ListRowReview from "@/components/challenges/include/ListRowReview.vue";
 
 export default {
   name: "ChallengeDetail",
+  components: {
+    ListRowReview,
+  },
   computed: {
-    ...mapGetters(["challenge"]),
+    ...mapGetters(["challenge", "reviews"]),
   },
   created() {
     this.$store.dispatch("getChallenge", Number(this.$route.params.id));
-    // console.log(this.$store.state.challenge);
+    this.$store.dispatch("getReviews", Number(this.$route.params.id));
+    console.log(this.$route.params.id);
+    console.log("테스트");
   },
   methods: {},
 };
