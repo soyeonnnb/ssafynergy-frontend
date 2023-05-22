@@ -4,6 +4,7 @@ import Vuex from "vuex";
 import http from "@/util/httpCommon";
 
 import { createVuexPersistedState } from "vue-persistedstate";
+import challengeStore from "./modules/challengeStore";
 
 Vue.use(Vuex);
 
@@ -412,7 +413,9 @@ export default new Vuex.Store({
         });
     },
   },
-  modules: {},
+  modules: {
+    challengeStore: challengeStore,
+  },
   plugins: [
     createVuexPersistedState({
       whiteList: ["isloggedin", "loginUser"],
