@@ -56,16 +56,15 @@
       생년월일
       <input type="date" v-model.trim="user.birth" id="birth" required />
     </div>
-    <!-- <div>
-        프로필 사진
-        <input
-          type="file"
-          id="file"
-          ref="file"
-          required
-          accept=".png, .jpg, .jpeg"
-        />
-      </div> -->
+    <div>
+      프로필 사진
+      <input
+        type="file"
+        accept=".png, .jpg, .jpeg"
+        @change="setProfileImg"
+        id="profile-img-edit"
+      />
+    </div>
     <div>
       코멘트
       <input type="text" v-model.trim="user.comment" id="comment" required />
@@ -79,6 +78,7 @@
 <script>
 import { mapState } from "vuex";
 import homeNav from "@/components/common/homeNav.vue";
+import axios from "axios";
 export default {
   components: {
     homeNav,
@@ -107,11 +107,29 @@ export default {
         this.passwordCheckInfo = "비밀번호가 일치하지 않습니다.";
       }
     },
+    setProfileImg() {
+      const frm = new FormData();
+      const photoFile = document.querySelector("#profile-img-edit");
+      frm.append("profile-img-edit", photoFile.files[0]);
+      axios
+        .post("http://localhost:9999/api/v1/user/addProfileImg", frm, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then(({ data }) => {
+          this.user.img = data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     async regist() {
       if (this.password !== this.passwordCheck) {
         alert("비밀번호가 일치하지 않습니다.");
         return;
       }
+
       await this.$store
         .dispatch("userRegist", {
           id: this.user.id,
@@ -122,6 +140,7 @@ export default {
           gender: this.user.gender,
           birth: this.user.birth,
           comment: this.user.comment,
+          img: this.user.img,
         })
         .then(() => {
           this.$router.push({ name: "login" });
