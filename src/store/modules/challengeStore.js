@@ -37,7 +37,7 @@ const challengeStore = {
         });
     },
     getChallenge(context, payload) {
-      http.get(payload).then(({ data }) => {
+      http.get(`/challenge/${payload}`).then(({ data }) => {
         context.commit("setChallenge", data);
       });
     },

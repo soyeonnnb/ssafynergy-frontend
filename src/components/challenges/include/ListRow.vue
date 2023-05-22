@@ -1,11 +1,11 @@
 <template>
-  <tr>
+  <tr @click="goDetail">
     <td>{{ no }}</td>
-    <td>{{ name }}</td>
-    <td>{{ startAt }}</td>
-    <td>{{ finishAt }}</td>
-    <td>{{ description }}</td>
-    <td>{{ limitPersonNum }}km</td>
+    <td>{{ challenge.name }}</td>
+    <td>{{ challenge.startAt }}</td>
+    <td>{{ challenge.finishAt }}</td>
+    <td>{{ challenge.description }}</td>
+    <td>{{ challenge.limitPersonNum }}명</td>
   </tr>
 </template>
 
@@ -13,14 +13,16 @@
 export default {
   name: "ListRow",
   props: {
-    // 상위 component로 부터 넘어온 자동차정보
-    //   no: String,
-    //   name: String,
-    //   startAt: String,
-    //   finishAt: String,
-    //   description: String,
-    //   limitPersonNum: String,
+    challenge: Object,
+    no: Number,
   },
-  methods: {},
+  methods: {
+    goDetail() {
+      this.$router.push({
+        name: "challege-detail-view",
+        params: { id: this.challenge.id },
+      });
+    },
+  },
 };
 </script>

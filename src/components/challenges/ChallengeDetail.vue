@@ -29,8 +29,8 @@ export default {
     ...mapGetters(["challenge"]),
   },
   created() {
-    // this.$store.dispatch("getChallenge", `/${this.$route.query.no}`);
-    console.log(this.$store.state.challenge);
+    this.$store.dispatch("getChallenge", Number(this.$route.params.id));
+    // console.log(this.$store.state.challenge);
   },
   methods: {},
 };
