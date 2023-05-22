@@ -31,6 +31,12 @@
           <th>한줄 코멘트</th>
           <td>{{ loginUser.comment }}</td>
         </tr>
+        <tr>
+          <th>프로필 사진</th>
+          <td>
+            <img :src="`http://localhost:9999/upload/user/${loginUser.img}`" />
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>

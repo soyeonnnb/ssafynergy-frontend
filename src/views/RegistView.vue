@@ -112,7 +112,7 @@ export default {
       const photoFile = document.querySelector("#profile-img-edit");
       frm.append("profile-img-edit", photoFile.files[0]);
       axios
-        .post("http://localhost:9999/api/v1/user/addProfileImg", frm, {
+        .post("http://localhost:9999/api/v1/user/profileImg", frm, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
