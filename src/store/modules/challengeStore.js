@@ -45,7 +45,7 @@ const challengeStore = {
           },
         })
         .then(({ data }) => {
-          console.log(data);
+          // console.log(data);
           context.commit("setChallenges", data);
         })
         .catch(() => {
@@ -98,6 +98,19 @@ const challengeStore = {
           alert("에러발생!");
         });
     },
+    // participateChallenge({ commit }, payload) {
+    //   http
+    //     .post("/challenge-participate", payload, {
+    //       headers: {
+    //         "access-token": sessionStorage.getItem("access-token"),
+    //         "Content-type": "application/json",
+    //       },
+    //     })
+    //     .then((res) => {})
+    //     .catch(() => {
+    //       alert("참여 신청에 실패하였습니다.");
+    //     });
+    // },
   },
 };
 

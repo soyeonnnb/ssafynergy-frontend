@@ -15,6 +15,7 @@
       <div class="view">{{ challenge.limitPersonNum }}명</div>
       <label for="reviewCnt">리뷰개수</label>
       <div class="view">{{ challenge.reviewCnt }}개</div>
+      <button @click="participateChallenge">신청하기</button>
       <div style="padding-top: 15px">
         <router-link to="/challenge/search" class="btn">목록</router-link>
       </div>
@@ -69,10 +70,16 @@ export default {
   created() {
     this.$store.dispatch("getChallenge", Number(this.$route.params.id));
     this.$store.dispatch("getReviews", Number(this.$route.params.id));
-    console.log(this.$route.params.id);
-    console.log("테스트");
+    // console.log(this.$route.params.id);
+    // console.log("테스트");
   },
-  methods: {},
+  methods: {
+    participateChallenge() {
+      this.$store.dispatch("participateChallenge", {
+        challengeId: this.challenge.id,
+      });
+    },
+  },
 };
 </script>
 
