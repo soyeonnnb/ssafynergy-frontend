@@ -40,10 +40,11 @@
       <table>
         <colgroup>
           <col style="width: 5%" />
-          <col style="width: 20%" />
+          <col style="width: 10%" />
           <col style="width: 20%" />
           <col style="width: 20%" />
           <col style="width: 25%" />
+          <col style="width: 10%" />
           <col style="width: 10%" />
         </colgroup>
         <thead>
@@ -54,6 +55,7 @@
             <th>종료일</th>
             <th>설명</th>
             <th>모집인원</th>
+            <th>하트</th>
           </tr>
         </thead>
         <tbody>
@@ -66,6 +68,8 @@
         </tbody>
       </table>
     </div>
+    <!-- 챌린지 검색으로 넘어가는 버튼 -->
+    <button @click="movePage">챌린지 검색</button>
   </div>
 </template>
 <script>
@@ -88,6 +92,11 @@ export default {
       orderBy: "likeCnt",
       orderByDir: "desc",
     });
+  },
+  methods: {
+    movePage() {
+      this.$router.push({ name: "challenge-search" });
+    },
   },
 };
 </script>
