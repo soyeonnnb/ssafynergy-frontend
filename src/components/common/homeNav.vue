@@ -13,7 +13,7 @@
       >
       | <span>서비스 소개</span> |
       <router-link :to="{ name: 'video-view' }">영상</router-link> |
-      <router-link :to="{ name: 'community-board', params: { id: 0 } }"
+      <router-link :to="{ name: 'community-board', params: { id: 1 } }"
         >커뮤니티</router-link
       >
       |
