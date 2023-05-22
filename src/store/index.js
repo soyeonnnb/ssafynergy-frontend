@@ -338,7 +338,6 @@ export default new Vuex.Store({
     },
     async boardPostCreate({ state, commit }, payload) {
       payload.data.userId = state.loginUser.id;
-      // console.log(payload.data);
       await http
         .post("/board/post", payload.data, {
           headers: {
@@ -438,7 +437,6 @@ export default new Vuex.Store({
           },
         })
         .then(() => {
-          console.log("like !!!!!!");
           commit("SET_POST_LIKE", true);
         });
     },
@@ -451,7 +449,6 @@ export default new Vuex.Store({
           },
         })
         .then(() => {
-          console.log("dont like !!!!!!");
           commit("SET_POST_LIKE", false);
         });
     },
