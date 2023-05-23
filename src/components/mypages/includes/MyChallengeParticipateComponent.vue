@@ -18,7 +18,10 @@ export default {
       if (this.loginUser.id !== this.user.id) return;
       this.$router.push({
         name: "mypage-challenge-main",
-        params: { id: this.challenge.challengeParticipateId },
+        params: {
+          id: this.challenge.challengeParticipateId,
+          challengeId: this.challenge.challengeId,
+        },
       });
     },
   },
