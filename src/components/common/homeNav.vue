@@ -1,20 +1,18 @@
 <template>
-  <div>
-    <div v-if="isloggedin">
-      <router-link :to="{ name: 'home-view' }">메인화면</router-link> |
-      <div @click="goMyHome">마이페이지</div>
-      | <span>서비스 소개</span> |
-      <router-link :to="{ name: 'video-view' }">영상</router-link> |
+  <div class="home-nav">
+    <div>
+      <router-link :to="{ name: 'home-view' }">메인화면</router-link>
+      <span>서비스 소개</span>
+      <router-link :to="{ name: 'video-view' }">영상</router-link>
       <div @click="goCommunity">커뮤니티</div>
-      |
-      <router-link :to="{ name: 'admin-main' }">관리자 모드로 가기</router-link>
-      |
-      <button @click="logout">로그아웃</button>
     </div>
-    <!-- <div v-if="!isloggedin">
-      <router-link :to="{ name: 'regist' }">회원가입</router-link> |
-      <router-link :to="{ name: 'login' }">로그인</router-link> |
-    </div> -->
+    <div>
+      <router-link :to="{ name: 'admin-main' }" v-if="isAdmin"
+        >관리자 모드로 가기</router-link
+      >
+      <div @click="goMyHome">마이페이지</div>
+      <span @click="logout">로그아웃</span>
+    </div>
   </div>
 </template>
 
@@ -22,7 +20,7 @@
 import { mapState } from "vuex";
 export default {
   computed: {
-    ...mapState(["isloggedin", "loginUser", "user"]),
+    ...mapState(["isloggedin", "loginUser", "user", "isAdmin"]),
   },
   methods: {
     logout() {
@@ -47,4 +45,24 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.home-nav {
+  background-color: antiquewhite;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 200px;
+  height: 70px;
+}
+.home-nav > div {
+  display: flex;
+  width: 500px;
+  background-color: aqua;
+  white-space: nowrap;
+  align-content: center;
+  height: 70px;
+  line-height: 70px;
+}
+.home-nav :nth-child(2) {
+  justify-content: end;
+}
+</style>
