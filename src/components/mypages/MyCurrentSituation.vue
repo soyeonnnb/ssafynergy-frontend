@@ -1,5 +1,6 @@
-<!-- 현재 참여 현황 -->
-<template><div></div></template>
+<template>
+  <div>달력페이지</div>
+</template>
 
 <script>
 export default {};

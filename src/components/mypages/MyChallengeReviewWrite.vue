@@ -1,5 +1,6 @@
-<!-- 참여 챌린지 후기 작성 -->
-<template><div></div></template>
+<template>
+  <div>챌린지 리뷰 작성</div>
+</template>
 
 <script>
 export default {};

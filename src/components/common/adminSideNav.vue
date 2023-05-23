@@ -9,24 +9,13 @@
         <router-link :to="{ name: 'admin-challenge-create' }"
           >챌린지 생성</router-link
         >
-        <router-link :to="{ name: 'admin-challenge-update' }"
-          >챌린지 수정</router-link
-        >
-        <router-link :to="{ name: 'admin-challenge-difficulty' }"
-          >난이도 관리</router-link
-        >
       </div>
     </div>
+    <h3>게시글 관리</h3>
     <div>
-      <h3>게시글 관리</h3>
-      <div>
-        <router-link :to="{ name: '' }">공지사항</router-link>
-        <router-link :to="{ name: '' }">문의 답하기</router-link>
-        <router-link :to="{ name: '' }">FAQ</router-link>
-        <router-link :to="{ name: 'admin-board-category' }"
-          >카테고리 관리</router-link
-        >
-      </div>
+      <router-link :to="{ name: 'admin-board-category' }"
+        >카테고리 관리</router-link
+      >
     </div>
   </div>
 </template>

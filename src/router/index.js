@@ -65,11 +65,6 @@ const routes = [
         component: () => import("@/components/mypages/MyCurrentSituation.vue"),
       },
       {
-        path: "participate",
-        name: "mypage-current-challenge",
-        component: () => import("@/components/mypages/MyCurrentChallenge.vue"),
-      },
-      {
         path: "challenge/review",
         name: "mypage-review-write",
         component: () =>
@@ -84,16 +79,6 @@ const routes = [
         path: "challenge/:id/post", // 오늘의 챌린지 현황 등록
         name: "mypage-challenge-post",
         component: () => import("@/components/mypages/MyChallengePost.vue"),
-      },
-      {
-        path: "challenge/:id/:index",
-        name: "mypage-challenge-detail",
-        component: () => import("@/components/mypages/MyChallengeDetail.vue"),
-      },
-      {
-        path: "board",
-        name: "mypage-board",
-        component: () => import("@/components/mypages/MyBoard.vue"),
       },
       {
         path: "info",
@@ -133,26 +118,11 @@ const routes = [
         component: () => import("@/components/admin/AdminChallengeCreate.vue"),
       },
       {
-        path: "challenge/update/:id",
+        path: "challenge/update",
         name: "admin-challenge-update",
         component: () => import("@/components/admin/AdminChallengeUpdate.vue"),
       },
-      {
-        path: "challenge/difficulty",
-        name: "admin-challenge-difficulty",
-        component: () =>
-          import("@/components/admin/AdminChallengeDifficulty.vue"),
-      },
-      {
-        path: "board",
-        name: "admin-board-list",
-        component: () => import("@/components/admin/AdminBoardList.vue"),
-      },
-      {
-        path: "board/:id",
-        name: "admin-board-detail",
-        component: () => import("@/components/admin/AdminBoardDetail.vue"),
-      },
+
       {
         path: "board/category/:id",
         name: "admin-board-category",
@@ -164,12 +134,6 @@ const routes = [
         name: "admin-board-category-create",
         component: () =>
           import("@/components/admin/AdminBoardCategoryCreate.vue"),
-      },
-      {
-        path: "board/category/update",
-        name: "admin-board-category-update",
-        component: () =>
-          import("@/components/admin/AdminBoardCategoryUpdate.vue"),
       },
     ],
   },
@@ -190,12 +154,7 @@ const routes = [
         component: () =>
           import("@/components/communities/CommunityBoardCreate.vue"),
       },
-      {
-        path: "update",
-        name: "community-board-update",
-        component: () =>
-          import("@/components/communities/CommunityBoardUpdate.vue"),
-      },
+
       {
         path: ":id",
         name: "community-board",
