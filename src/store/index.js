@@ -30,6 +30,7 @@ export default new Vuex.Store({
     isParticipate: false,
     challengeIngs: [],
     challengeIng: {},
+    challengeParticipateId: 0,
   },
   getters: {
     user(state) {
@@ -637,6 +638,7 @@ export default new Vuex.Store({
         });
     },
     async getIsPartcipate({ commit }, payload) {
+      console.log("dd");
       await http
         .get(`/challenge-participate/challenge/${payload}`, {
           headers: {
@@ -684,7 +686,9 @@ export default new Vuex.Store({
           commit("SET_IS_PARTICIPATE", false);
         })
         .catch(() => {
-          alert("참여 신청 취소에 실패하였습니다.");
+          alert(
+            "참여 신청 취소에 실패하였습니다. \n이미 현황을 작성한 챌린지는 취소가 불가합니다."
+          );
         });
     },
     getParticipatedChallengeList({ commit }, payload) {
@@ -706,6 +710,19 @@ export default new Vuex.Store({
     },
     clearChallengeIng({ commit }) {
       commit("CLEAR_CHALLENGE_ING");
+    },
+    async postChallengeIng({ dispatch }, payload) {
+      // console.log(payload);
+      await http
+        .post("/challenge-participate/ing", payload, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(() => {
+          dispatch("getChallengeIngs", payload.challengeParticipateId);
+        });
     },
   },
   plugins: [

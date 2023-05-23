@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-// import store from "@/store/index.js";
+import store from "@/store/index.js";
 
 import MainView from "../views/MainView.vue";
 
@@ -212,20 +212,27 @@ const router = new VueRouter({
   routes,
 });
 
-// 일단 프론트에서 막고, 나중에 다시 막기
-// router.beforeEach((to, from, next) => {
-//   console.log(store.state.isloggedin);
-//   if (to.name === "login" || to.name === "regist") {
-//     next();
-//   } else if (to.name.includes("admin") && !store.state.isAdmin) {
-//     alert("접근 권한이 없습니다.");
-//     next({ path: "home-view" });
-//   } else if (!store.state.isloggedin) {
-//     // next({
-//     //   path: "login",
-//     //   replace: true,
-//     // });
+// if (!this.isloggedin) {
+//   if (this.$route.name !== "login" && this.$route.name !== "regist") {
+//     this.$router.push({ name: "login" });
 //   }
-// });
+// }
+
+// 일단 프론트에서 막고, 나중에 다시 막기
+router.beforeEach((to, from, next) => {
+  // console.log(store.state.isloggedin);
+  if (to.name === "login" || to.name === "regist") {
+    next();
+  } else if (!store.state.isloggedin) {
+    next({
+      path: "login",
+      replace: true,
+    });
+  } else if (to.name === from.name) {
+    return;
+  } else {
+    next();
+  }
+});
 
 export default router;
