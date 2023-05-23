@@ -607,7 +607,7 @@ export default new Vuex.Store({
           },
         })
         .then(({ data }) => {
-          context.commit("setSearchChallenges", data); // challengesSort에 정렬된 배열 할당
+          context.commit("setChallengesSort", data); // challengesSort에 정렬된 배열 할당
         });
     },
     challengeClear({ commit }) {
