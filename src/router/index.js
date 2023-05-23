@@ -65,7 +65,7 @@ const routes = [
         component: () => import("@/components/mypages/MyCurrentSituation.vue"),
       },
       {
-        path: "challenge/review",
+        path: "challenge/:id",
         name: "mypage-review-write",
         component: () =>
           import("@/components/mypages/MyChallengeReviewWrite.vue"),

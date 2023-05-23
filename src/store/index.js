@@ -27,6 +27,7 @@ export default new Vuex.Store({
     challenge: {},
     challengesSort: [], // challengesSort 배열 추가
     reviews: [],
+    review: {},
     searchChallenges: [],
     isParticipate: false,
     challengeIngs: [],
@@ -54,6 +55,9 @@ export default new Vuex.Store({
     },
     reviews(state) {
       return state.reviews;
+    },
+    review(state) {
+      return state.review;
     },
     searchChallenges(state) {
       return state.searchChallenges;
@@ -152,6 +156,9 @@ export default new Vuex.Store({
     },
     setReviews(state, payload) {
       state.reviews = payload;
+    },
+    setReview(state, payload) {
+      state.review = payload;
     },
     setSearchChallenges(state, payload) {
       state.searchChallenges = payload;
@@ -625,6 +632,21 @@ export default new Vuex.Store({
         .catch((error) => {
           console.error(error);
           alert("에러발생!");
+        });
+    },
+    getReview(context, { challengeId, userId }) {
+      http
+        .get(`/channel/challenge/${challengeId}`, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+          params: {
+            userId: userId,
+          },
+        })
+        .then(({ data }) => {
+          context.commit("setReview", data);
         });
     },
     getSearchChallenges(context, payload) {
