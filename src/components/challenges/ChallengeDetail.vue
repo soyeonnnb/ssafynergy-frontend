@@ -15,6 +15,7 @@
       <div class="view">{{ challenge.limitPersonNum }}명</div>
       <label for="reviewCnt">리뷰개수</label>
       <div class="view">{{ challenge.reviewCnt }}개</div>
+      <challenge-like-btn></challenge-like-btn>
       <challenge-participate-btn></challenge-participate-btn>
       <div style="padding-top: 15px">
         <router-link to="/challenge/search" class="btn">목록</router-link>
@@ -59,12 +60,14 @@
 import { mapGetters } from "vuex";
 import ListRowReview from "@/components/challenges/include/ListRowReview.vue";
 import ChallengeParticipateBtn from "./include/ChallengeParticipateBtn.vue";
+import ChallengeLikeBtn from "./include/ChallengeLikeBtn.vue";
 
 export default {
   name: "ChallengeDetail",
   components: {
     ListRowReview,
     ChallengeParticipateBtn,
+    ChallengeLikeBtn,
   },
   computed: {
     ...mapGetters(["challenge", "reviews"]),

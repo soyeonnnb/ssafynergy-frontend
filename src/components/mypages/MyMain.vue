@@ -2,31 +2,42 @@
 <template>
   <div>
     <h2>마이페이지 메인</h2>
+    <my-challenge-list
+      title="참여 챌린지 목록"
+      :challenges="challenges"
+      type="participate"
+    ></my-challenge-list>
+    <my-challenge-list
+      title="찜한 챌린지 목록"
+      :challenges="challengeLikeList"
+      type="like"
+    >
+    </my-challenge-list>
     <follow-list></follow-list>
-    <my-challenge-participate-list></my-challenge-participate-list>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import FollowList from "./includes/FollowList.vue";
-import MyChallengeParticipateList from "./includes/MyChallengeParticipateList.vue";
+import MyChallengeList from "./includes/MyChallengeList.vue";
 export default {
   components: {
     FollowList,
-    MyChallengeParticipateList,
+    MyChallengeList,
   },
   computed: {
     ...mapGetters(["user"]),
+    ...mapState(["challenges", "challengeLikeList"]),
   },
   created() {
-    const channelId = this.user.id;
-    // console.log(this.user);
-    this.$store.dispatch("getUserInfo", channelId);
-    this.$store.dispatch("getIsFollow", channelId);
-    this.$store.dispatch("getFollowingList", channelId);
-    this.$store.dispatch("getFollowerList", channelId);
-    this.$store.dispatch("getParticipatedChallengeList", channelId);
+    const userId = this.user.id;
+    this.$store.dispatch("getUserInfo", userId);
+    this.$store.dispatch("getIsFollow", userId);
+    this.$store.dispatch("getFollowingList", userId);
+    this.$store.dispatch("getFollowerList", userId);
+    this.$store.dispatch("getParticipatedChallengeList", userId);
+    this.$store.dispatch("getLikeChallengeList", userId);
   },
 };
 </script>

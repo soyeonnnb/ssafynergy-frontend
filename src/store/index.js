@@ -32,6 +32,8 @@ export default new Vuex.Store({
     challengeIngs: [],
     challengeIng: {},
     challengeParticipateId: 0,
+    isLikeChallenge: false,
+    challengeLikeList: [],
   },
   getters: {
     user(state) {
@@ -167,6 +169,12 @@ export default new Vuex.Store({
     },
     CLEAR_CHALLENGE_ING(state) {
       state.challengeIng = {};
+    },
+    SET_IS_LIKE_CHALLENGE(state, payload) {
+      state.isLikeChallenge = payload;
+    },
+    SET_CHALLENGE_LIKE_LIST(state, payload) {
+      state.challengeLikeList = payload;
     },
   },
   actions: {
@@ -755,6 +763,63 @@ export default new Vuex.Store({
         .then(() => {
           dispatch("getChallengeIngs", payload.challengeParticipateId);
         });
+    },
+    async getIsLikeChallenge({ commit }, payload) {
+      await http
+        .get(`/challenge/like/${payload}`, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(({ status }) => {
+          if (status == 200) {
+            commit("SET_IS_LIKE_CHALLENGE", true);
+          } else {
+            commit("SET_IS_LIKE_CHALLENGE", false);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          alert("에러발생!");
+        });
+    },
+    likeChallenge({ commit }, payload) {
+      http
+        .post("/challenge/like", payload, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(() => {
+          commit("SET_IS_LIKE_CHALLENGE", true);
+        });
+    },
+    cancelLikeChallenge({ commit }, payload) {
+      http
+        .delete(`/challenge/like/${payload}`, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(() => {
+          commit("SET_IS_LIKE_CHALLENGE", false);
+        });
+    },
+    getLikeChallengeList({ commit }, payload) {
+      http
+        .get(`/challenge/like/user/${payload}`, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(({ data }) => {
+          commit("SET_CHALLENGE_LIKE_LIST", data);
+        })
+        .catch((err) => console.log(err));
     },
   },
   plugins: [

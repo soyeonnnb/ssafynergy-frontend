@@ -3,7 +3,7 @@
     <button v-if="!isParticipate" @click="participateChallenge">
       신청하기
     </button>
-    <button v-if="isParticipate" @click="cancelChallenge">신청 취소하기</button>
+    <button v-else @click="cancelChallenge">신청 취소하기</button>
   </div>
 </template>
 
