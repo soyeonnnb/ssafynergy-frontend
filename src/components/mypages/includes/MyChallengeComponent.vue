@@ -18,6 +18,7 @@ export default {
     goChallengeDetail() {
       if (this.type == "participate") {
         if (this.loginUser.id !== this.user.id) return;
+        this.$store.dispatch("getChallenge", Number(this.challenge.id));
         this.$router.push({
           name: "mypage-challenge-main",
           params: { id: this.challenge.challengeParticipateId },

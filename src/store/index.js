@@ -32,6 +32,7 @@ export default new Vuex.Store({
     challengeIngs: [],
     challengeIng: {},
     challengeParticipateId: 0,
+    participateChallengeList: [],
     isLikeChallenge: false,
     challengeLikeList: [],
   },
@@ -175,6 +176,9 @@ export default new Vuex.Store({
     },
     SET_CHALLENGE_LIKE_LIST(state, payload) {
       state.challengeLikeList = payload;
+    },
+    SET_PARTICIPATE_CHALLENGE_LIST(state, payload) {
+      state.participateChallengeList = payload;
     },
   },
   actions: {
@@ -731,7 +735,7 @@ export default new Vuex.Store({
         })
         .then(({ data }) => {
           // console.log(data);
-          commit("setChallenges", data);
+          commit("SET_PARTICIPATE_CHALLENGE_LIST", data);
         })
         .catch((err) => console.log(err));
     },

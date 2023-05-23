@@ -4,7 +4,7 @@
     <h2>마이페이지 메인</h2>
     <my-challenge-list
       title="참여 챌린지 목록"
-      :challenges="challenges"
+      :challenges="participateChallengeList"
       type="participate"
     ></my-challenge-list>
     <my-challenge-list
@@ -28,7 +28,7 @@ export default {
   },
   computed: {
     ...mapGetters(["user"]),
-    ...mapState(["challenges", "challengeLikeList"]),
+    ...mapState(["participateChallengeList", "challengeLikeList"]),
   },
   created() {
     const userId = this.user.id;

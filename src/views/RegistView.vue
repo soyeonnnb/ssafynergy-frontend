@@ -129,7 +129,6 @@ export default {
         alert("비밀번호가 일치하지 않습니다.");
         return;
       }
-
       await this.$store
         .dispatch("userRegist", {
           id: this.user.id,

@@ -1,9 +1,69 @@
 <template>
-  <div>달력페이지</div>
+  <div style="width: 1000px">
+    <FullCalendar :options="calendarOptions" />
+  </div>
 </template>
-
 <script>
-export default {};
+import FullCalendar from "@fullcalendar/vue";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import { mapState } from "vuex";
+export default {
+  components: {
+    FullCalendar, // make the <FullCalendar> tag available
+  },
+  data() {
+    return {
+      calendarOptions: {
+        plugins: [dayGridPlugin, interactionPlugin],
+        initialView: "dayGridMonth",
+        dateClick: this.handleDateClick,
+        events: [], // title, start, end
+      },
+    };
+  },
+  computed: {
+    ...mapState(["participateChallengeList", "user"]),
+  },
+  created() {
+    this.$store.dispatch("getParticipatedChallengeList", this.user.id);
+  },
+  watch: {
+    participateChallengeList() {
+      let list = [];
+      this.participateChallengeList.forEach((challenge) => {
+        let chall = {};
+        chall.title = challenge.name;
+        chall.start = challenge.startAt.substring(0, 10);
+        chall.end = this.getNextDate(challenge.finishAt.substring(0, 10));
+        list.push(chall);
+      });
+      console.log(list[0]);
+      this.calendarOptions.events = list;
+    },
+  },
+  methods: {
+    handleDateClick: function (arg) {
+      alert("date click! " + arg.dateStr);
+    },
+    getNextDate(str) {
+      const arr = str.split("-");
+      // console.log("Dd", arr);
+      let date = new Date(Number(arr[0]), Number(arr[1]) - 1, Number(arr[2]));
+      // console.log(date);
+      let tomorrow = new Date(date.setDate(date.getDate() + 1));
+      console.log(tomorrow);
+      let result = tomorrow.getFullYear() + "-";
+      if (tomorrow.getMonth() + 1 < 10) {
+        result += "0";
+      }
+      result += tomorrow.getMonth() + 1 + "-";
+      if (tomorrow.getDate() < 10) {
+        result += "0";
+      }
+      result += tomorrow.getDate();
+      return result;
+    },
+  },
+};
 </script>
-
-<style></style>
