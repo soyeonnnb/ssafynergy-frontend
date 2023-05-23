@@ -19,7 +19,7 @@ export default {
   methods: {
     goDetail() {
       this.$router.push({
-        name: "challenge-detail-view",
+        name: "admin-challenge-detail",
         params: { id: this.challenge.id },
       });
     },

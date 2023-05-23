@@ -1,8 +1,23 @@
 <!-- admin challenge 생성 -->
-<template><div></div></template>
+<template>
+  <div class="regist">
+    <h1>챌린지 등록</h1>
+    <write-form type="create"></write-form>
+  </div>
+</template>
 
 <script>
-export default {};
+import WriteForm from "./includes/challenge/WriteForm.vue";
+
+export default {
+  name: "AdminChallengeCreate",
+  props: {
+    type: String,
+  },
+  components: {
+    WriteForm,
+  },
+};
 </script>
 
 <style></style>

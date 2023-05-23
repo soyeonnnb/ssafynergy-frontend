@@ -27,6 +27,7 @@ export default new Vuex.Store({
     challenge: {},
     challengesSort: [], // challengesSort 배열 추가
     reviews: [],
+    searchChallenges: [],
     isParticipate: false,
     challengeIngs: [],
     challengeIng: {},
@@ -49,6 +50,9 @@ export default new Vuex.Store({
     },
     reviews(state) {
       return state.reviews;
+    },
+    searchChallenges(state) {
+      return state.searchChallenges;
     },
     isParticipate(state) {
       return state.isParticipate;
@@ -140,6 +144,9 @@ export default new Vuex.Store({
     },
     setReviews(state, payload) {
       state.reviews = payload;
+    },
+    CLEAR_CHALLENGE(state) {
+      state.challenge = {};
     },
     SET_IS_PARTICIPATE(state, payload) {
       state.isParticipate = payload;
@@ -580,6 +587,45 @@ export default new Vuex.Store({
         .catch((error) => {
           console.error(error);
           alert("에러발생!");
+        });
+    },
+    getSearchChallenges(context, payload) {
+      // let url = "/challenge/search?";
+      // if (payload.difficulty !== null) {
+      //   url += `difficulty=${payload.difficulty}&`;
+      // }
+      // if (payload.possibility !== null) {
+      //   url += `possibility=${payload.possibility}&`;
+      // }
+      // URL 마지막에 있는 & 문자 제거
+      // url = url.slice(0, -1);
+      http
+        .get(`/challenge/search?difficulty=${payload}`, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(({ data }) => {
+          context.commit("setSearchChallenges", data); // challengesSort에 정렬된 배열 할당
+        });
+    },
+    challengeClear({ commit }) {
+      commit("CHALLENGE_CLEAR");
+    },
+    challengeCreate({ commit }, payload) {
+      commit;
+      http
+        .post("/challenge", payload, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(({ status }) => {
+          if (status === 201) {
+            alert("챌린지가 생성되었습니다.");
+          }
         });
     },
     async getIsPartcipate({ commit }, payload) {

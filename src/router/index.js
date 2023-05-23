@@ -19,13 +19,18 @@ const routes = [
       },
       {
         path: "challenge/search",
-        name: "challege-search-view",
+        name: "challenge-search-view",
         component: () => import("@/components/challenges/ChallengeList.vue"),
       },
       {
         path: "challenge/:id",
-        name: "challege-detail-view",
+        name: "challenge-detail-view",
         component: () => import("@/components/challenges/ChallengeDetail.vue"),
+      },
+      {
+        path: "challenge/search",
+        name: "challenge-search", // 수정된 라우트 이름
+        component: () => import("@/components/challenges/ChallengeSearch.vue"),
       },
       {
         path: "video",
@@ -118,7 +123,7 @@ const routes = [
         component: () => import("@/components/admin/AdminChallengeList.vue"),
       },
       {
-        path: "challenge/detail",
+        path: "challenge/:id",
         name: "admin-challenge-detail",
         component: () => import("@/components/admin/AdminChallengeDetail.vue"),
       },
