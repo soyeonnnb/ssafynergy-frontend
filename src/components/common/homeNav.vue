@@ -5,9 +5,7 @@
       <div @click="goMyHome">마이페이지</div>
       | <span>서비스 소개</span> |
       <router-link :to="{ name: 'video-view' }">영상</router-link> |
-      <router-link :to="{ name: 'community-board', params: { id: 1 } }"
-        >커뮤니티</router-link
-      >
+      <div @click="goCommunity">커뮤니티</div>
       |
       <router-link :to="{ name: 'admin-main' }">관리자 모드로 가기</router-link>
       |
@@ -24,16 +22,26 @@
 import { mapState } from "vuex";
 export default {
   computed: {
-    ...mapState(["isloggedin", "loginUser"]),
+    ...mapState(["isloggedin", "loginUser", "user"]),
   },
   methods: {
     logout() {
       this.$store.dispatch("logout");
       this.$router.push({ name: "login" });
     },
-    goMyHome() {
-      this.$store.commit("SET_USER_DATA", this.loginUser);
+    async goMyHome() {
+      await this.$store.commit("SET_USER_DATA", this.loginUser);
+      if (this.loginUser.id == this.user.id) {
+        if (this.$route.name == "mypage-main") return;
+      }
       this.$router.push({ name: "mypage-main" });
+    },
+    goCommunity() {
+      this.$store.commit("SET_BOARD_CATEGORY_ID", 0);
+      // console.log(this.$route.name);
+      if (this.$router.name !== "community-board") {
+        this.$router.push({ name: "community-board" });
+      }
     },
   },
 };

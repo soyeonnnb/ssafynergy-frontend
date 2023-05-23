@@ -14,14 +14,9 @@
       >참여 현황(달력)</router-link
     >
 
-    <router-link :to="{ name: 'mypage-info', params: { channelId: user.id } }"
-      >내 정보 보기</router-link
-    >
+    <router-link :to="{ name: 'mypage-info' }">내 정보 보기</router-link>
     |
-    <router-link
-      :to="{ name: 'mypage-info-update', params: { channelId: user.id } }"
-      >내 정보 수정</router-link
-    >
+    <router-link :to="{ name: 'mypage-info-update' }">내 정보 수정</router-link>
     |
   </div>
 </template>

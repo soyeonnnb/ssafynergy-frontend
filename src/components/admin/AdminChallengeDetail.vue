@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     movePageModify() {
-      console.log("ID:", this.$route.params.id);
+      // console.log("ID:", this.$route.params.id);
       this.$router.push({
         name: "admin-challenge-update",
         params: { id: this.$route.params.id },

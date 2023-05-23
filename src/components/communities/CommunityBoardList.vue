@@ -60,7 +60,7 @@ import { mapState } from "vuex";
 import CommunityBoardListRow from "./includes/CommunityBoardListRow.vue";
 export default {
   computed: {
-    ...mapState(["posts", "boardCategory"]),
+    ...mapState(["posts", "boardCategory", "boardCategoryId"]),
   },
   components: {
     CommunityBoardListRow,
@@ -89,7 +89,7 @@ export default {
   methods: {
     init() {
       this.$store.dispatch("postsClear");
-      const categoryId = Number(this.$route.params.id);
+      const categoryId = Number(this.boardCategoryId);
       let obj = {
         hasBoardCategoryId: true,
         boardCategoryId: categoryId,
@@ -98,7 +98,7 @@ export default {
     },
     search() {
       this.$store.dispatch("postsClear");
-      const categoryId = Number(this.$route.params.id);
+      const categoryId = Number(this.boardCategoryId);
       let obj = {
         hasBoardCategoryId: true,
         boardCategoryId: categoryId,
@@ -126,7 +126,7 @@ export default {
     },
   },
   watch: {
-    $route() {
+    boardCategoryId() {
       this.init();
     },
   },

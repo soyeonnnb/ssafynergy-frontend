@@ -17,6 +17,7 @@ export default new Vuex.Store({
     isFollow: false,
     boardCategories: [],
     boardCategory: {},
+    boardCategoryId: 1,
     posts: [],
     post: {},
     postComments: [],
@@ -62,6 +63,7 @@ export default new Vuex.Store({
     USER_LOGIN(state, payload) {
       // state.loginUser = sessionStorage.getItem("access-token");
       state.loginUser = payload;
+      state.user = payload;
       state.isloggedin = true;
       if (payload.type === "A") state.isAdmin = true;
     },
@@ -96,6 +98,9 @@ export default new Vuex.Store({
     },
     BOARD_CATEGORY_CLEAR(state) {
       state.boardCategory = {};
+    },
+    SET_BOARD_CATEGORY_ID(state, payload) {
+      state.boardCategoryId = payload;
     },
     SET_POSTS(state, payload) {
       state.posts = payload;
@@ -199,8 +204,8 @@ export default new Vuex.Store({
         });
     },
     kakaoLogin() {},
-    getUserInfo({ commit }, payload) {
-      http
+    async getUserInfo({ commit }, payload) {
+      await http
         .get(`/user/${payload}`, {
           headers: {
             "access-token": sessionStorage.getItem("access-token"),
@@ -229,16 +234,30 @@ export default new Vuex.Store({
         });
     },
     getFollowingList({ commit }, payload) {
-      http.get(`/follow/following/${payload}`).then(({ data }) => {
-        commit("SET_FOLLOWING_LIST", data);
-      });
+      http
+        .get(`/follow/following/${payload}`, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(({ data }) => {
+          commit("SET_FOLLOWING_LIST", data);
+        });
     },
     getFollowerList({ commit }, payload) {
-      http.get(`/follow/${payload}`).then(({ data }) => {
-        commit("SET_FOLLOWER_LIST", data);
-      });
+      http
+        .get(`/follow/${payload}`, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(({ data }) => {
+          commit("SET_FOLLOWER_LIST", data);
+        });
     },
-    doFollow({ commit }, payload) {
+    doFollow({ dispatch, commit }, payload) {
       http
         .post("/follow", payload, {
           headers: {
@@ -247,11 +266,13 @@ export default new Vuex.Store({
           },
         })
         .then(() => {
+          dispatch("getFollowingList", payload.followUserId);
+          dispatch("getFollowerList", payload.followUserId);
           commit("SET_IS_FOLLOW", true);
         })
         .catch((err) => console.log(err));
     },
-    cancelFollow({ commit }, payload) {
+    cancelFollow({ dispatch, commit }, payload) {
       http
         .delete(`/follow/${payload}`, {
           headers: {
@@ -260,6 +281,8 @@ export default new Vuex.Store({
           },
         })
         .then(() => {
+          dispatch("getFollowingList", payload);
+          dispatch("getFollowerList", payload);
           commit("SET_IS_FOLLOW", false);
         })
         .catch((err) => console.log(err));
@@ -331,8 +354,7 @@ export default new Vuex.Store({
     boardCategoryClear({ commit }) {
       commit("BOARD_CATEGORY_CLEAR");
     },
-    categoryCreate({ commit }, payload) {
-      commit;
+    categoryCreate({ dispatch }, payload) {
       http
         .post("/board/category", payload, {
           headers: {
@@ -342,6 +364,7 @@ export default new Vuex.Store({
         })
         .then(({ status }) => {
           if (status === 201) {
+            dispatch("getBoardCategoryAll");
             alert("카테고리가 생성되었습니다.");
           }
         });
@@ -638,7 +661,6 @@ export default new Vuex.Store({
         });
     },
     async getIsPartcipate({ commit }, payload) {
-      console.log("dd");
       await http
         .get(`/challenge-participate/challenge/${payload}`, {
           headers: {
@@ -693,7 +715,12 @@ export default new Vuex.Store({
     },
     getParticipatedChallengeList({ commit }, payload) {
       http
-        .get(`/challenge-participate/list/${payload}`)
+        .get(`/challenge-participate/list/${payload}`, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
         .then(({ data }) => {
           // console.log(data);
           commit("setChallenges", data);
@@ -702,7 +729,12 @@ export default new Vuex.Store({
     },
     getChallengeIngs({ commit }, payload) {
       http
-        .get(`/challenge-participate/ing/${payload}`)
+        .get(`/challenge-participate/ing/${payload}`, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
         .then(({ data }) => {
           commit("SET_CHALLENGE_INGS", data);
         })

@@ -85,6 +85,15 @@ export default {
   },
   methods: {
     createCategory() {
+      if (
+        !this.boardCategory.name ||
+        !this.boardCategory.isAuthorized ||
+        !this.boardCategory.writerType ||
+        !this.boardCategory.reviewerType
+      ) {
+        alert("폼을 입력해주세요.");
+        return;
+      }
       this.$store
         .dispatch("categoryCreate", {
           name: this.boardCategory.name,

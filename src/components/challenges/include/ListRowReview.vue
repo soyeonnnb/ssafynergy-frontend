@@ -17,10 +17,10 @@ export default {
     no: Number,
   },
   methods: {
-    goUserHome() {
+    async goUserHome() {
+      await this.$store.dispatch("getUserInfo", this.review.userId);
       this.$router.push({
         name: "mypage-main",
-        params: { channelId: this.review.userId },
       });
     },
   },

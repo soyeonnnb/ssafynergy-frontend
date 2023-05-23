@@ -143,6 +143,12 @@ const routes = [
     component: () => import("@/views/CommunityView.vue"),
     children: [
       {
+        path: "",
+        name: "community-board",
+        component: () =>
+          import("@/components/communities/CommunityBoardList.vue"),
+      },
+      {
         path: "detail/:id",
         name: "community-board-detail",
         component: () =>
@@ -153,13 +159,6 @@ const routes = [
         name: "community-board-create",
         component: () =>
           import("@/components/communities/CommunityBoardCreate.vue"),
-      },
-
-      {
-        path: ":id",
-        name: "community-board",
-        component: () =>
-          import("@/components/communities/CommunityBoardList.vue"),
       },
     ],
   },
@@ -187,11 +186,18 @@ router.beforeEach((to, from, next) => {
       path: "login",
       replace: true,
     });
-  } else if (to.name === from.name) {
+  } else if (to.name == from.name) {
     return;
   } else {
     next();
   }
 });
+
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch((err) => {
+    if (err.name !== "NavigationDuplicated") throw err;
+  });
+};
 
 export default router;

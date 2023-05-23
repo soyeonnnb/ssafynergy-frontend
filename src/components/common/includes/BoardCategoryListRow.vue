@@ -12,13 +12,9 @@ export default {
   },
   methods: {
     goCategoryDetail() {
-      const id = this.$route.params.id;
-      if (!id || id !== this.category.id) {
-        this.$store.commit("SET_BOARD_CATEGORY", this.category);
-        this.$router.push({
-          name: "community-board",
-          params: { id: this.category.id },
-        });
+      this.$store.commit("SET_BOARD_CATEGORY_ID", this.category.id);
+      if (this.$route.name !== "community-board") {
+        this.$router.push({ name: "community-board" });
       }
     },
   },
