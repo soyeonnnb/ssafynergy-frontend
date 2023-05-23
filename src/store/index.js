@@ -31,6 +31,7 @@ export default new Vuex.Store({
     isParticipate: false,
     challengeIngs: [],
     challengeIng: {},
+    challengeParticipateId: 0,
   },
   getters: {
     user(state) {
@@ -144,6 +145,9 @@ export default new Vuex.Store({
     },
     setReviews(state, payload) {
       state.reviews = payload;
+    },
+    setSearchChallenges(state, payload) {
+      state.searchChallenges = payload;
     },
     CLEAR_CHALLENGE(state) {
       state.challenge = {};
@@ -607,11 +611,11 @@ export default new Vuex.Store({
           },
         })
         .then(({ data }) => {
-          context.commit("setChallengesSort", data); // challengesSort에 정렬된 배열 할당
+          context.commit("setSearchChallenges", data); //
         });
     },
     challengeClear({ commit }) {
-      commit("CHALLENGE_CLEAR");
+      commit("CLEAR_CHALLENGE");
     },
     challengeCreate({ commit }, payload) {
       commit;
@@ -629,6 +633,7 @@ export default new Vuex.Store({
         });
     },
     async getIsPartcipate({ commit }, payload) {
+      console.log("dd");
       await http
         .get(`/challenge-participate/challenge/${payload}`, {
           headers: {
@@ -698,6 +703,19 @@ export default new Vuex.Store({
     },
     clearChallengeIng({ commit }) {
       commit("CLEAR_CHALLENGE_ING");
+    },
+    async postChallengeIng({ dispatch }, payload) {
+      // console.log(payload);
+      await http
+        .post("/challenge-participate/ing", payload, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(() => {
+          dispatch("getChallengeIngs", payload.challengeParticipateId);
+        });
     },
   },
   plugins: [
