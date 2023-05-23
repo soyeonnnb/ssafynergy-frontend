@@ -74,7 +74,7 @@ export default {
     this.$store.dispatch("getChallenge", id);
     this.$store.dispatch("getReviews", id);
     this.$store.dispatch("getIsPartcipate", id);
-    console.log(this.isParticipate);
+    // console.log(this.isParticipate);
     // console.log(this.$route.params.id);getIsPartcipate
     // console.log("테스트");
   },

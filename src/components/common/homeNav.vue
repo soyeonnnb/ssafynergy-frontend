@@ -2,15 +2,7 @@
   <div>
     <div v-if="isloggedin">
       <router-link :to="{ name: 'home-view' }">메인화면</router-link> |
-      <router-link
-        :to="{
-          name: 'mypage-main',
-          params: {
-            channelId: loginUser.id,
-          },
-        }"
-        >마이페이지</router-link
-      >
+      <div @click="goMyHome">마이페이지</div>
       | <span>서비스 소개</span> |
       <router-link :to="{ name: 'video-view' }">영상</router-link> |
       <router-link :to="{ name: 'community-board', params: { id: 1 } }"
@@ -38,6 +30,10 @@ export default {
     logout() {
       this.$store.dispatch("logout");
       this.$router.push({ name: "login" });
+    },
+    goMyHome() {
+      this.$store.commit("SET_USER_DATA", this.loginUser);
+      this.$router.push({ name: "mypage-main" });
     },
   },
 };

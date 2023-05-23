@@ -121,7 +121,7 @@ export default {
         obj.content = this.input;
       }
 
-      console.log(obj);
+      // console.log(obj);
       this.$store.dispatch("getPosts", obj);
     },
   },
