@@ -9,7 +9,13 @@
     </div>
     <div>
       비밀번호
-      <input type="password" v-model.trim="password" id="password" required />
+      <input
+        type="password"
+        v-model.trim="password"
+        id="password"
+        required
+        @keydown.enter="login"
+      />
     </div>
     <div>
       <button @click="login">로그인</button>

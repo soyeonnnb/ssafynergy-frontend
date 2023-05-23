@@ -6,12 +6,12 @@
 </template>
 
 <script>
-import ChallengeList from './challenges/ChallengeList.vue';
+import ChallengeList from "./challenges/ChallengeList.vue";
 
 export default {
   components: {
     ChallengeList,
-  }
+  },
 };
 </script>
 

@@ -6,6 +6,7 @@ const challengeStore = {
     challenge: {},
     challengesSort: [], // challengesSort 배열 추가
     reviews: [],
+    searchChallenges: [],
   },
   getters: {
     challenges(state) {
@@ -20,6 +21,9 @@ const challengeStore = {
     reviews(state) {
       return state.reviews;
     },
+    searchChallenges(state) {
+      return state.searchChallenges;
+    },
   },
   mutations: {
     setChallenges(state, payload) {
@@ -33,6 +37,9 @@ const challengeStore = {
     },
     setReviews(state, payload) {
       state.reviews = payload;
+    },
+    setSearchChallenges(state, payload) {
+      state.searchChallenges = payload;
     },
   },
   actions: {
@@ -96,6 +103,27 @@ const challengeStore = {
         .catch((error) => {
           console.error(error);
           alert("에러발생!");
+        });
+    },
+    getSearchChallenges(context, payload) {
+      let url = "/challenge/search?";
+      if (payload.difficulty !== null) {
+        url += `difficulty=${payload.difficulty}&`;
+      }
+      if (payload.possibility !== null) {
+        url += `possibility=${payload.possibility}&`;
+      }
+      // URL 마지막에 있는 & 문자 제거
+      url = url.slice(0, -1);
+      http
+        .get(url, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(({ data }) => {
+          context.commit("setSearchChallenges", data); // challengesSort에 정렬된 배열 할당
         });
     },
   },
