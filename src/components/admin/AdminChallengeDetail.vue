@@ -20,7 +20,8 @@
       <label for="publicType">공개여부</label>
       <div class="view">{{ challenge.publicType }}</div>
       <div style="padding-top: 15px">
-        <router-link to="/admin/challenge" class="btn">목록</router-link>
+        <router-link to="/admin/challenge" class="btn">목록</router-link> |
+        <button @click="movePageModify">수정</button>
       </div>
     </div>
   </div>
@@ -37,10 +38,16 @@ export default {
   },
   created() {
     this.$store.dispatch("getChallenge", Number(this.$route.params.id));
-    console.log(this.$route.params.id);
-    console.log("테스트");
   },
-  methods: {},
+  methods: {
+    movePageModify() {
+      console.log("ID:", this.$route.params.id);
+      this.$router.push({
+        name: "admin-challenge-update",
+        params: { id: this.$route.params.id },
+      });
+    },
+  },
 };
 </script>
 

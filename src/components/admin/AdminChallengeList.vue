@@ -11,6 +11,7 @@
             name="searchKeyword"
             id="searchKeyword"
             v-model="searchKeyword"
+            placeholder="챌린지명을 검색하세요."
           />
         </div>
         <div style="display: flex; justify-content: center">
@@ -53,27 +54,6 @@
           <label for="diff3">어려움</label>
           <br />
         </div>
-        <div style="display: flex; justify-content: center">
-          신청가능 여부 :
-          <input
-            type="radio"
-            id="possible"
-            name="possibility"
-            value="true"
-            v-model="selectedPossibility"
-          />
-          <label for="possible">가능</label>
-          <br />
-          <input
-            type="radio"
-            id="impossible"
-            name="possibility"
-            value="false"
-            v-model="selectedPossibility"
-          />
-          <label for="impossible">불가능</label>
-          <br />
-        </div>
         <button @click="searchC">검색</button>
       </div>
     </div>
@@ -109,6 +89,36 @@
         </tbody>
       </table>
     </div>
+    <div v-else>
+      <table id="challenge-list">
+        <colgroup>
+          <col style="width: 5%" />
+          <col style="width: 20%" />
+          <col style="width: 20%" />
+          <col style="width: 20%" />
+          <col style="width: 25%" />
+          <col style="width: 10%" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>챌린지 명</th>
+            <th>시작일</th>
+            <th>종료일</th>
+            <th>설명</th>
+            <th>모집인원</th>
+          </tr>
+        </thead>
+        <tbody>
+          <list-row
+            v-for="(challenge, index) in challenges"
+            :key="index"
+            :no="index + 1"
+            :challenge="challenge"
+          />
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -129,14 +139,17 @@ export default {
     // reListRow,
   },
   computed: {
-    ...mapGetters(["searchChallenges"]),
+    ...mapGetters(["searchChallenges", "challenges"]),
+  },
+  created() {
+    this.$store.dispatch("getChallenges");
   },
   methods: {
     searchC() {
-      this.$store.dispatch(
-        "getSearchChallenges",
-        Number(this.selectedDifficulty)
-      );
+      this.$store.dispatch("getSearchChallenges", {
+        selectedDifficulty: Number(this.selectedDifficulty),
+        searchKeyword: this.searchKeyword,
+      });
     },
   },
 };
