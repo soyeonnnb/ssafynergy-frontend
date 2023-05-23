@@ -9,7 +9,6 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "main-component",
     component: MainView,
     children: [
       {
@@ -44,14 +43,13 @@ const routes = [
     name: "login",
     component: () => import("@/views/LoginView.vue"),
   },
-  {
-    path: "/regist",
-    name: "regist",
-    component: () => import("@/views/RegistView.vue"),
-  },
+  // {
+  //   path: "/regist",
+  //   name: "regist",
+  //   component: () => import("@/views/RegistView.vue"),
+  // },
   {
     path: "/channel",
-    name: "mypage",
     component: () => import("@/views/MyPageView.vue"),
     children: [
       {
@@ -94,7 +92,6 @@ const routes = [
   },
   {
     path: "/admin",
-    name: "admin",
     component: () => import("@/views/AdminView.vue"),
     children: [
       {
@@ -139,7 +136,6 @@ const routes = [
   },
   {
     path: "/community",
-    name: "community",
     component: () => import("@/views/CommunityView.vue"),
     children: [
       {
@@ -179,7 +175,8 @@ const router = new VueRouter({
 // 일단 프론트에서 막고, 나중에 다시 막기
 router.beforeEach((to, from, next) => {
   // console.log(store.state.isloggedin);
-  if (to.name === "login" || to.name === "regist") {
+  if (to.name === "login") {
+    // || to.name === "regist") {
     next();
   } else if (!store.state.isloggedin) {
     next({

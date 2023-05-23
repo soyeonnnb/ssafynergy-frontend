@@ -11,10 +11,10 @@
       |
       <button @click="logout">로그아웃</button>
     </div>
-    <div v-if="!isloggedin">
+    <!-- <div v-if="!isloggedin">
       <router-link :to="{ name: 'regist' }">회원가입</router-link> |
       <router-link :to="{ name: 'login' }">로그인</router-link> |
-    </div>
+    </div> -->
   </div>
 </template>
 
