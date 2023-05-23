@@ -111,7 +111,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import http from "@/util/httpCommon";
+// import http from "@/util/httpCommon";
 import ListRow from "@/components/challenges/include/ListRow.vue";
 // import reListRow from "@/components/challenges/include/reListRow.vue";
 
@@ -133,23 +133,10 @@ export default {
   },
   methods: {
     searchC() {
-      http
-        .get(
-          "/challenge/search?difficulty=" + this.selectedDifficulty
-          //  +
-          // "&possibility=" +
-          // this.selectedPossibility
-        )
-        .then((response) => {
-          // 응답 처리
-          console.log(response.data);
-          // 검색 결과를 Vuex 상태에 저장하려면 다음과 같이 액션을 호출할 수 있습니다.
-          this.$store.dispatch("getSearchChallenges", response.data);
-        })
-        .catch((error) => {
-          // 오류 처리
-          console.error(error);
-        });
+      this.$store.dispatch(
+        "getSearchChallenges",
+        Number(this.selectedDifficulty)
+      );
     },
   },
 };

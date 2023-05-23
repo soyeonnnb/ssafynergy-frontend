@@ -118,7 +118,7 @@ const routes = [
         component: () => import("@/components/admin/AdminChallengeList.vue"),
       },
       {
-        path: "challenge/detail",
+        path: "challenge/:id",
         name: "admin-challenge-detail",
         component: () => import("@/components/admin/AdminChallengeDetail.vue"),
       },

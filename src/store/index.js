@@ -3,7 +3,7 @@ import Vuex from "vuex";
 import http from "@/util/httpCommon";
 
 import { createVuexPersistedState } from "vue-persistedstate";
-import challengeStore from "./modules/challengeStore";
+// import challengeStore from "./modules/challengeStore";
 
 Vue.use(Vuex);
 
@@ -13,6 +13,9 @@ export default new Vuex.Store({
     isloggedin: false,
     loginUser: {},
     isAdmin: false,
+    followerUsers: [],
+    followingUsers: [],
+    isFollow: false,
     boardCategories: [],
     boardCategory: {},
     posts: [],
@@ -20,6 +23,14 @@ export default new Vuex.Store({
     postComments: [],
     postComment: {},
     youtubeVideos: [],
+    challenges: [],
+    challenge: {},
+    challengesSort: [], // challengesSort 배열 추가
+    reviews: [],
+    searchChallenges: [],
+    isParticipate: false,
+    challengeIngs: [],
+    challengeIng: {},
   },
   getters: {
     user(state) {
@@ -27,6 +38,24 @@ export default new Vuex.Store({
     },
     loginUser(state) {
       return state.loginUser;
+    },
+    challenges(state) {
+      return state.challenges;
+    },
+    challenge(state) {
+      return state.challenge;
+    },
+    challengesSort(state) {
+      return state.challengesSort;
+    },
+    reviews(state) {
+      return state.reviews;
+    },
+    searchChallenges(state) {
+      return state.searchChallenges;
+    },
+    isParticipate(state) {
+      return state.isParticipate;
     },
   },
   mutations: {
@@ -38,18 +67,26 @@ export default new Vuex.Store({
     },
     CLEAR_USER(state) {
       state.user = {};
+      state.followUsers = [];
+      state.followingUsers = [];
+      state.isFollow = false;
     },
     SET_USER_DATA(state, payload) {
       state.user = payload;
     },
     SET_LOGIN_USER_DATA(state, payload) {
       state.loginUser = payload;
+      state.user = payload;
       if (payload.type === "A") state.isAdmin = true;
     },
     LOGOUT(state) {
       state.isloggedin = false;
       state.loginUser = {};
       state.isAdmin = false;
+      state.user = {};
+      state.followUsers = [];
+      state.followingUsers = [];
+      state.isFollow = false;
     },
     SET_BOARD_CATEGORIES(state, payload) {
       state.boardCategories = payload;
@@ -86,6 +123,39 @@ export default new Vuex.Store({
     },
     SET_YOUTUBE_VIDEOS(state, payload) {
       state.youtubeVideos = payload;
+    },
+    SET_IS_FOLLOW(state, payload) {
+      state.isFollow = payload;
+    },
+    SET_FOLLOWER_LIST(state, payload) {
+      state.followerUsers = payload;
+    },
+    SET_FOLLOWING_LIST(state, payload) {
+      state.followingUsers = payload;
+    },
+    setChallenges(state, payload) {
+      state.challenges = payload;
+    },
+    setChallenge(state, payload) {
+      state.challenge = payload;
+    },
+    setChallengesSort(state, payload) {
+      state.challengesSort = payload; // challengesSort 배열 할당
+    },
+    setReviews(state, payload) {
+      state.reviews = payload;
+    },
+    CLEAR_CHALLENGE(state) {
+      state.challenge = {};
+    },
+    SET_IS_PARTICIPATE(state, payload) {
+      state.isParticipate = payload;
+    },
+    SET_CHALLENGE_INGS(state, payload) {
+      state.challengeIngs = payload;
+    },
+    SET_CHALLENGE_ING(state, payload) {
+      state.challengeIng = payload;
     },
   },
   actions: {
@@ -134,6 +204,59 @@ export default new Vuex.Store({
         .then(({ data }) => {
           commit("SET_USER_DATA", data);
         });
+    },
+    getIsFollow({ commit, state }, payload) {
+      if (state.loginUser.id == payload) return;
+      http
+        .get(`/follow/${state.loginUser.id}/${payload}`, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(({ data }) => {
+          if (data == "yes") {
+            commit("SET_IS_FOLLOW", true);
+          } else {
+            commit("SET_IS_FOLLOW", false);
+          }
+        });
+    },
+    getFollowingList({ commit }, payload) {
+      http.get(`/follow/following/${payload}`).then(({ data }) => {
+        commit("SET_FOLLOWING_LIST", data);
+      });
+    },
+    getFollowerList({ commit }, payload) {
+      http.get(`/follow/${payload}`).then(({ data }) => {
+        commit("SET_FOLLOWER_LIST", data);
+      });
+    },
+    doFollow({ commit }, payload) {
+      http
+        .post("/follow", payload, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(() => {
+          commit("SET_IS_FOLLOW", true);
+        })
+        .catch((err) => console.log(err));
+    },
+    cancelFollow({ commit }, payload) {
+      http
+        .delete(`/follow/${payload}`, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(() => {
+          commit("SET_IS_FOLLOW", false);
+        })
+        .catch((err) => console.log(err));
     },
     setLoginUserInfo({ commit, state }) {
       http
@@ -266,7 +389,6 @@ export default new Vuex.Store({
     },
     async boardPostCreate({ state, commit }, payload) {
       payload.data.userId = state.loginUser.id;
-      // console.log(payload.data);
       await http
         .post("/board/post", payload.data, {
           headers: {
@@ -366,7 +488,6 @@ export default new Vuex.Store({
           },
         })
         .then(() => {
-          console.log("like !!!!!!");
           commit("SET_POST_LIKE", true);
         });
     },
@@ -379,7 +500,6 @@ export default new Vuex.Store({
           },
         })
         .then(() => {
-          console.log("dont like !!!!!!");
           commit("SET_POST_LIKE", false);
         });
     },
@@ -404,13 +524,179 @@ export default new Vuex.Store({
           commit("SET_YOUTUBE_VIDEOS", res);
         });
     },
-  },
-  modules: {
-    challengeStore,
+    getChallenges(context) {
+      http
+        .get("/challenge/search", {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(({ data }) => {
+          // console.log(data);
+          context.commit("setChallenges", data);
+        })
+        .catch(() => {
+          alert("에러발생!");
+        });
+    },
+    getChallenge(context, payload) {
+      http
+        .get(`/challenge/${payload}`, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(({ data }) => {
+          context.commit("setChallenge", data);
+        });
+    },
+    getChallengesSort(context, payload) {
+      let url = "/challenge/search?";
+      if (payload.orderBy) {
+        url += `orderBy=${payload.orderBy}&orderByDir=${payload.orderByDir}`;
+      }
+      http
+        .get(url, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(({ data }) => {
+          const sortedChallenges = [...data]; // data를 복사하여 sortedChallenges 배열 생성
+          sortedChallenges.sort((a, b) => b.likeCnt - a.likeCnt); // likeCnt 내림차순으로 정렬
+          context.commit("setChallengesSort", sortedChallenges); // challengesSort에 정렬된 배열 할당
+        });
+    },
+    getReviews(context, challengeId) {
+      http
+        .get(`/challenge/review/${challengeId}`, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(({ data }) => {
+          context.commit("setReviews", data);
+        })
+        .catch((error) => {
+          console.error(error);
+          alert("에러발생!");
+        });
+    },
+    getSearchChallenges(context, payload) {
+      // let url = "/challenge/search?";
+      // if (payload.difficulty !== null) {
+      //   url += `difficulty=${payload.difficulty}&`;
+      // }
+      // if (payload.possibility !== null) {
+      //   url += `possibility=${payload.possibility}&`;
+      // }
+      // URL 마지막에 있는 & 문자 제거
+      // url = url.slice(0, -1);
+      http
+        .get(`/challenge/search?difficulty=${payload}`, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(({ data }) => {
+          context.commit("setSearchChallenges", data); // challengesSort에 정렬된 배열 할당
+        });
+    },
+    challengeClear({ commit }) {
+      commit("CHALLENGE_CLEAR");
+    },
+    challengeCreate({ commit }, payload) {
+      commit;
+      http
+        .post("/challenge", payload, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(({ status }) => {
+          if (status === 201) {
+            alert("챌린지가 생성되었습니다.");
+          }
+        });
+    },
+    async getIsPartcipate({ commit }, payload) {
+      await http
+        .get(`/challenge-participate/challenge/${payload}`, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(({ status }) => {
+          if (status == 200) {
+            commit("SET_IS_PARTICIPATE", true);
+          } else {
+            commit("SET_IS_PARTICIPATE", false);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          alert("에러발생!");
+        });
+    },
+    participateChallenge({ commit }, payload) {
+      http
+        .post("/challenge-participate", payload, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(() => {
+          commit("SET_IS_PARTICIPATE", true);
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("참여 신청에 실패하였습니다.");
+        });
+    },
+    cancelChallenge({ commit }, payload) {
+      http
+        .delete(`/challenge-participate/${payload}`, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(() => {
+          commit("SET_IS_PARTICIPATE", false);
+        })
+        .catch(() => {
+          alert("참여 신청 취소에 실패하였습니다.");
+        });
+    },
+    getParticipatedChallengeList({ commit }, payload) {
+      http
+        .get(`/challenge-participate/list/${payload}`)
+        .then(({ data }) => {
+          console.log(data);
+          commit("setChallenges", data);
+        })
+        .catch((err) => console.log(err));
+    },
+    getChallengeIngs({ commit }, payload) {
+      http
+        .get(`/challenge-participate/ing/${payload}`)
+        .then(({ data }) => {
+          commit("SET_CHALLENGE_INGS", data);
+        })
+        .catch((err) => console.log(err));
+    },
   },
   plugins: [
     createVuexPersistedState({
-      whiteList: ["isloggedin", "loginUser"],
+      whiteList: ["isloggedin", "loginUser", "user"],
       key: "vuexStore",
       storage: window.sessionStorage, // sessionStorage에 저장
     }),
