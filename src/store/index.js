@@ -681,7 +681,9 @@ export default new Vuex.Store({
           commit("SET_IS_PARTICIPATE", false);
         })
         .catch(() => {
-          alert("참여 신청 취소에 실패하였습니다.");
+          alert(
+            "참여 신청 취소에 실패하였습니다. \n이미 현황을 작성한 챌린지는 취소가 불가합니다."
+          );
         });
     },
     getParticipatedChallengeList({ commit }, payload) {
