@@ -21,6 +21,9 @@ const challengeStore = {
     reviews(state) {
       return state.reviews;
     },
+    isParticipate(state) {
+      return state.isParticipate;
+    },
   },
   mutations: {
     setChallenges(state, payload) {
@@ -102,8 +105,8 @@ const challengeStore = {
           alert("에러발생!");
         });
     },
-    getIsPartcipate({ commit }, payload) {
-      http
+    async getIsPartcipate({ commit }, payload) {
+      await http
         .get(`/challenge-participate/challenge/${payload}`, {
           headers: {
             "access-token": sessionStorage.getItem("access-token"),

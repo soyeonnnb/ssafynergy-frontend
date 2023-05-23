@@ -15,12 +15,7 @@
       <div class="view">{{ challenge.limitPersonNum }}명</div>
       <label for="reviewCnt">리뷰개수</label>
       <div class="view">{{ challenge.reviewCnt }}개</div>
-      <button v-if="!isParticipate" @click="participateChallenge">
-        신청하기
-      </button>
-      <button v-if="!isParticipate" @click="cancelChallenge">
-        신청 취소하기
-      </button>
+      <challenge-participate-btn></challenge-participate-btn>
       <div style="padding-top: 15px">
         <router-link to="/challenge/search" class="btn">목록</router-link>
       </div>
@@ -61,35 +56,27 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
+import { mapGetters } from "vuex";
 import ListRowReview from "@/components/challenges/include/ListRowReview.vue";
+import ChallengeParticipateBtn from "./include/ChallengeParticipateBtn.vue";
 
 export default {
   name: "ChallengeDetail",
   components: {
     ListRowReview,
+    ChallengeParticipateBtn,
   },
   computed: {
     ...mapGetters(["challenge", "reviews"]),
-    ...mapState(["isParticipate"]),
   },
   created() {
     const id = Number(this.$route.params.id);
     this.$store.dispatch("getChallenge", id);
     this.$store.dispatch("getReviews", id);
     this.$store.dispatch("getIsPartcipate", id);
+    console.log(this.isParticipate);
     // console.log(this.$route.params.id);getIsPartcipate
     // console.log("테스트");
-  },
-  methods: {
-    participateChallenge() {
-      this.$store.dispatch("participateChallenge", {
-        challengeId: this.challenge.id,
-      });
-    },
-    cancelChallenge() {
-      this.$store.dispatch("cancelChallenge", this.challenge.id);
-    },
   },
 };
 </script>
