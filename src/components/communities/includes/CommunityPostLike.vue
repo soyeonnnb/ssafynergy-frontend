@@ -19,7 +19,6 @@ export default {
       });
     },
     cancelLike() {
-      console.log(this.boardId);
       this.$store.dispatch("deletePostLike", this.boardId);
     },
   },

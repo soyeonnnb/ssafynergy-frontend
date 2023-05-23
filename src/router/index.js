@@ -50,7 +50,7 @@ const routes = [
     component: () => import("@/views/RegistView.vue"),
   },
   {
-    path: "/mypage",
+    path: "/channel",
     name: "mypage",
     component: () => import("@/views/MyPageView.vue"),
     children: [
@@ -66,7 +66,7 @@ const routes = [
       },
       {
         path: "participate",
-        name: "mypage-current-challegne",
+        name: "mypage-current-challenge",
         component: () => import("@/components/mypages/MyCurrentChallenge.vue"),
       },
       {
@@ -79,6 +79,11 @@ const routes = [
         path: "challenge/:id",
         name: "mypage-challenge-main",
         component: () => import("@/components/mypages/MyChallengeMain.vue"),
+      },
+      {
+        path: "challenge/:id/post", // 오늘의 챌린지 현황 등록
+        name: "mypage-challenge-post",
+        component: () => import("@/components/mypages/MyChallengePost.vue"),
       },
       {
         path: "challenge/:id/:index",

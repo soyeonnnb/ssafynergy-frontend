@@ -15,6 +15,7 @@
       <div class="view">{{ challenge.limitPersonNum }}명</div>
       <label for="reviewCnt">리뷰개수</label>
       <div class="view">{{ challenge.reviewCnt }}개</div>
+      <challenge-participate-btn></challenge-participate-btn>
       <div style="padding-top: 15px">
         <router-link to="/challenge/search" class="btn">목록</router-link>
       </div>
@@ -57,22 +58,26 @@
 <script>
 import { mapGetters } from "vuex";
 import ListRowReview from "@/components/challenges/include/ListRowReview.vue";
+import ChallengeParticipateBtn from "./include/ChallengeParticipateBtn.vue";
 
 export default {
   name: "ChallengeDetail",
   components: {
     ListRowReview,
+    ChallengeParticipateBtn,
   },
   computed: {
     ...mapGetters(["challenge", "reviews"]),
   },
   created() {
-    this.$store.dispatch("getChallenge", Number(this.$route.params.id));
-    this.$store.dispatch("getReviews", Number(this.$route.params.id));
-    console.log(this.$route.params.id);
-    console.log("테스트");
+    const id = Number(this.$route.params.id);
+    this.$store.dispatch("getChallenge", id);
+    this.$store.dispatch("getReviews", id);
+    this.$store.dispatch("getIsPartcipate", id);
+    // console.log(this.isParticipate);
+    // console.log(this.$route.params.id);getIsPartcipate
+    // console.log("테스트");
   },
-  methods: {},
 };
 </script>
 

@@ -157,6 +157,9 @@ export default new Vuex.Store({
     SET_CHALLENGE_ING(state, payload) {
       state.challengeIng = payload;
     },
+    CLEAR_CHALLENGE_ING(state) {
+      state.challengeIng = {};
+    },
   },
   actions: {
     async userRegist({ commit }, payload) {
@@ -680,7 +683,7 @@ export default new Vuex.Store({
       http
         .get(`/challenge-participate/list/${payload}`)
         .then(({ data }) => {
-          console.log(data);
+          // console.log(data);
           commit("setChallenges", data);
         })
         .catch((err) => console.log(err));
@@ -692,6 +695,9 @@ export default new Vuex.Store({
           commit("SET_CHALLENGE_INGS", data);
         })
         .catch((err) => console.log(err));
+    },
+    clearChallengeIng({ commit }) {
+      commit("CLEAR_CHALLENGE_ING");
     },
   },
   plugins: [

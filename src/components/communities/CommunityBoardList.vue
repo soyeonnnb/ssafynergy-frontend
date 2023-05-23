@@ -24,6 +24,34 @@
         ></community-board-list-row>
       </tbody>
     </table>
+    <div>
+      <h4>검색</h4>
+      <div>
+        <select v-model="searchBy">
+          <option
+            v-for="(item, index) in searchByList"
+            :value="item.value"
+            :key="index"
+          >
+            {{ item.name }}
+          </option>
+        </select>
+        <input type="text" v-model.trim="input" />
+      </div>
+      <div>
+        정렬기준
+        <select v-model="orderBy">
+          <option
+            v-for="(item, index) in orderByList"
+            :value="item.value"
+            :key="index"
+          >
+            {{ item.name }}
+          </option>
+        </select>
+      </div>
+      <button @click="search">검색</button>
+    </div>
   </div>
 </template>
 
@@ -40,14 +68,61 @@ export default {
   created() {
     this.init();
   },
+  data() {
+    return {
+      orderBy: {},
+      orderByList: [
+        { name: "선택해주세요.", value: "none" },
+        { name: "최신순", value: "desc" },
+        { name: "오래된순", value: "created_at" },
+        { name: "조회수순", value: "view_cnt" },
+      ],
+      searchBy: {},
+      searchByList: [
+        { name: "제목", value: "title" },
+        { name: "작성자 아이디", value: "user_id" },
+        { name: "내용", value: "content" },
+      ],
+      input: "",
+    };
+  },
   methods: {
     init() {
       this.$store.dispatch("postsClear");
       const categoryId = Number(this.$route.params.id);
-      this.$store.dispatch("getPosts", {
+      let obj = {
         hasBoardCategoryId: true,
         boardCategoryId: categoryId,
-      });
+      };
+      this.$store.dispatch("getPosts", obj);
+    },
+    search() {
+      this.$store.dispatch("postsClear");
+      const categoryId = Number(this.$route.params.id);
+      let obj = {
+        hasBoardCategoryId: true,
+        boardCategoryId: categoryId,
+      };
+      if (this.orderBy == "desc") {
+        obj.orderBy = "created_at";
+        obj.orderByDir = "desc";
+      }
+      if (this.orderBy == "created_at") {
+        obj.orderBy = "created_at";
+        obj.orderByDir = "asc";
+      }
+      if (this.orderBy == "view_cnt") {
+        obj.orderBy = "view_cnt";
+        obj.orderByDir = "desc";
+      }
+
+      if (this.input && this.searchBy) {
+        obj.key = this.searchBy;
+        obj.content = this.input;
+      }
+
+      // console.log(obj);
+      this.$store.dispatch("getPosts", obj);
     },
   },
   watch: {
