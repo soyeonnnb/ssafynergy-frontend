@@ -3,7 +3,6 @@ import Vuex from "vuex";
 import http from "@/util/httpCommon";
 
 import { createVuexPersistedState } from "vue-persistedstate";
-// import challengeStore from "./modules/challengeStore";
 
 Vue.use(Vuex);
 
@@ -594,24 +593,30 @@ export default new Vuex.Store({
         });
     },
     getSearchChallenges(context, payload) {
-      // let url = "/challenge/search?";
-      // if (payload.difficulty !== null) {
-      //   url += `difficulty=${payload.difficulty}&`;
-      // }
-      // if (payload.possibility !== null) {
-      //   url += `possibility=${payload.possibility}&`;
-      // }
-      // URL 마지막에 있는 & 문자 제거
-      // url = url.slice(0, -1);
+      const { selectedDifficulty, searchKeyword } = payload;
+      const queryParams = {
+        difficulty: selectedDifficulty !== null ? selectedDifficulty : "",
+        searchKeyword: searchKeyword !== null ? searchKeyword : "",
+      };
+
       http
-        .get(`/challenge/search?difficulty=${payload}`, {
+        .get("/challenge/search", {
+          params: queryParams,
           headers: {
             "access-token": sessionStorage.getItem("access-token"),
             "Content-type": "application/json",
           },
         })
         .then(({ data }) => {
-          context.commit("setSearchChallenges", data); //
+          // 챌린지 명에 searchKeyword를 포함하는 챌린지 필터링
+          const filteredChallenges = data.filter((challenge) =>
+            challenge.name.toLowerCase().includes(searchKeyword.toLowerCase())
+          );
+
+          context.commit("setSearchChallenges", filteredChallenges);
+        })
+        .catch((error) => {
+          console.log(error);
         });
     },
     challengeClear({ commit }) {

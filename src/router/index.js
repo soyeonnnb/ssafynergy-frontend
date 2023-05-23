@@ -133,7 +133,7 @@ const routes = [
         component: () => import("@/components/admin/AdminChallengeCreate.vue"),
       },
       {
-        path: "challenge/update",
+        path: "challenge/update/:id",
         name: "admin-challenge-update",
         component: () => import("@/components/admin/AdminChallengeUpdate.vue"),
       },
