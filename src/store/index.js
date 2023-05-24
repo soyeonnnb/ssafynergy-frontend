@@ -166,6 +166,9 @@ export default new Vuex.Store({
     CLEAR_CHALLENGE(state) {
       state.challenge = {};
     },
+    CLEAR_REVIEW(state) {
+      state.review = {};
+    },
     SET_IS_PARTICIPATE(state, payload) {
       state.isParticipate = payload;
     },
@@ -647,7 +650,29 @@ export default new Vuex.Store({
           },
         })
         .then(({ data }) => {
-          context.commit("setReview", data);
+          if (data) {
+            context.commit("setReview", data);
+          } else {
+            context.commit("CLEAR_REVIEW");
+          }
+        });
+    },
+    reviewClear({ commit }) {
+      commit("CLEAR_REVIEW");
+    },
+    reviewCreate({ commit }, payload) {
+      commit;
+      http
+        .post("/challenge/review", payload, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(({ status }) => {
+          if (status === 201) {
+            alert("챌린지가 생성되었습니다.");
+          }
         });
     },
     getSearchChallenges(context, payload) {
@@ -772,6 +797,19 @@ export default new Vuex.Store({
         })
         .then(({ data }) => {
           commit("SET_CHALLENGE_INGS", data);
+        })
+        .catch((err) => console.log(err));
+    },
+    getChallengeIng(context) {
+      http
+        .get(`/challenge-participate/ing/`, {
+          headers: {
+            "access-token": sessionStorage.getItem("access-token"),
+            "Content-type": "application/json",
+          },
+        })
+        .then(({ data }) => {
+          context.commit("SET_CHALLENGE_ING", data);
         })
         .catch((err) => console.log(err));
     },

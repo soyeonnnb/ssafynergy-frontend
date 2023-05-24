@@ -1,6 +1,6 @@
 <!-- admin challenge 수정 -->
 <template>
-  <div class="regist">
+  <div class="admin_page">
     <h1>챌린지 수정</h1>
     <write-form type="modify"></write-form>
   </div>
@@ -20,4 +20,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.admin_page {
+  padding-top: 120px;
+  padding-left: 400px;
+}
+</style>
