@@ -3,7 +3,7 @@
     <th>{{ post.id }}</th>
     <th>{{ post.title }}</th>
     <th>{{ post.userNickname }}</th>
-    <th>{{ post.createdAt }}</th>
+    <th>{{ post.createdAt.substring(0, 10) }}</th>
     <th>{{ post.viewCnt }}</th>
     <th>{{ post.likeCnt }}</th>
   </tr>

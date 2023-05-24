@@ -1,14 +1,18 @@
 <!-- 커뮤니티 글 디테일 -->
 <template>
   <div>
-    <community-post-detail-view-vue
-      :post="post"
-    ></community-post-detail-view-vue>
-    <community-post-like
-      :isLike="post.isLike"
-      :boardId="Number(post.id)"
-    ></community-post-like>
-    <comment-view></comment-view>
+    <div class="box">
+      <div class="post-part">
+        <community-post-detail-view-vue
+          :post="post"
+        ></community-post-detail-view-vue>
+        <community-post-like
+          :isLike="post.isLike"
+          :boardId="Number(post.id)"
+        ></community-post-like>
+      </div>
+      <comment-view></comment-view>
+    </div>
   </div>
 </template>
 
@@ -51,4 +55,15 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.box {
+  width: 800px;
+  margin-top: 10px;
+}
+.box > div:first-child {
+  width: 100%;
+}
+.post-part {
+  margin-bottom: 50px;
+}
+</style>

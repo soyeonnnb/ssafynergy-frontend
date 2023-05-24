@@ -1,7 +1,11 @@
 <template>
-  <div>
-    <button v-if="isLike" @click="cancelLike">좋아요 취소</button>
-    <button v-if="!isLike" @click="doLike">좋아요</button>
+  <div class="like-btns">
+    <span v-if="isLike" @click="cancelLike">
+      <i class="fa-solid fa-heart fa-2xl"></i>
+    </span>
+    <span v-if="!isLike" @click="doLike">
+      <i class="fa-regular fa-heart fa-2xl"></i>
+    </span>
   </div>
 </template>
 
@@ -25,4 +29,15 @@ export default {
 };
 </script>
 
-<style></style>
+<style scope>
+.like-btns {
+  text-align: end;
+  margin-top: 25px;
+}
+.like-btns i {
+  color: rgb(177, 56, 165);
+}
+.like-btns i:hover {
+  cursor: pointer;
+}
+</style>

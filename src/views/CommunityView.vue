@@ -1,9 +1,11 @@
 <!-- 커뮤니티 뷰 -->
 <template>
-  <div>
+  <div class="main">
     <home-nav></home-nav>
-    <community-side-nav></community-side-nav>
-    <router-view></router-view>
+    <div class="community-main">
+      <community-side-nav></community-side-nav>
+      <router-view class="community-right-side"></router-view>
+    </div>
   </div>
 </template>
 
@@ -19,4 +21,26 @@ export default {
 };
 </script>
 
-<style></style>
+<style scope>
+.main {
+  display: flex;
+  justify-content: center;
+}
+.community-main {
+  display: flex;
+  /* background-color: antiquewhite; */
+  margin-top: 100px;
+  max-width: 1200px;
+  min-width: 500px;
+  padding: 0 20px;
+}
+.community-right-side {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  /* background-color: aquamarine; */
+  padding-top: 50px;
+  min-width: 1000px;
+}
+</style>

@@ -1,17 +1,20 @@
 <template>
-  <div>
-    <div>
-      <div>번호: {{ commentObj.id }}</div>
-      <div>작성자이름: {{ commentObj.userNickname }}</div>
-      <div>도서평: {{ commentObj.content }}</div>
-      <div>작성시각: {{ commentObj.createdAt }}</div>
-      <div v-if="commentObj.userId == loginUser.id">
-        <div v-show="!formShow">
-          <button @click="showModify">수정폼</button>
-          <button @click="deleteComment">삭제</button>
-        </div>
+  <div class="comment-obj">
+    <div class="comment-obj-row">
+      <div>
+        <span class="comment-nickname">{{ commentObj.userNickname }}</span>
+        <span class="comment-createdAt">{{ commentObj.createdAt }}</span>
+      </div>
+      <div
+        class="update-btns"
+        v-if="commentObj.userId == loginUser.id"
+        v-show="!formShow"
+      >
+        <span @click="showModify">수정</span>
+        <span @click="deleteComment" style="color: rgb(174, 80, 80)">삭제</span>
       </div>
     </div>
+    <div class="comment-content">{{ commentObj.content }}</div>
     <div v-show="formShow">
       <write-form
         type="modify"
@@ -43,6 +46,9 @@ export default {
       this.formShow = !this.formShow;
     },
     deleteComment() {
+      if (!confirm("댓글을 삭제하시겠습니까?")) {
+        return;
+      }
       this.$store.dispatch("deletePostComment", {
         id: this.commentObj.id,
         boardId: this.commentObj.boardId,
@@ -58,4 +64,31 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.comment-obj {
+  padding: 25px 20px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+.comment-obj-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.comment-content {
+  text-align: start;
+}
+.comment-nickname {
+  font-size: 19px;
+}
+.comment-createdAt {
+  font-size: 12px;
+  margin-left: 10px;
+}
+.update-btns span {
+  margin-left: 10px;
+}
+.update-btns span:hover {
+  cursor: pointer;
+}
+</style>

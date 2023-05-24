@@ -75,6 +75,7 @@ export default {
   justify-content: center;
   width: 100%;
   height: 70px;
+  top: 0;
   min-width: 800px;
   background-color: rgba(0, 0, 0, 0);
   position: absolute;

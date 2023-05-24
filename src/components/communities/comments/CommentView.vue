@@ -1,16 +1,12 @@
 <template>
-  <div>
-    <h2>댓글 부분</h2>
-    <div>
-      <write-form type="create"></write-form>
-      <h5>댓글 리스트</h5>
-      <div>
-        <comment-list-row
-          v-for="(comment, index) in postComments"
-          :key="index"
-          :commentObj="comment"
-        ></comment-list-row>
-      </div>
+  <div class="comment-part">
+    <write-form type="create"></write-form>
+    <div class="comments-row">
+      <comment-list-row
+        v-for="(comment, index) in postComments"
+        :key="index"
+        :commentObj="comment"
+      ></comment-list-row>
     </div>
   </div>
 </template>
@@ -29,3 +25,14 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.comment-part {
+  background-color: rgb(238, 234, 229);
+  box-sizing: border-box;
+  padding: 30px 20px;
+}
+.comments-row > div:not(:last-child) {
+  border-bottom: 1px solid rgb(193, 179, 167);
+}
+</style>
