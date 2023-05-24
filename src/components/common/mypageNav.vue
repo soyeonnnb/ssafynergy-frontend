@@ -6,7 +6,7 @@
       class="mypage-nav-img"
     />
     <img src="@/assets/img/mypage_img.jpg" v-else class="mypage-nav-img" />
-    <h2 class="mypage-nav-nickname">{{ user.nickname }}</h2>
+    <h2 class="mypage-nav-nickname" @click="goReMain">{{ user.nickname }}</h2>
     <div v-if="user.id != loginUser.id" class="mypage-nav-followbtn">
       <span v-if="isFollow" @click="cancelFollow">구독 취소</span>
       <span v-if="!isFollow" @click="doFollow">구독</span>
@@ -46,6 +46,9 @@ export default {
     cancelFollow() {
       this.$store.dispatch("cancelFollow", this.user.id);
     },
+    goReMain() {
+      this.$router.push({ name: "mypage-main" });
+    },
   },
 };
 </script>
@@ -67,6 +70,9 @@ export default {
 .mypage-nav-nickname {
   font-size: 18px;
   margin-bottom: 20px;
+}
+.mypage-nav-nickname:hover {
+  cursor: pointer;
 }
 .mypage-nav-followbtn {
   margin: 30px 0;
