@@ -1,7 +1,17 @@
 <template>
   <div>
-    <router-link :to="{ name: 'home-view' }">ssafynergy</router-link>
-    <router-link :to="{ name: 'admin-main' }">관리자 메인</router-link>
+    <nav>
+      <div class="navnav">
+        <router-link
+          :to="{ name: 'home-view' }"
+          id="ssafynergy_logo"
+          class="mouse_pointer"
+        >
+          <img src="@/assets/img/ssafynergy_logo.png" />
+        </router-link>
+        <router-link :to="{ name: 'admin-main' }">관리자 메인</router-link>
+      </div>
+    </nav>
   </div>
 </template>
 
@@ -9,4 +19,25 @@
 export default {};
 </script>
 
-<style></style>
+<style>
+#ssafynergy_logo {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+#ssafynergy_logo > img {
+  height: 50px;
+}
+nav {
+  height: 2rem;
+  width: 100vw;
+  display: flex;
+  position: fixed;
+  z-index: 10;
+  background-color: #053742;
+  box-shadow: 0 3px 20px rgba(0, 0, 0, 0.2);
+}
+.navnav {
+  display: flex;
+}
+</style>

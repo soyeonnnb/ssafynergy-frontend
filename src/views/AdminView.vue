@@ -1,6 +1,6 @@
 <!-- 관리자 화면 -->
 <template>
-  <div>
+  <div class="special-page">
     <div>
       <admin-nav></admin-nav>
       <admin-side-nav></admin-side-nav>
@@ -21,4 +21,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.special-page {
+  margin: 0;
+  padding: 0;
+}
+</style>

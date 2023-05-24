@@ -16,15 +16,15 @@
     </div>
     <div>
       <h2>리뷰</h2>
-      <div v-if="review.length">
+      <!-- v-if 작동안함... 지금 그냥 create만 작동중 -->
+      <div v-if="review.id != 0">
         <!-- 1유저 1챌린지 1리뷰 니까 그냥 바로 쓰자 -->
-        {{ review }}
-        {{ challengeIng }}
-        {{ this.$route.params }}
+        <write-form type="modify"></write-form>
       </div>
       <div v-else>
         <!-- 리뷰 없을때 작성할 수 있도록 하면될듯(참여했는지는 어떻게 구분하지???) -->
-        없다
+        리뷰를 작성해주세요
+        <write-form type="create"></write-form>
       </div>
     </div>
   </div>
@@ -33,23 +33,34 @@
 <script>
 import { mapState } from "vuex";
 import ChallengeIngList from "./includes/ChallengeIngList.vue";
+import WriteForm from "./includes/WriteForm.vue";
+
 export default {
   name: "mypage-challenge-main",
+  props: {
+    type: String,
+  },
   components: {
     ChallengeIngList,
+    WriteForm,
   },
   computed: {
     ...mapState(["challengeIng", "review", "loginUser", "challenge"]),
   },
+  // mounted() {
+  //   const challengeId = this.$route.params.challengeId;
+  //   console.log("마운트" + challengeId);
+  // },
   created() {
     this.$store.dispatch("clearChallengeIng");
     this.$store.dispatch("getChallengeIngs", Number(this.$route.params.id));
+    const challengeId = this.$route.params.challengeId;
+    const userId = this.loginUser.id;
+
     this.$store.dispatch("getReview", {
-      challengeId: this.challenge.id,
-      userId: "loginUser",
+      challengeId,
+      userId,
     });
-    console.log("챌린지id = " + Number(this.$route.params.id));
-    console.log("로그인id = " + this.loginUser.id);
   },
 };
 </script>

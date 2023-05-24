@@ -21,7 +21,10 @@ export default {
         this.$store.dispatch("getChallenge", Number(this.challenge.id));
         this.$router.push({
           name: "mypage-challenge-main",
-          params: { id: this.challenge.challengeParticipateId },
+          params: {
+            id: this.challenge.challengeParticipateId,
+            challengeId: this.challenge.id,
+          },
         });
       } else if (this.type == "like") {
         this.$router.push({
