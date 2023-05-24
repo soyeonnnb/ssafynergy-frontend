@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="mypage-follow-list-view">
     <h2>팔로잉</h2>
-    <div>
+    <div class="mypage-follow-list">
       <follow-list-component
         v-for="user in followerUsers"
         :key="user.id"
@@ -9,7 +9,7 @@
       ></follow-list-component>
     </div>
     <h2>팔로우</h2>
-    <div>
+    <div class="mypage-follow-list">
       <follow-list-component
         v-for="user in followingUsers"
         :key="user.id"
@@ -32,4 +32,13 @@ export default {
 };
 </script>
 
-<style></style>
+<style scope>
+.mypage-follow-list-view {
+  width: 100%;
+}
+.mypage-follow-list {
+  width: 100%;
+  display: flex;
+  margin-bottom: 20px;
+}
+</style>

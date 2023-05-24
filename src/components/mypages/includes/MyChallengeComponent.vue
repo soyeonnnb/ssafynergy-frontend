@@ -1,6 +1,13 @@
 <template>
-  <div>
-    <div @click="goChallengeDetail">챌린지 하나하나 {{ challenge.id }}</div>
+  <div class="mypage-challenge-obj" @click="goChallengeDetail">
+    <img
+      src="@/assets/img/main_img.jpg"
+      class="mypage-challenge-obj-img"
+      :alt="`${challenge.id} 이미지`"
+    />
+    <div class="mypage-challenge-obj-info">
+      <span>{{ challenge.name }}</span>
+    </div>
   </div>
 </template>
 
@@ -37,4 +44,30 @@ export default {
 };
 </script>
 
-<style></style>
+<style scope>
+.mypage-challenge-obj {
+  width: 280px;
+  height: 150px;
+  margin: 10px;
+  border-radius: 10px;
+  position: relative;
+}
+.mypage-challenge-obj:hover {
+  cursor: pointer;
+}
+.mypage-challenge-obj-img {
+  object-fit: fill;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  transition: all 0.1s ease-in-out;
+}
+.mypage-challenge-obj-img:hover {
+  opacity: 20%;
+}
+.mypage-challenge-obj-info {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+}
+</style>

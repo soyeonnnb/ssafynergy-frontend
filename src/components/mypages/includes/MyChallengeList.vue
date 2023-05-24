@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="mypage-challenge-list-view">
     <h2>{{ title }}</h2>
-    <div>
+    <div class="mypage-challenges">
       <my-challenge-component
         v-for="challenge in challenges"
         :key="challenge.id"
@@ -23,10 +23,17 @@ export default {
   components: {
     MyChallengeComponent,
   },
-  //   created() {
-  //     console.log(this.user.id);
-  //   },
 };
 </script>
 
-<style></style>
+<style scope>
+.mypage-challenge-list-view {
+  width: 100%;
+  margin-bottom: 50px;
+}
+
+.mypage-challenges {
+  display: flex;
+  flex-wrap: wrap;
+}
+</style>

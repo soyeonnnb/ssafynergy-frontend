@@ -889,7 +889,7 @@ export default new Vuex.Store({
   },
   plugins: [
     createVuexPersistedState({
-      whiteList: ["isloggedin", "loginUser", "user"],
+      whiteList: ["isloggedin", "loginUser", "user", "isAdmin"],
       key: "vuexStore",
       storage: window.sessionStorage, // sessionStorage에 저장
     }),

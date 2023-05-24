@@ -1,6 +1,6 @@
 <template>
-  <div style="width: 1000px">
-    <FullCalendar :options="calendarOptions" />
+  <div class="situation-calendar-view">
+    <FullCalendar :options="calendarOptions" class="situation-calendar" />
   </div>
 </template>
 <script>
@@ -17,7 +17,7 @@ export default {
       calendarOptions: {
         plugins: [dayGridPlugin, interactionPlugin],
         initialView: "dayGridMonth",
-        dateClick: this.handleDateClick,
+        // dateClick: this.handleDateClick,
         events: [], // title, start, end
       },
     };
@@ -38,7 +38,6 @@ export default {
         chall.end = this.getNextDate(challenge.finishAt.substring(0, 10));
         list.push(chall);
       });
-      console.log(list[0]);
       this.calendarOptions.events = list;
     },
   },
@@ -48,9 +47,7 @@ export default {
     },
     getNextDate(str) {
       const arr = str.split("-");
-      // console.log("Dd", arr);
       let date = new Date(Number(arr[0]), Number(arr[1]) - 1, Number(arr[2]));
-      // console.log(date);
       let tomorrow = new Date(date.setDate(date.getDate() + 1));
       console.log(tomorrow);
       let result = tomorrow.getFullYear() + "-";
@@ -67,3 +64,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.situation-calendar-view {
+  width: 100%;
+}
+.situation-calendar {
+  width: 100%;
+  /* background-color: aquamarine; */
+}
+</style>

@@ -1,8 +1,6 @@
 <!-- 마이페이지 메인 -->
 <template>
-  <div>
-    <h2>마이페이지 메인</h2>
-    <div></div>
+  <div class="mypage-main-view">
     <my-challenge-list
       title="참여 챌린지 목록"
       :challenges="participateChallengeList"
@@ -43,4 +41,18 @@ export default {
 };
 </script>
 
-<style></style>
+<style scope>
+.mypage-main-view {
+  /* background-color: aqua; */
+  margin-top: 60px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+.mypage-main-view h2 {
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+</style>
