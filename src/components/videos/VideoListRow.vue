@@ -52,6 +52,9 @@ export default {
   padding: 20px 20px;
   box-sizing: border-box;
 }
+.youtube-video:hover {
+  cursor: pointer;
+}
 .youtube-video-infos {
   /* background-color: aquamarine; */
   display: flex;
