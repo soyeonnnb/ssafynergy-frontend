@@ -1,5 +1,5 @@
 <template>
-  <tr @click="goDetail">
+  <tr @click="goDetail" v-if="index <= 5">
     <td>{{ no }}</td>
     <td>{{ challenge.name }}</td>
     <td>{{ challenge.startAt }}</td>
@@ -15,6 +15,7 @@ export default {
   props: {
     challenge: Object,
     no: Number,
+    index: Number,
   },
   methods: {
     goDetail() {

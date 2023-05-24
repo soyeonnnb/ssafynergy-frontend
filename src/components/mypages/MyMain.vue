@@ -2,6 +2,7 @@
 <template>
   <div>
     <h2>마이페이지 메인</h2>
+    <div></div>
     <my-challenge-list
       title="참여 챌린지 목록"
       :challenges="participateChallengeList"
