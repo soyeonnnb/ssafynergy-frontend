@@ -1,7 +1,11 @@
 <template>
-  <div>
-    <button v-if="!isLikeChallenge" @click="likeChallenge">좋아요하기</button>
-    <button v-else @click="cancelLikeChallenge">좋아요취소하기</button>
+  <div class="challenge-like-btn">
+    <span v-if="!isLikeChallenge" @click="likeChallenge"
+      ><i class="fa-regular fa-heart fa-xl"></i
+    ></span>
+    <span v-else @click="cancelLikeChallenge"
+      ><i class="fa-solid fa-heart fa-xl"></i
+    ></span>
   </div>
 </template>
 
@@ -34,4 +38,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style scope>
+.challenge-like-btn i {
+  color: #ac2072;
+}
+.challenge-like-btn i:hover {
+  cursor: pointer;
+}
+</style>

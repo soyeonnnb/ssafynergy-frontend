@@ -1,59 +1,45 @@
 <!-- 챌린지 디테일 -->
 <template>
-  <div class="challenge-detail-main">
-    <div></div>
-
-    <h1 class="underline">챌린지 디테일</h1>
-    <div class="regist_form">
-      <label for="name">챌린지명</label>
-      <div class="view">{{ challenge.name }}</div>
-      <label for="startAt">시작일</label>
-      <div class="view">{{ challenge.startAt }}</div>
-      <label for="finishAt">종료일</label>
-      <div class="view">{{ challenge.finishAt }}</div>
-      <label for="description">상세설명</label>
-      <div class="view">{{ challenge.description }}</div>
-      <label for="limitPersonNum">모집인원</label>
-      <div class="view">{{ challenge.limitPersonNum }}명</div>
-      <label for="reviewCnt">리뷰개수</label>
-      <div class="view">{{ challenge.reviewCnt }}개</div>
-      <challenge-like-btn></challenge-like-btn>
-      <challenge-participate-btn></challenge-participate-btn>
-      <div style="padding-top: 15px">
-        <router-link to="/challenge/search" class="btn">목록</router-link>
-      </div>
+  <div class="challenge-detail-view">
+    <div class="challenge-detail-main">
+      <section class="challenge-detail-img">
+        <div class="challenge-detail-content"></div>
+      </section>
+      <section class="challenge-detail-info">
+        <div class="challenge-detail-content challenge-detail-content-text">
+          <div>
+            <h1 class="challenge-detail-view-name">{{ challenge.name }}</h1>
+            <span class="challenge-detail-view-desc">{{
+              challenge.description
+            }}</span>
+          </div>
+          <div class="challenge-detail-view-infos">
+            <div>
+              <i class="fa-regular fa-calendar"></i>
+              <span> {{ challenge.startAt.substring(0, 10) }} 부터</span>
+              <span> {{ challenge.finishAt.substring(0, 10) }} 까지 </span>
+            </div>
+            <div>
+              <i class="fa-solid fa-people"></i>
+              <span>{{ challenge.limitPersonNum }}명</span>
+            </div>
+            <div class="challenge-detail-btns">
+              <challenge-like-btn></challenge-like-btn>
+              <challenge-participate-btn></challenge-participate-btn>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
-    <h2>리뷰 리스트</h2>
-    <!-- 전체 챌린지 리스트 -->
-    <div v-if="reviews.length">
-      <table>
-        <colgroup>
-          <col style="width: 5%" />
-          <col style="width: 20%" />
-          <col style="width: 20%" />
-          <col style="width: 20%" />
-          <col style="width: 25%" />
-          <col style="width: 10%" />
-        </colgroup>
-        <thead>
-          <tr>
-            <th>번호</th>
-            <th>제목</th>
-            <th>내용</th>
-            <th>작성일</th>
-            <th>작성자</th>
-            <th>별점</th>
-          </tr>
-        </thead>
-        <tbody>
-          <list-row-review
-            v-for="(review, index) in reviews"
-            :key="index"
-            :no="index + 1"
-            :review="review"
-          />
-        </tbody>
-      </table>
+
+    <!-- 전체 리뷰 리스트 -->
+    <div v-if="reviews.length" class="challenge-detail-reviews">
+      <list-row-review
+        v-for="(review, index) in reviews"
+        :key="index"
+        :no="index + 1"
+        :review="review"
+      />
     </div>
   </div>
 </template>
@@ -87,11 +73,84 @@ export default {
 </script>
 
 <style scope>
+.challenge-detail-view {
+  width: 75%;
+  max-width: 1000%;
+  min-width: 500px;
+  display: flex;
+  flex-direction: column;
+}
 .challenge-detail-main {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: aqua;
+  height: 80%;
+  margin-bottom: 100px;
+}
+.challenge-detail-img {
+  position: absolute;
+  top: 0;
+  left: -30%;
+  width: 60%;
+  height: 350px;
+  padding: 50px 80px;
+  /* background-color: red; */
+  transform: skewX(30deg) translateX(-85px);
+  overflow: hidden;
+  z-index: -1;
+}
+
+.challenge-detail-img .challenge-detail-content {
+  transform: skewX(-30deg);
+  padding: 0 0 0 85px;
+}
+
+.challenge-detail-img:before {
+  content: "";
+  width: 200%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: url("@/assets/img/challenge_detail_img.jpg") no-repeat center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transform: skewX(-30deg) translateX(-85px);
+  z-index: -1;
+}
+
+.challenge-detail-info {
+  width: 100%;
+  height: 350px;
+  /* padding: 50px 80px 50px 62%; */
+  display: flex;
+  justify-content: end;
+  margin-top: 100px;
+}
+.challenge-detail-content-text {
+  text-align: end;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.challenge-detail-view-name {
+  font-size: 30px;
+  margin-bottom: 25px;
+}
+.challenge-detail-view-desc {
+  display: inline-block;
+  max-width: 500px;
+}
+.challenge-detail-view-infos > div {
+  margin-bottom: 15px;
+}
+.challenge-detail-view-infos i {
+  margin-right: 10px;
+}
+.challenge-detail-btns {
+  display: flex;
+  justify-content: end;
+  margin-top: 40px;
 }
 </style>
