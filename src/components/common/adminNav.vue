@@ -34,10 +34,11 @@ nav {
   display: flex;
   position: fixed;
   z-index: 10;
-  background-color: #053742;
+  background-color: #1f366b;
   box-shadow: 0 3px 20px rgba(0, 0, 0, 0.2);
 }
 .navnav {
+  font-size: 20px;
   display: flex;
 }
 </style>
