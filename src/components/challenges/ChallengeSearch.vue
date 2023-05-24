@@ -1,21 +1,19 @@
 <!-- 챌린지 검색 -->
 <template>
-  <div>
+  <div class="challenge-search-main">
     <!-- 챌린지 검색 -->
     <div>
       <h2>챌린지 검색</h2>
-      <div>
-        <div>
-          <input
-            type="text"
-            name="searchKeyword"
-            id="searchKeyword"
-            v-model="searchKeyword"
-            placeholder="챌린지명을 검색하세요."
-          />
-        </div>
-        <div style="display: flex; justify-content: center">
-          난이도 선택 :
+      <div class="challenge-search-box">
+        <input
+          class="challenge-search-input"
+          type="text"
+          name="searchKeyword"
+          id="searchKeyword"
+          v-model="searchKeyword"
+          placeholder="챌린지명을 검색하세요."
+        />
+        <div class="challenge-search-radio">
           <input
             type="radio"
             id="diff0"
@@ -132,7 +130,6 @@ export default {
     return {
       searchKeyword: "", // 검색 키워드
       selectedDifficulty: "", // 선택한 난이도를 저장하는 변수
-      selectedPossibility: "", // 선택한 신청가능 여부를 저장하는 변수
     };
   },
   components: {
@@ -156,4 +153,58 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.challenge-search-main {
+  margin-top: 100px;
+}
+.challenge-search-box {
+  background-color: aqua;
+  width: 500px;
+  padding: 20px 50px;
+}
+.challenge-search-box > div {
+  width: 100%;
+  background-color: aquamarine;
+}
+.challenge-search-input {
+  width: 100%;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  outline: none;
+  border: 1px solid rgb(210, 210, 210);
+  border-radius: 50px;
+  margin-bottom: 20px;
+}
+.challenge-search-input:focus,
+.challenge-search-input:hover {
+  box-shadow: 0 0 4px rgb(182, 182, 182);
+}
+.challenge-search-radio {
+  width: fit-content;
+  border: 1px solid #666;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: no-wrap;
+}
+.challenge-search-radio input {
+  display: none;
+}
+.challenge-search-radio label {
+  font-family: sans-serif;
+  padding: 10px 16px;
+  border-right: 1px solid #ccc;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.challenge-search-radio label:last-of-type {
+  border-right: 0;
+}
+.challenge-search-radio label:hover {
+  background: #eee;
+}
+.challenge-search-radio input:checked + label {
+  background: #becbff;
+}
+</style>
