@@ -564,6 +564,7 @@ export default new Vuex.Store({
             video.description = v.snippet.description;
             video.title = v.snippet.title;
             video.thumbnail = v.snippet.thumbnails.high.url;
+            video.createdAt = v.snippet.publishedAt.substring(0, 10);
             videos.push(video);
           });
           return videos;
