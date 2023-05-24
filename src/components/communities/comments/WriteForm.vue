@@ -1,13 +1,11 @@
 <template>
-  <div>
-    <input type="text" v-model.trim="content" />
-
-    <div v-if="type == 'modify'">
-      <button @click="commentModify">수정</button>
-      <button @click="commentModifyCancel">취소</button>
+  <div class="comment-write-box">
+    <input type="text" v-model.trim="content" class="comment-input" />
+    <div v-if="type == 'modify'" class="modify-btns">
+      <span @click="commentModify">수정</span>
+      <span @click="commentModifyCancel">취소</span>
     </div>
-
-    <button @click="commentWrite" v-if="type == 'create'">등록</button>
+    <span @click="commentWrite" v-if="type == 'create'">등록</span>
   </div>
 </template>
 
@@ -72,4 +70,35 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.comment-write-box {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  margin: 5px 0 20px 0;
+}
+.comment-input {
+  flex-grow: 1;
+  height: 20px;
+  padding: 10px 15px;
+  outline: none;
+  border: 1px solid rgba(220, 219, 219, 0.703);
+}
+.comment-write-box span {
+  padding: 13px 15px;
+  margin-left: 5px;
+  border-radius: 3px;
+  border: 1px solid rgba(220, 219, 219, 0.703);
+  background-color: rgb(255, 251, 247);
+  transition: all 0.1s ease-in;
+}
+.comment-write-box span:hover {
+  cursor: pointer;
+  background-color: rgb(233, 229, 224);
+}
+.modify-btns {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+</style>

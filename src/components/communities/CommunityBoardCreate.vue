@@ -1,8 +1,10 @@
 <!-- 커뮤니티 글작성 -->
 <template>
   <div>
-    <h2>커뮤니티 글 작성</h2>
-    <write-form type="create"></write-form>
+    <div class="box">
+      <h2>커뮤니티 글 작성</h2>
+      <write-form type="create"></write-form>
+    </div>
   </div>
 </template>
 
@@ -16,4 +18,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style scope>
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.box {
+  width: 800px;
+}
+</style>

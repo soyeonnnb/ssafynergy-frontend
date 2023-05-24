@@ -1,17 +1,12 @@
 <template>
-  <div>
-    <div>
-      <h3>여기에 각 게시판 카테고리~</h3>
-      <div>
-        <ul>
-          <board-category-list-row
-            v-for="category in boardCategories"
-            :key="category.id"
-            :category="category"
-          ></board-category-list-row>
-        </ul>
-      </div>
-    </div>
+  <div class="side-nav">
+    <ul>
+      <board-category-list-row
+        v-for="category in boardCategories"
+        :key="category.id"
+        :category="category"
+      ></board-category-list-row>
+    </ul>
   </div>
 </template>
 
@@ -32,4 +27,19 @@ export default {
 };
 </script>
 
-<style></style>
+<style scope>
+.side-nav {
+  padding-top: 60px;
+}
+ul {
+  border-radius: 10px;
+  padding: 40px 0;
+  width: 220px;
+  box-shadow: 0 0 4px rgb(149, 149, 149);
+  margin-right: 20px;
+  box-sizing: border-box;
+}
+ul > li:not(:last-child) {
+  border-bottom: 1px solid #f3eeff;
+}
+</style>

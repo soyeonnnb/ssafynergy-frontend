@@ -21,4 +21,16 @@ export default {
 };
 </script>
 
-<style></style>
+<style scope>
+li {
+  height: 50px;
+  line-height: 50px;
+  white-space: nowrap;
+  width: 220px;
+}
+li:hover {
+  cursor: pointer;
+  /* background-color: aquamarine; */
+  background-color: #f3eeff;
+}
+</style>

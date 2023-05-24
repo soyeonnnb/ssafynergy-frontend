@@ -1,6 +1,8 @@
 <!-- 챌린지 디테일 -->
 <template>
-  <div class="regist">
+  <div class="challenge-detail-main">
+    <div></div>
+
     <h1 class="underline">챌린지 디테일</h1>
     <div class="regist_form">
       <label for="name">챌린지명</label>
@@ -84,4 +86,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style scope>
+.challenge-detail-main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: aqua;
+}
+</style>
