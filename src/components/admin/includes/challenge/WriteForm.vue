@@ -1,71 +1,117 @@
 <template>
   <div>
     <div>
-      <label for="name">챌린지 이름</label>
-      <input type="text" id="name" v-model="challenge.name" required />
-      <div style="display: flex; justify-content: center">
-        난이도 선택 :
-        <input
-          type="radio"
-          value="1"
-          id="diff1"
-          v-model="challenge.challengeDifficultyId"
-          required
-        />
-        <label for="diff1">쉬움</label>
-        <br />
-        <input
-          type="radio"
-          value="2"
-          id="diff2"
-          v-model="challenge.challengeDifficultyId"
-          required
-        />
-        <label for="diff2">보통</label>
-        <br />
-        <input
-          type="radio"
-          value="3"
-          id="diff3"
-          v-model="challenge.challengeDifficultyId"
-          required
-        />
-        <label for="diff3">어려움</label>
-        <br />
+      <div class="tablehead">기본정보</div>
+      <div style="background-color: white; border: 1px solid">
+        <table>
+          <colgroup>
+            <col style="width: 30%; background-color: #e3e3e3" />
+            <col style="width: 70%" />
+          </colgroup>
+          <tbody>
+            <tr>
+              <td><label for="name">챌린지 이름</label></td>
+              <td>
+                <input
+                  type="text"
+                  id="name"
+                  v-model="challenge.name"
+                  required
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>난이도 선택 :</td>
+              <td>
+                <div style="display: flex">
+                  <input
+                    type="radio"
+                    value="1"
+                    id="diff1"
+                    v-model="challenge.challengeDifficultyId"
+                    required
+                  />
+                  <label for="diff1">쉬움</label>
+                  <br />
+                  <input
+                    type="radio"
+                    value="2"
+                    id="diff2"
+                    v-model="challenge.challengeDifficultyId"
+                    required
+                  />
+                  <label for="diff2">보통</label>
+                  <br />
+                  <input
+                    type="radio"
+                    value="3"
+                    id="diff3"
+                    v-model="challenge.challengeDifficultyId"
+                    required
+                  />
+                  <label for="diff3">어려움</label>
+                  <br />
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><label for="startAt">시작일</label></td>
+              <td>
+                <input
+                  type="date"
+                  id="startAt"
+                  v-model="challenge.startAt"
+                  required
+                /><br />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="finishAt">종료일</label></td>
+              <td>
+                <input
+                  type="date"
+                  id="finishAt"
+                  v-model="challenge.finishAt"
+                  required
+                /><br />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="limitPersonNum">챌린지 인원수</label></td>
+              <td>
+                <input
+                  type="number"
+                  id="limitPersonNum"
+                  v-model="challenge.limitPersonNum"
+                /><br />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="totalDay">챌린지 일수</label></td>
+              <td>
+                <input
+                  type="number"
+                  id="totalDay"
+                  v-model="challenge.totalDay"
+                  required
+                /><br />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="description">챌린지 상세설명</label></td>
+              <td>
+                <textarea
+                  id="description"
+                  v-model="challenge.description"
+                  required
+                ></textarea>
+              </td>
+            </tr>
+          </tbody>
+          <!-- <div >
+          </div> -->
+        </table>
       </div>
-      <label for="startAt">시작일</label>
-      <input
-        type="date"
-        id="startAt"
-        v-model="challenge.startAt"
-        required
-      /><br />
-      <label for="finishAt">종료일</label>
-      <input
-        type="date"
-        id="finishAt"
-        v-model="challenge.finishAt"
-        required
-      /><br />
-      <label for="limitPersonNum">챌린지 인원수</label>
-      <input
-        type="number"
-        id="limitPersonNum"
-        v-model="challenge.limitPersonNum"
-      /><br />
-      <label for="totalDay">챌린지 일수</label>
-      <input
-        type="number"
-        id="totalDay"
-        v-model="challenge.totalDay"
-        required
-      /><br />
-      <label for="description">챌린지 상세설명</label>
-      <textarea
-        id="description"
-        v-model="challenge.description"
-        required
-      ></textarea>
     </div>
 
     <button v-if="type == 'create'" @click="createChallenge">등록</button>
@@ -132,4 +178,38 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.tablehead {
+  background-color: gray;
+  width: 80%;
+  height: 40px;
+  vertical-align: middle;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+  padding-left: 80px;
+  color: white;
+}
+table {
+  /* margin-top: 50px; */
+  width: 80%;
+  border-top: 1px solid #444444;
+  border-collapse: collapse;
+  margin: 40px;
+}
+tr {
+  height: 60px;
+}
+th,
+td {
+  border-bottom: 1px solid #444444;
+  padding: 10px;
+}
+td {
+  text-align: left;
+  font-size: 15px;
+  padding-left: 20px;
+  vertical-align: middle;
+}
+</style>
