@@ -1,7 +1,7 @@
 <template>
   <div class="mypage-challenge-obj" @click="goChallengeDetail">
     <img
-      src="@/assets/img/main_img.jpg"
+      :src="`http://localhost:9999/upload/challenge/${challenge.img}`"
       class="mypage-challenge-obj-img"
       :alt="`${challenge.id} 이미지`"
     />

@@ -1,6 +1,9 @@
 <template>
   <div class="card" @click="goDetail" v-if="index <= 5">
-    <img src="@/assets/img/main_img.jpg" class="card-img" />
+    <img
+      :src="`http://localhost:9999/upload/challenge/${challenge.img}`"
+      class="card-img"
+    />
     <div class="card-info">
       <div class="card-info_title">{{ challenge.name }}</div>
       <!-- <div class="card-info_description">{{ challenge. }}</div> -->

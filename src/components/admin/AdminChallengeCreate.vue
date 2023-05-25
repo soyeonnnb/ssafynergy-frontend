@@ -22,7 +22,13 @@ export default {
 
 <style>
 .admin_page {
-  padding-top: 120px;
+  padding-top: 160px;
   padding-left: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.admin_page h1 {
+  font-size: 20px;
 }
 </style>

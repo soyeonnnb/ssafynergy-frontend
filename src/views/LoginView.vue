@@ -262,7 +262,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style>
 :root {
   --primary-color: #4ea685;
   --secondary-color: #57b894;
