@@ -64,11 +64,13 @@ export default {
   //   const challengeId = this.$route.params.challengeId;
   //   console.log("마운트" + challengeId);
   // },
+
   created() {
     this.$store.dispatch("clearChallengeIng");
     this.$store.dispatch("getChallengeIngs", Number(this.$route.params.id));
-    const challengeId = this.$route.params.challengeId;
+    const challengeId = this.$route.params.id;
     const userId = this.loginUser.id;
+    // console.log("in chall main", challengeId, userId);
     this.$store.dispatch("getReview", {
       challengeId,
       userId,

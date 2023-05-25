@@ -78,6 +78,7 @@ export default {
         alert("작성해야 합니다.");
         return;
       }
+
       await this.$store
         .dispatch("postChallengeIng", {
           challengeParticipateId: Number(this.$route.params.id),

@@ -639,6 +639,7 @@ export default new Vuex.Store({
         });
     },
     getReview(context, { challengeId, userId }) {
+      // console.log("getreview ->", challengeId, userId);
       http
         .get(`/channel/challenge/${challengeId}/${userId}`, {
           headers: {
@@ -816,18 +817,14 @@ export default new Vuex.Store({
     clearChallengeIng({ commit }) {
       commit("CLEAR_CHALLENGE_ING");
     },
-    async postChallengeIng({ dispatch }, payload) {
+    async postChallengeIng(context, payload) {
       // console.log(payload);
-      await http
-        .post("/challenge-participate/ing", payload, {
-          headers: {
-            "access-token": sessionStorage.getItem("access-token"),
-            "Content-type": "application/json",
-          },
-        })
-        .then(() => {
-          dispatch("getChallengeIngs", payload.challengeParticipateId);
-        });
+      await http.post("/challenge-participate/ing", payload, {
+        headers: {
+          "access-token": sessionStorage.getItem("access-token"),
+          "Content-type": "application/json",
+        },
+      });
     },
     async getIsLikeChallenge({ commit }, payload) {
       await http
