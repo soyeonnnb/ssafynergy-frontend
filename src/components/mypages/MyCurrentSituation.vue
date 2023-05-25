@@ -20,6 +20,18 @@ export default {
         // dateClick: this.handleDateClick,
         events: [], // title, start, end
       },
+      colors: [
+        "#3D81C1",
+        "#FFBC5B",
+        "#563DC1",
+        "#89C13D",
+        "#E85778",
+        "#3DC174",
+        "#3DC1A7",
+        "#9C38CE",
+        "#FF785B",
+        "#E857C5",
+      ],
     };
   },
   computed: {
@@ -31,13 +43,16 @@ export default {
   watch: {
     participateChallengeList() {
       let list = [];
-      this.participateChallengeList.forEach((challenge) => {
+      for (let i = 0; i < this.participateChallengeList.length; i++) {
         let chall = {};
-        chall.title = challenge.name;
-        chall.start = challenge.startAt.substring(0, 10);
-        chall.end = this.getNextDate(challenge.finishAt.substring(0, 10));
+        chall.title = this.participateChallengeList[i].name;
+        chall.start = this.participateChallengeList[i].startAt.substring(0, 10);
+        chall.end = this.getNextDate(
+          this.participateChallengeList[i].finishAt.substring(0, 10)
+        );
+        chall.color = this.colors[i % 10];
         list.push(chall);
-      });
+      }
       this.calendarOptions.events = list;
     },
   },

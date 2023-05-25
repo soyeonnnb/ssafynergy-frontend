@@ -12,111 +12,75 @@
           id="searchKeyword"
           v-model="searchKeyword"
           placeholder="챌린지명을 검색하세요."
+          @keyup.enter="searchC"
         />
-        <div class="challenge-search-radio">
-          <input
-            type="radio"
-            id="diff0"
-            name="difficulty"
-            value="0"
-            checked="checked"
-            v-model="selectedDifficulty"
-          />
-          <label for="diff0">상관없음</label>
-          <br />
-          <input
-            type="radio"
-            id="diff1"
-            name="difficulty"
-            value="1"
-            v-model="selectedDifficulty"
-          />
-          <label for="diff1">쉬움</label>
-          <br />
-          <input
-            type="radio"
-            id="diff2"
-            name="difficulty"
-            value="2"
-            v-model="selectedDifficulty"
-          />
-          <label for="diff2">보통</label>
-          <br />
-          <input
-            type="radio"
-            id="diff3"
-            name="difficulty"
-            value="3"
-            v-model="selectedDifficulty"
-          />
-          <label for="diff3">어려움</label>
-          <br />
+        <div class="challenge-search-radio-box">
+          <div class="challenge-search-radio-name"><span> 난이도 </span></div>
+          <div class="challenge-search-radio">
+            <input
+              type="radio"
+              id="diff0"
+              name="difficulty"
+              value="0"
+              checked="checked"
+              v-model="selectedDifficulty"
+            />
+            <label for="diff0">상관없음</label>
+            <br />
+            <input
+              type="radio"
+              id="diff1"
+              name="difficulty"
+              value="1"
+              v-model="selectedDifficulty"
+            />
+            <label for="diff1">쉬움</label>
+            <br />
+            <input
+              type="radio"
+              id="diff2"
+              name="difficulty"
+              value="2"
+              v-model="selectedDifficulty"
+            />
+            <label for="diff2">보통</label>
+            <br />
+            <input
+              type="radio"
+              id="diff3"
+              name="difficulty"
+              value="3"
+              v-model="selectedDifficulty"
+            />
+            <label for="diff3">어려움</label>
+          </div>
         </div>
-        <button @click="searchC">검색</button>
+        <button
+          @click="searchC"
+          class="challenge-search-input challenge-search-input-btn"
+        >
+          검색
+        </button>
       </div>
     </div>
-    <h2>검색 결과 리스트</h2>
     <!-- 검색 결과 리스트 -->
-    <div v-if="searchChallenges.length">
-      <table>
-        <colgroup>
-          <col style="width: 5%" />
-          <col style="width: 20%" />
-          <col style="width: 20%" />
-          <col style="width: 20%" />
-          <col style="width: 25%" />
-          <col style="width: 10%" />
-        </colgroup>
-        <thead>
-          <tr>
-            <th>번호</th>
-            <th>챌린지 명</th>
-            <th>시작일</th>
-            <th>종료일</th>
-            <th>설명</th>
-            <th>모집인원</th>
-          </tr>
-        </thead>
-        <tbody>
-          <list-row
-            v-for="(challenge, index) in searchChallenges"
-            :key="index"
-            :no="index + 1"
-            :challenge="challenge"
-          />
-        </tbody>
-      </table>
+    <div v-if="searchChallenges.length" class="challenge-search-row">
+      <h2>검색 결과 리스트</h2>
+      <list-row
+        v-for="(challenge, index) in searchChallenges"
+        :key="index"
+        :no="index + 1"
+        :challenge="challenge"
+      />
     </div>
-    <div v-else>
-      <table id="challenge-list">
-        <colgroup>
-          <col style="width: 5%" />
-          <col style="width: 20%" />
-          <col style="width: 20%" />
-          <col style="width: 20%" />
-          <col style="width: 25%" />
-          <col style="width: 10%" />
-        </colgroup>
-        <thead>
-          <tr>
-            <th>번호</th>
-            <th>챌린지 명</th>
-            <th>시작일</th>
-            <th>종료일</th>
-            <th>설명</th>
-            <th>모집인원</th>
-          </tr>
-        </thead>
-        <tbody>
-          <list-row
-            v-for="(challenge, index) in challenges"
-            :key="index"
-            :no="index + 1"
-            :challenge="challenge"
-          />
-        </tbody>
-      </table>
-    </div>
+    <!-- <div v-else class="challenge-search-row">
+      <list-row
+        v-for="(challenge, index) in challenges"
+        :key="index"
+        :no="index + 1"
+        :challenge="challenge"
+      />
+    </div> -->
   </div>
 </template>
 
@@ -137,13 +101,16 @@ export default {
     // reListRow,
   },
   computed: {
-    ...mapGetters(["searchChallenges", "challenges"]),
+    ...mapGetters(["searchChallenges"]),
   },
   created() {
-    this.$store.dispatch("getChallenges");
+    this.$store.state.searchChallenges = [];
+    // this.searchChallenges = [];
+    // this.$store.dispatch("getChallenges");
   },
   methods: {
     searchC() {
+      console.log(this.selectedDifficulty);
       this.$store.dispatch("getSearchChallenges", {
         selectedDifficulty: Number(this.selectedDifficulty),
         searchKeyword: this.searchKeyword,
@@ -158,13 +125,13 @@ export default {
   margin-top: 100px;
 }
 .challenge-search-box {
-  background-color: aqua;
+  /* background-color: aqua; */
   width: 500px;
-  padding: 20px 50px;
-}
-.challenge-search-box > div {
-  width: 100%;
-  background-color: aquamarine;
+  padding: 50px 50px 20px 50px;
+  border-radius: 4px;
+  border: 1px solid rgb(210, 210, 210);
+  box-shadow: 0 0 1px rgb(210, 210, 210);
+  margin-bottom: 50px;
 }
 .challenge-search-input {
   width: 100%;
@@ -179,9 +146,20 @@ export default {
 .challenge-search-input:hover {
   box-shadow: 0 0 4px rgb(182, 182, 182);
 }
+.challenge-search-radio-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  /* background-color: aliceblue; */
+}
+.challenge-search-radio-name {
+  /* background-color: #c2c2c2; */
+  font-size: 20px;
+}
 .challenge-search-radio {
   width: fit-content;
-  border: 1px solid #666;
+  border: 1px solid #c2c2c2;
   border-radius: 4px;
   overflow: hidden;
   display: flex;
@@ -193,7 +171,7 @@ export default {
 }
 .challenge-search-radio label {
   font-family: sans-serif;
-  padding: 10px 16px;
+  padding: 10px 20px;
   border-right: 1px solid #ccc;
   cursor: pointer;
   transition: all 0.3s;
@@ -206,5 +184,8 @@ export default {
 }
 .challenge-search-radio input:checked + label {
   background: #becbff;
+}
+.challenge-search-input-btn:hover {
+  cursor: pointer;
 }
 </style>

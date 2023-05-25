@@ -1,23 +1,41 @@
 <template>
-  <div>
-    <h2>챌린지 현황 등록</h2>
-    <div>
-      <div>일차: <input type="number" v-model.trim="index" required /></div>
+  <div class="challenge-post-view">
+    <div class="challenge-post-form">
+      <h2>챌린지 현황 등록</h2>
       <div>
-        프로필 사진
+        <input
+          type="number"
+          v-model.trim="index"
+          required
+          class="challenge-post-input"
+          placeholder="일차"
+        />
+      </div>
+      <div>
         <input
           type="file"
           accept=".png, .jpg, .jpeg"
           @change="setChallengeImg"
           required
           id="challenge-img-edit"
+          class="challenge-post-input"
         />
       </div>
       <div>
-        코멘트
-        <input type="text" v-model.trim="content" required />
+        <input
+          type="text"
+          v-model.trim="content"
+          required
+          class="challenge-post-input"
+          placeholder="코멘트"
+        />
       </div>
-      <button @click="postChallengeIng">등록</button>
+      <button
+        @click="postChallengeIng"
+        class="challenge-post-input challenge-post-input__btn"
+      >
+        등록
+      </button>
     </div>
   </div>
 </template>
@@ -28,7 +46,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      index: 1,
+      index: "",
       img: "",
       content: "",
     };
@@ -78,4 +96,37 @@ export default {
 };
 </script>
 
-<style></style>
+<style scope>
+.challenge-post-view {
+  width: 100%;
+}
+.challenge-post-form {
+  /* background-color: azure; */
+  border: 1px solid rgb(210, 210, 210);
+  border-radius: 6px;
+  padding: 50px;
+  font-size: 20px;
+  width: 50%;
+}
+.challenge-post-form h2 {
+  margin-bottom: 30px;
+}
+
+.challenge-post-input {
+  width: 100%;
+  padding: 10px 20px;
+  outline: none;
+  border: 1px solid rgb(210, 210, 210);
+  border-radius: 50px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  transition: all 0.1s ease-out;
+}
+.challenge-post-input:focus,
+.challenge-post-input:hover {
+  box-shadow: 0 0 4px rgb(182, 182, 182);
+}
+.challenge-post-input__btn:hover {
+  cursor: pointer;
+}
+</style>
