@@ -26,7 +26,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .mypage-challenge-list-view {
   width: 100%;
   margin-bottom: 50px;

@@ -2,9 +2,8 @@
   <tr @click="goDetail">
     <td>{{ no }}</td>
     <td>{{ challenge.name }}</td>
-    <td>{{ challenge.startAt }}</td>
-    <td>{{ challenge.finishAt }}</td>
-    <td>{{ challenge.description }}</td>
+    <td>{{ challenge.startAt.substring(0, 10) }}</td>
+    <td>{{ challenge.finishAt.substring(0, 10) }}</td>
     <td>{{ challenge.limitPersonNum }}명</td>
   </tr>
 </template>

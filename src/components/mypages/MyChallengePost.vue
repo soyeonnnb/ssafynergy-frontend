@@ -97,7 +97,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .challenge-post-view {
   width: 100%;
 }

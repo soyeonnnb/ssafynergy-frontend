@@ -51,7 +51,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .mypage-nav {
   margin-top: 60px;
   border-radius: 10px;

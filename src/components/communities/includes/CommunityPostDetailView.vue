@@ -33,7 +33,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .category {
   text-align: start;
   font-size: 20px;

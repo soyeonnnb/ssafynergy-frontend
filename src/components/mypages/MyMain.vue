@@ -41,7 +41,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .mypage-main-view {
   /* background-color: aqua; */
   margin-top: 60px;

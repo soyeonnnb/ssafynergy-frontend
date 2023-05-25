@@ -6,25 +6,30 @@
       <community-side-nav></community-side-nav>
       <router-view class="community-right-side"></router-view>
     </div>
+    <footer-bar></footer-bar>
   </div>
 </template>
 
 <script>
 import homeNav from "@/components/common/homeNav.vue";
 import communitySideNav from "@/components/common/communitySideNav.vue";
+import footerBar from "@/components/common/footerBar.vue";
 export default {
   name: "community-view",
   components: {
     homeNav,
     communitySideNav,
+    footerBar,
   },
 };
 </script>
 
-<style scope>
+<style scoped>
 .main {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  width: 100%;
 }
 .community-main {
   display: flex;

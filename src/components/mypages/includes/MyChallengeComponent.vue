@@ -1,7 +1,7 @@
 <template>
   <div class="mypage-challenge-obj" @click="goChallengeDetail">
     <img
-      src="@/assets/img/main_img.jpg"
+      :src="`http://localhost:9999/upload/challenge/${challenge.img}`"
       class="mypage-challenge-obj-img"
       :alt="`${challenge.id} 이미지`"
     />
@@ -44,7 +44,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .mypage-challenge-obj {
   width: 280px;
   height: 150px;

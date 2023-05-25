@@ -72,7 +72,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .challenge-detail-view {
   width: 75%;
   max-width: 1000%;

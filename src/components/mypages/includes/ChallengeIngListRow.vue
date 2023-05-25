@@ -26,7 +26,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .challenge-ing-obj {
   /* background-color: aqua; */
   /* margin-bottom: 30px; */

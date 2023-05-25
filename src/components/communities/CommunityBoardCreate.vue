@@ -18,7 +18,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 h2 {
   font-size: 24px;
   margin-bottom: 20px;

@@ -6,14 +6,14 @@
       <mypage-nav></mypage-nav>
       <router-view class="mypage-right-side"></router-view>
     </div>
-    <footer-bar></footer-bar>
+    <footer-bar style="width: 100%"></footer-bar>
   </div>
 </template>
 
 <script>
 import homeNav from "@/components/common/homeNav.vue";
-import mypageNav from "@/components/common/mypageNav.vue";
 import footerBar from "@/components/common/footerBar.vue";
+import mypageNav from "@/components/common/mypageNav.vue";
 export default {
   name: "mypage-view",
   components: {
@@ -24,12 +24,13 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .main {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 .mypage-main {
   display: flex;

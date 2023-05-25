@@ -32,7 +32,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .mypage-follow-list-view {
   width: 100%;
 }

@@ -1,11 +1,11 @@
 <template>
   <tr @click="goDetail">
-    <th>{{ post.id }}</th>
-    <th>{{ post.title }}</th>
-    <th>{{ post.userNickname }}</th>
-    <th>{{ post.createdAt.substring(0, 10) }}</th>
-    <th>{{ post.viewCnt }}</th>
-    <th>{{ post.likeCnt }}</th>
+    <td>{{ post.id }}</td>
+    <td>{{ post.title }}</td>
+    <td>{{ post.userNickname }}</td>
+    <td>{{ post.createdAt.substring(0, 10) }}</td>
+    <td>{{ post.viewCnt }}</td>
+    <td>{{ post.likeCnt }}</td>
   </tr>
 </template>
 
@@ -26,4 +26,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+td {
+  /* background-color: aquamarine; */
+  padding: 12px 0;
+}
+</style>

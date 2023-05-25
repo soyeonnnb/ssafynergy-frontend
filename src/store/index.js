@@ -639,7 +639,7 @@ export default new Vuex.Store({
         });
     },
     getReview(context, { challengeId, userId }) {
-      // console.log("getreview ->", challengeId, userId);
+      console.log("getreview ->", challengeId, userId);
       http
         .get(`/channel/challenge/${challengeId}/${userId}`, {
           headers: {

@@ -29,7 +29,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .like-btns {
   text-align: end;
   margin-top: 25px;

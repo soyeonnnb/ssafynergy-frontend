@@ -70,7 +70,7 @@ export default {
     this.$store.dispatch("getChallengeIngs", Number(this.$route.params.id));
     const challengeId = this.$route.params.id;
     const userId = this.loginUser.id;
-    // console.log("in chall main", challengeId, userId);
+    console.log("in chall main", challengeId, userId);
     this.$store.dispatch("getReview", {
       challengeId,
       userId,
@@ -87,7 +87,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .my-challenge-main-view {
   display: flex;
   flex-direction: column;

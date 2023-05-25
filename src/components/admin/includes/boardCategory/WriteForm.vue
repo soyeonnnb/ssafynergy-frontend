@@ -1,70 +1,94 @@
 <template>
-  <div>
-    <div class="tablehead">기본정보</div>
-    <div style="background-color: white">
-      <table>
-        <tr v-if="type == 'modify'">
-          <th>번호</th>
-          <td>{{ boardCategory.id }}</td>
-        </tr>
-        <tr>
-          <th>이름</th>
-          <td><input type="text" v-model="boardCategory.name" /></td>
-        </tr>
-        <tr>
-          <th>공개여부</th>
-          <td>
-            <input
-              type="radio"
-              v-model="boardCategory.isAuthorized"
-              value="true"
-            />
-            공개 |
-            <input
-              type="radio"
-              v-model="boardCategory.isAuthorized"
-              value="false"
-            />
-            비공개
-          </td>
-        </tr>
-        <tr>
-          <th>작성자 타입</th>
-          <td>
-            <input
-              type="radio"
-              v-model="boardCategory.writerType"
-              value="true"
-            />
-            관리자만 |
-            <input
-              type="radio"
-              v-model="boardCategory.writerType"
-              value="false"
-            />
-            전체 다
-          </td>
-        </tr>
-        <tr>
-          <th>댓글자 타입</th>
-          <td>
-            <input
-              type="radio"
-              v-model="boardCategory.reviewerType"
-              value="true"
-            />
-            관리자만 |
-            <input
-              type="radio"
-              v-model="boardCategory.reviewerType"
-              value="false"
-            />
-            전체 다
-          </td>
-        </tr>
-      </table>
-      <button v-if="type == 'create'" @click="createCategory">생성</button>
-      <button v-if="type == 'modify'" @click="modifyCategory">수정</button>
+  <div class="write-form">
+    <div>
+      <div class="tablehead">기본정보</div>
+      <div style="background-color: white">
+        <table>
+          <tr v-if="type == 'modify'">
+            <th>번호</th>
+            <td>{{ boardCategory.id }}</td>
+          </tr>
+          <tr>
+            <th>이름</th>
+            <td>
+              <input
+                class="round-input"
+                type="text"
+                v-model="boardCategory.name"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>공개여부</th>
+            <td>
+              <input
+                type="radio"
+                v-model="boardCategory.isAuthorized"
+                value="true"
+              />
+              공개
+              <input
+                type="radio"
+                v-model="boardCategory.isAuthorized"
+                value="false"
+              />
+              비공개
+            </td>
+          </tr>
+          <tr>
+            <th>작성자 타입</th>
+            <td>
+              <input
+                type="radio"
+                v-model="boardCategory.writerType"
+                value="true"
+              />
+              관리자만
+              <input
+                type="radio"
+                v-model="boardCategory.writerType"
+                value="false"
+              />
+              전체 다
+            </td>
+          </tr>
+          <tr>
+            <th>댓글자 타입</th>
+            <td>
+              <input
+                type="radio"
+                v-model="boardCategory.reviewerType"
+                value="true"
+              />
+              관리자만
+              <input
+                type="radio"
+                v-model="boardCategory.reviewerType"
+                value="false"
+              />
+              전체 다
+            </td>
+          </tr>
+        </table>
+        <div style="display: flex; justify-content: center">
+          <button
+            style="width: 150px"
+            class="round-input"
+            v-if="type == 'create'"
+            @click="createCategory"
+          >
+            생성
+          </button>
+          <button
+            style="width: 150px"
+            class="round-input"
+            v-if="type == 'modify'"
+            @click="modifyCategory"
+          >
+            수정
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -122,7 +146,20 @@ export default {
   },
 };
 </script>
-
+<style>
+.round-input {
+  width: 100%;
+  padding: 10px 20px;
+  outline: none;
+  border: 1px solid rgb(210, 210, 210);
+  border-radius: 50px;
+  box-sizing: border-box;
+}
+.round-input:focus,
+.round-input:hover {
+  box-shadow: 0 0 4px rgb(182, 182, 182);
+}
+</style>
 <style scoped>
 .admin_page {
   padding-top: 120px;
@@ -154,6 +191,7 @@ th,
 td {
   border-bottom: 1px solid #444444;
   padding: 10px;
+  vertical-align: middle;
 }
 td {
   text-align: left;

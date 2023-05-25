@@ -38,7 +38,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .challenge-like-btn i {
   color: #ac2072;
 }
