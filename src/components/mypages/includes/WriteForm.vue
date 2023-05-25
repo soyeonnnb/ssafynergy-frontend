@@ -1,25 +1,36 @@
 <template>
-  <div>
-    <div>
-      <label for="title">리뷰 제목</label>
-      <input type="text" id="title" v-model="review.title" required />
-      <label for="content">리뷰 내용</label>
-      <input type="text" id="content" v-model="review.content" required />
-      <label for="challengeId">챌린지 id</label>
-      <input
-        type="number"
-        id="challengeId"
-        v-model="review.challengeId"
-        required
-      />
-      <label for="userId">유저 id</label>
-      <input type="text" id="userId" v-model="review.userId" required />
-      <label for="rating">별점</label>
-      <input type="number" id="rating" v-model="review.rating" required />
-    </div>
+  <div class="my-challenge-review-form">
+    <h1>리뷰 작성</h1>
+    <input
+      class="my-challenge-review-input"
+      type="text"
+      id="title"
+      placeholder="제목"
+      v-model="review.title"
+      required
+    />
+    <input
+      class="my-challenge-review-input"
+      type="text"
+      id="content"
+      v-model="review.content"
+      required
+      placeholder="리뷰 내용"
+    />
+    <input
+      type="number"
+      id="rating"
+      v-model="review.rating"
+      required
+      max="5"
+      placeholder="별점"
+      min="0"
+      class="my-challenge-review-input"
+    />
 
-    <button v-if="type == 'create'" @click="createReview">등록</button>
-    <button v-if="type == 'modify'" @click="modifyReview">수정</button>
+    <button @click="createReview" class="my-challenge-review-input">
+      등록
+    </button>
   </div>
 </template>
 
@@ -28,11 +39,8 @@ import { mapState } from "vuex";
 
 export default {
   name: "MypageReviewCreate",
-  props: {
-    type: String,
-  },
   computed: {
-    ...mapState(["review"]),
+    ...mapState(["review", "challenge", "loginUser"]),
   },
   created() {
     if (this.type == "create") {
@@ -52,8 +60,8 @@ export default {
       if (
         !this.review.title ||
         !this.review.content ||
-        !this.review.challengeId ||
-        !this.review.userId ||
+        // !this.review.challengeId ||
+        // !this.review.userId ||
         !this.review.rating
       ) {
         alert("폼 입력");
@@ -63,15 +71,14 @@ export default {
         .dispatch("reviewCreate", {
           title: this.review.title,
           content: this.review.content,
-          challengeId: this.review.challengeId,
-          userId: this.review.userId,
+          challengeId: this.challenge.id,
+          userId: this.loginUser.id,
           rating: this.review.rating,
         })
         .then(() => {
           this.goReviewList();
         });
     },
-    modifyReview() {},
     goReviewList() {
       this.$router.push({ name: "mypage-main" });
     },
@@ -79,4 +86,36 @@ export default {
 };
 </script>
 
-<style></style>
+<style scope>
+.my-challenge-review-form {
+  /* background-color: aqua; */
+  border-radius: 5px;
+  border: 1px solid rgb(201, 201, 201);
+  box-shadow: 0 0 2px rgb(201, 201, 201);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  padding: 30px 0;
+}
+.my-challenge-review-form h1 {
+  margin-bottom: 20px;
+}
+.my-challenge-review-input {
+  width: 80%;
+  padding: 10px 20px;
+  outline: none;
+  border: 1px solid rgb(210, 210, 210);
+  border-radius: 50px;
+
+  box-sizing: border-box;
+}
+.my-challenge-review-input:not(:last-child) {
+  margin-bottom: 20px;
+}
+.my-challenge-review-input:focus,
+.my-challenge-review-input:hover {
+  box-shadow: 0 0 4px rgb(182, 182, 182);
+}
+</style>

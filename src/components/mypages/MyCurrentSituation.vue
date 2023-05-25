@@ -64,7 +64,7 @@ export default {
       const arr = str.split("-");
       let date = new Date(Number(arr[0]), Number(arr[1]) - 1, Number(arr[2]));
       let tomorrow = new Date(date.setDate(date.getDate() + 1));
-      console.log(tomorrow);
+      // console.log(tomorrow);
       let result = tomorrow.getFullYear() + "-";
       if (tomorrow.getMonth() + 1 < 10) {
         result += "0";

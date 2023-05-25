@@ -12,23 +12,9 @@
       <span v-if="!isFollow" @click="doFollow">구독</span>
     </div>
     <ul>
-      <li>
-        <router-link
-          :to="{
-            name: 'mypage-challenge-situation',
-            params: { channelId: user.id },
-          }"
-          >참여 현황(달력)</router-link
-        >
-      </li>
-      <li>
-        <router-link :to="{ name: 'mypage-info' }">내 정보 보기</router-link>
-      </li>
-      <li>
-        <router-link :to="{ name: 'mypage-info-update' }"
-          >내 정보 수정</router-link
-        >
-      </li>
+      <li @click="goCalender">참여 현황(달력)</li>
+      <li @click="goMyInfo">내 정보 보기</li>
+      <li @click="goMyInfoUpdate">내 정보 수정</li>
     </ul>
   </div>
 </template>
@@ -48,6 +34,18 @@ export default {
     },
     goReMain() {
       this.$router.push({ name: "mypage-main" });
+    },
+    goCalender() {
+      this.$router.push({
+        name: "mypage-challenge-situation",
+        params: { channelId: this.user.id },
+      });
+    },
+    goMyInfo() {
+      this.$router.push({ name: "mypage-info" });
+    },
+    goMyInfoUpdate() {
+      this.$router.push({ name: "mypage-info-update" });
     },
   },
 };

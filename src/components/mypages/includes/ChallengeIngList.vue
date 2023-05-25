@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <h2>챌린지 현황 박스</h2>
-    <div>
-      <challenge-ing-list-row
-        v-for="ing in challengeIngs"
-        :key="ing.id"
-        :ing="ing"
-        @click="setChallengeIng"
-      ></challenge-ing-list-row>
-    </div>
+  <div class="challenge-ing-box">
+    <!-- <h2>챌린지 현황 박스</h2> -->
+    <challenge-ing-list-row
+      v-for="ing in challengeIngs"
+      :key="ing.id"
+      :ing="ing"
+      @click="setChallengeIng"
+    ></challenge-ing-list-row>
   </div>
 </template>
 
@@ -28,4 +26,14 @@ export default {
 };
 </script>
 
-<style></style>
+<style scope>
+.challenge-ing-box {
+  /* background-color: aquamarine; */
+  width: 98%;
+  justify-content: center;
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+</style>

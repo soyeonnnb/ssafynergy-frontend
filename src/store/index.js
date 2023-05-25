@@ -589,7 +589,7 @@ export default new Vuex.Store({
           context.commit("setChallenges", data);
         })
         .catch(() => {
-          alert("에러발생!");
+          // alert("에러발생!");
         });
     },
     getChallenge(context, payload) {
@@ -635,18 +635,15 @@ export default new Vuex.Store({
         })
         .catch((error) => {
           console.error(error);
-          alert("에러발생!");
+          // alert("에러발생!");
         });
     },
     getReview(context, { challengeId, userId }) {
       http
-        .get(`/channel/challenge/${challengeId}`, {
+        .get(`/channel/challenge/${challengeId}/${userId}`, {
           headers: {
             "access-token": sessionStorage.getItem("access-token"),
             "Content-type": "application/json",
-          },
-          params: {
-            userId: userId,
           },
         })
         .then(({ data }) => {
@@ -671,8 +668,11 @@ export default new Vuex.Store({
         })
         .then(({ status }) => {
           if (status === 201) {
-            alert("챌린지가 생성되었습니다.");
+            alert("리뷰가 생성되었습니다.");
           }
+        })
+        .catch(() => {
+          alert("이미 리뷰가 등록된 챌린지입니다.");
         });
     },
     getSearchChallenges(context, payload) {
@@ -737,7 +737,7 @@ export default new Vuex.Store({
         })
         .catch((error) => {
           console.log(error);
-          alert("에러발생!");
+          // alert("에러발생!");
         });
     },
     participateChallenge({ commit }, payload) {
@@ -846,7 +846,7 @@ export default new Vuex.Store({
         })
         .catch((error) => {
           console.log(error);
-          alert("에러발생!");
+          // alert("에러발생!");
         });
     },
     likeChallenge({ commit }, payload) {
