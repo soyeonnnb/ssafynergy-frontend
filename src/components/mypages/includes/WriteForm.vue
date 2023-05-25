@@ -43,17 +43,7 @@ export default {
     ...mapState(["review", "challenge", "loginUser"]),
   },
   created() {
-    if (this.type == "create") {
-      this.$store.dispatch("reviewClear");
-      //   console.log(this.review);
-    } else {
-      const challengeId = this.$route.params.challengeId;
-      const userId = this.$route.params.userId;
-      this.$store.dispatch("getReview", { challengeId, userId }).catch(() => {
-        alert("잘못된 접근입니다.");
-        this.$router.push({ name: "mypage-main" });
-      });
-    }
+    this.$store.dispatch("reviewClear");
   },
   methods: {
     createReview() {
@@ -86,7 +76,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .my-challenge-review-form {
   /* background-color: aqua; */
   border-radius: 5px;

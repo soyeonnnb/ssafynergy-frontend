@@ -26,7 +26,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .challenge-ing-box {
   /* background-color: aquamarine; */
   width: 98%;

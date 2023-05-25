@@ -27,7 +27,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .side-nav {
   margin-top: 60px;
   border-radius: 10px;

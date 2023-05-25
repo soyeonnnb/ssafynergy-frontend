@@ -21,7 +21,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 li {
   height: 50px;
   line-height: 50px;

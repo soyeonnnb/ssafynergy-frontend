@@ -73,7 +73,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .myinfo-view {
   width: 100%;
 }

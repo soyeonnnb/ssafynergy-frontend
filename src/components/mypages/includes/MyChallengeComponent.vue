@@ -44,7 +44,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .mypage-challenge-obj {
   width: 280px;
   height: 150px;

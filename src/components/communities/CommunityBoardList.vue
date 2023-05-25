@@ -141,7 +141,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .community-title {
   display: flex;
   justify-content: space-between;
