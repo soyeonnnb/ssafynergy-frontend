@@ -9,7 +9,11 @@
         >
           <img src="@/assets/img/ssafynergy_logo.png" />
         </router-link>
-        <router-link :to="{ name: 'admin-main' }">관리자 메인</router-link>
+        <router-link
+          :to="{ name: 'admin-main' }"
+          style="font: white; text-decoration: none"
+          >관리자 메인</router-link
+        >
       </div>
     </nav>
   </div>
@@ -26,7 +30,7 @@ export default {};
   margin-right: 20px;
 }
 #ssafynergy_logo > img {
-  height: 50px;
+  height: 40px;
 }
 nav {
   height: 2rem;

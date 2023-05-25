@@ -3,57 +3,66 @@
   <div class="admin_page">
     <!-- 챌린지 검색 -->
     <div>
-      <h2>챌린지 검색</h2>
+      <a>챌린지 검색</a>
       <div>
-        <div>
-          <input
-            type="text"
-            name="searchKeyword"
-            id="searchKeyword"
-            v-model="searchKeyword"
-            placeholder="챌린지명을 검색하세요."
-          />
-        </div>
-        <div style="display: flex; justify-content: center">
-          난이도 선택 :
-          <input
-            type="radio"
-            id="diff0"
-            name="difficulty"
-            value="0"
-            checked="checked"
-            v-model="selectedDifficulty"
-          />
-          <label for="diff0">상관없음</label>
-          <br />
-          <input
-            type="radio"
-            id="diff1"
-            name="difficulty"
-            value="1"
-            v-model="selectedDifficulty"
-          />
-          <label for="diff1">쉬움</label>
-          <br />
-          <input
-            type="radio"
-            id="diff2"
-            name="difficulty"
-            value="2"
-            v-model="selectedDifficulty"
-          />
-          <label for="diff2">보통</label>
-          <br />
-          <input
-            type="radio"
-            id="diff3"
-            name="difficulty"
-            value="3"
-            v-model="selectedDifficulty"
-          />
-          <label for="diff3">어려움</label>
-          <br />
-        </div>
+        <table>
+          <tbody>
+            <tr>
+              <td>제목</td>
+              <td>
+                <input
+                  type="text"
+                  name="searchKeyword"
+                  id="searchKeyword"
+                  v-model="searchKeyword"
+                  placeholder="챌린지명을 검색하세요."
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>난이도</td>
+              <td>
+                <input
+                  type="radio"
+                  id="diff0"
+                  name="difficulty"
+                  value="0"
+                  checked="checked"
+                  v-model="selectedDifficulty"
+                />
+                <label for="diff0">상관없음</label>
+                <br />
+                <input
+                  type="radio"
+                  id="diff1"
+                  name="difficulty"
+                  value="1"
+                  v-model="selectedDifficulty"
+                />
+                <label for="diff1">쉬움</label>
+                <br />
+                <input
+                  type="radio"
+                  id="diff2"
+                  name="difficulty"
+                  value="2"
+                  v-model="selectedDifficulty"
+                />
+                <label for="diff2">보통</label>
+                <br />
+                <input
+                  type="radio"
+                  id="diff3"
+                  name="difficulty"
+                  value="3"
+                  v-model="selectedDifficulty"
+                />
+                <label for="diff3">어려움</label>
+                <br />
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <button @click="searchC">검색</button>
       </div>
     </div>
@@ -162,6 +171,7 @@ export default {
 }
 .styled-table {
   border-collapse: collapse;
+  width: 80%;
   margin: 25px 0;
   font-size: 0.9em;
   font-family: sans-serif;

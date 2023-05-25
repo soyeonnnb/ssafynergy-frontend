@@ -22,15 +22,20 @@
             v-show="isSubMenuActive('challenge')"
             id="challengeToggleBox"
           >
-            <a href="#" class="sub-item">
-              <router-link :to="{ name: 'admin-challenge-list' }"
-                ><i class="fa-solid fa-user"></i>챌린지 리스트</router-link
-              >
+            <a class="sub-item" @click="goToChallengeList">
+              <i class="fa-solid fa-list"></i>챌린지 목록
             </a>
-            <a href="#" class="sub-item">
-              <router-link :to="{ name: 'admin-challenge-create' }"
-                ><i class="fa-solid fa-user"></i>챌린지 생성</router-link
-              >
+            <a class="sub-item" @click="goToChallengeCreate">
+              <i class="fa-solid fa-seedling"></i>챌린지 생성
+            </a>
+            <a class="sub-item"
+              ><i class="fa-solid fa-pencil"></i>챌린지 수정
+            </a>
+            <a class="sub-item">
+              <i class="fa-solid fa-trash"></i>챌린지 삭제
+            </a>
+            <a class="sub-item">
+              <i class="fa-solid fa-stairs"></i>난이도 관리
             </a>
           </div>
         </div>
@@ -46,11 +51,24 @@
             ></i>
           </a>
           <div class="sub-menu" v-show="isSubMenuActive('board')">
-            <a href="#" class="sub-item">
-              <router-link :to="{ name: 'admin-board-category' }"
-                ><i class="fa-solid fa-clipboard-list"></i>카테고리
-                관리</router-link
-              >
+            <a class="sub-item">
+              <i class="fa-regular fa-bell"></i
+              >공지사항&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </a>
+            <a class="sub-item">
+              <i class="fa-solid fa-splotch"></i
+              >자유게시판&nbsp;&nbsp;&nbsp;&nbsp;
+            </a>
+            <a class="sub-item">
+              <i class="fa-regular fa-comment"></i
+              >문의답하기&nbsp;&nbsp;&nbsp;&nbsp;
+            </a>
+            <a class="sub-item">
+              <i class="fa-solid fa-thumbtack"></i
+              >FAQ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </a>
+            <a class="sub-item" @click="goToBroadCategory"
+              ><i class="fa-solid fa-wrench"></i>카테고리 관리
             </a>
           </div>
         </div>
@@ -78,6 +96,15 @@ export default {
     isSubMenuActive(subMenu) {
       return this.activeSubMenu === subMenu;
     },
+    goToChallengeList() {
+      this.$router.push({ name: "admin-challenge-list" });
+    },
+    goToChallengeCreate() {
+      this.$router.push({ name: "admin-challenge-create" });
+    },
+    goToBroadCategory() {
+      this.$router.push({ name: "admin-board-category" });
+    },
   },
 };
 </script>
@@ -86,7 +113,7 @@ export default {
 .side-bar {
   background: whitesmoke;
   backdrop-filter: blur(18px);
-  width: 320px;
+  width: 250px;
   height: 100vh;
   position: fixed;
   margin-top: 90px;
@@ -115,7 +142,7 @@ export default {
 
 .side-bar .menu .item a {
   color: black;
-  font-size: 16px;
+  font-size: 14px;
   text-decoration: none;
   display: block;
   padding: 5px;
@@ -143,8 +170,13 @@ export default {
   display: none;
 } */
 
+.sub-item {
+  display: block;
+}
+
 .side-bar .menu .item .sub-menu a {
   padding-left: 60px;
+  font-size: 14px;
 }
 
 .rotate {

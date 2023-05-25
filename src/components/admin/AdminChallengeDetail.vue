@@ -3,7 +3,9 @@
   <div class="admin_page">
     <div>
       <!-- <label for="name">챌린지명</label> -->
-      <div style="font-size: 30px">{{ challenge.name }}</div>
+      <div style="font-size: 30px; text-align: left">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ challenge.name }}
+      </div>
       <div class="tablehead">기본정보</div>
       <div style="background-color: white">
         <table>
@@ -87,10 +89,10 @@ export default {
 }
 .tablehead {
   background-color: gray;
-  width: 1500px;
-  height: 60px;
+  width: 80%;
+  height: 40px;
   vertical-align: middle;
-  font-size: 26px;
+  font-size: 18px;
   display: flex;
   align-items: center;
   margin-top: 40px;
@@ -99,13 +101,13 @@ export default {
 }
 table {
   /* margin-top: 50px; */
-  width: 1500px;
+  width: 80%;
   border-top: 1px solid #444444;
   border-collapse: collapse;
   margin: 40px;
 }
 tr {
-  height: 120px;
+  height: 60px;
 }
 th,
 td {
@@ -114,7 +116,7 @@ td {
 }
 td {
   text-align: left;
-  font-size: 22px;
+  font-size: 15px;
   padding-left: 20px;
   vertical-align: middle;
 }

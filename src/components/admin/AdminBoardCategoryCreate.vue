@@ -1,6 +1,6 @@
 <!-- admin 카테고리 생성 -->
 <template>
-  <div>
+  <div class="category_page">
     <h2>카테고리 생성</h2>
     <write-form type="create"></write-form>
   </div>
@@ -16,4 +16,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.category_page {
+  padding-top: 120px;
+  padding-left: 400px;
+}
+</style>
